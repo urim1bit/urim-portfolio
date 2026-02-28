@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Urim Mustafa – Android Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+  <style>
+    :root {
+      --glass-bg: rgba(255,255,255,0.07);
+      --glass-border: rgba(255,255,255,0.18);
+      --glass-shadow: 0 8px 32px rgba(0,0,0,0.37);
+      --blur: blur(18px);
+      --accent1: #00E5FF;
+      --accent2: #E040FB;
+      --accent3: #69FF47;
+      --accent4: #FFAB40;
+      --accent5: #FF4081;
+      --text: #F0F4FF;
+      --muted: rgba(240,244,255,0.55);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: #060A1A;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── ANIMATED BACKGROUND ─── */
+    .bg-canvas {
+      position: fixed; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse at 20% 20%, rgba(0,229,255,0.15) 0%, transparent 55%),
+                  radial-gradient(ellipse at 80% 80%, rgba(224,64,251,0.15) 0%, transparent 55%),
+                  radial-gradient(ellipse at 50% 50%, rgba(105,255,71,0.06) 0%, transparent 70%),
+                  linear-gradient(135deg, #060A1A 0%, #0D1130 50%, #060A1A 100%);
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: floatOrb 10s ease-in-out infinite alternate;
+    }
+    .orb1 { width: 500px; height: 500px; background: rgba(0,229,255,0.12); top: -100px; left: -100px; animation-delay: 0s; }
+    .orb2 { width: 400px; height: 400px; background: rgba(224,64,251,0.12); bottom: -100px; right: -100px; animation-delay: -3s; }
+    .orb3 { width: 300px; height: 300px; background: rgba(255,64,129,0.08); top: 40%; left: 60%; animation-delay: -6s; }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0,0) scale(1); }
+      100% { transform: translate(30px, 40px) scale(1.1); }
+    }
+
+    /* ─── LAYOUT ─── */
+    .page { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
+
+    /* ─── NAV ─── */
+    nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 0 20px;
+    }
+    .nav-logo {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800; font-size: 1.3rem;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent1); }
+
+    /* ─── GLASS CARD ─── */
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      box-shadow: var(--glass-shadow);
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      display: grid; grid-template-columns: 1fr auto; gap: 40px;
+      align-items: center;
+      padding: 60px 50px;
+      margin-top: 20px;
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0,229,255,0.1); border: 1px solid rgba(0,229,255,0.3);
+      border-radius: 100px; padding: 6px 16px; font-size: 0.8rem;
+      color: var(--accent1); margin-bottom: 20px;
+    }
+    .hero-tag .material-icons-round { font-size: 14px; }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 800; line-height: 1.1;
+      margin-bottom: 18px;
+    }
+    h1 span {
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-desc { color: var(--muted); line-height: 1.7; font-size: 1.05rem; max-width: 480px; margin-bottom: 32px; }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 26px; border-radius: 100px;
+      font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 0.95rem;
+      cursor: pointer; text-decoration: none; transition: all 0.25s;
+      border: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      color: #060A1A;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,229,255,0.35); }
+    .btn-ghost {
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      color: var(--text); backdrop-filter: var(--blur);
+    }
+    .btn-ghost:hover { border-color: var(--accent1); color: var(--accent1); transform: translateY(-2px); }
+
+    .hero-avatar {
+      width: 160px; height: 160px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2), var(--accent5));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Outfit', sans-serif; font-size: 3.5rem; font-weight: 800;
+      color: #fff; flex-shrink: 0;
+      box-shadow: 0 0 60px rgba(0,229,255,0.3);
+      animation: pulse 4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 40px rgba(0,229,255,0.3); }
+      50% { box-shadow: 0 0 80px rgba(224,64,251,0.4); }
+    }
+
+    /* ─── STATS BAR ─── */
+    .stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+      margin-top: 20px;
+      animation: fadeUp 0.8s 0.15s ease both;
+    }
+    .stat-card {
+      padding: 28px 24px; text-align: center;
+    }
+    .stat-icon .material-icons-round { font-size: 2rem; margin-bottom: 10px; display: block; }
+    .stat-num {
+      font-family: 'Outfit', sans-serif; font-size: 2.2rem;
+      font-weight: 800;
+    }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+
+    /* ─── SECTION TITLES ─── */
+    .section { margin-top: 50px; animation: fadeUp 0.8s ease both; }
+    .section-head {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 28px;
+    }
+    .section-head .material-icons-round { font-size: 1.6rem; }
+    .section-title {
+      font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 700;
+    }
+
+    /* ─── SKILLS ─── */
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+    .skill-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 18px; border-radius: 100px;
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      backdrop-filter: var(--blur); font-size: 0.88rem; font-weight: 500;
+      transition: all 0.2s;
+    }
+    .skill-chip:hover { transform: translateY(-3px); }
+    .skill-chip .material-icons-round { font-size: 16px; }
+
+    /* ─── APPS GRID ─── */
+    .apps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+    .app-card {
+      padding: 30px; transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .app-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,0.5); }
+    .app-icon {
+      width: 60px; height: 60px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+    }
+    .app-icon .material-icons-round { font-size: 32px; color: #fff; }
+    .app-name { font-family: 'Outfit', sans-serif; font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
+    .app-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.6; margin-bottom: 16px; }
+    .app-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag {
+      padding: 4px 12px; border-radius: 100px; font-size: 0.75rem; font-weight: 500;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    /* ─── ABOUT ─── */
+    .about-card {
+      padding: 40px 50px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
+    }
+    .about-facts { display: flex; flex-direction: column; gap: 16px; }
+    .fact {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 18px; border-radius: 14px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    }
+    .fact .material-icons-round { font-size: 20px; flex-shrink: 0; }
+    .fact-label { font-size: 0.75rem; color: var(--muted); }
+    .fact-val { font-weight: 500; font-size: 0.95rem; }
+    .about-text h3 { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 16px; }
+    .about-text p { color: var(--muted); line-height: 1.8; font-size: 0.95rem; }
+
+    /* ─── CONTACT ─── */
+    .contact-card { padding: 50px; text-align: center; }
+    .contact-card h3 { font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
+    .contact-card p { color: var(--muted); margin-bottom: 32px; }
+    .contact-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 28px; border-radius: 100px;
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      color: var(--text); text-decoration: none; font-weight: 500;
+      backdrop-filter: var(--blur); transition: all 0.2s;
+    }
+    .contact-link:hover { transform: translateY(-3px); }
+    .contact-link .material-icons-round { font-size: 18px; }
+
+    footer { text-align: center; padding: 40px 0 20px; color: var(--muted); font-size: 0.85rem; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 700px) {
+      .hero { grid-template-columns: 1fr; padding: 36px 28px; }
+      .hero-avatar { width: 100px; height: 100px; font-size: 2.4rem; margin: 0 auto; }
+      .stats { grid-template-columns: 1fr; }
+      .about-card { grid-template-columns: 1fr; padding: 28px; }
+      nav { flex-direction: column; gap: 16px; }
+      .contact-card { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-canvas">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+
+<div class="page">
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">UM/</div>
+    <ul class="nav-links">
+      <li><a href="#apps">Apps</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="glass hero">
+    <div>
+      <div class="hero-tag">
+        <span class="material-icons-round">android</span>
+        Android Developer · Albania
+      </div>
+      <h1>Hi, I'm <span>Urim Mustafa</span></h1>
+      <p class="hero-desc">
+        I craft polished, high-performance Android apps that people love. Based in Albania, shipping apps to the Play Store and building digital experiences that make a difference.
+      </p>
+      <div class="hero-btns">
+        <a href="#apps" class="btn btn-primary">
+          <span class="material-icons-round">apps</span>
+          View My Apps
+        </a>
+        <a href="#contact" class="btn btn-ghost">
+          <span class="material-icons-round">mail</span>
+          Get in Touch
+        </a>
+      </div>
+    </div>
+    <div class="hero-avatar">UM</div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="glass stat-card">
+      <span class="material-icons-round stat-icon" style="color:var(--accent1)">android</span>
+      <div class="stat-num" style="color:var(--accent1)">10+</div>
+      <div class="stat-label">Apps on Play Store</div>
+    </div>
+    <div class="glass stat-card">
+      <span class="material-icons-round stat-icon" style="color:var(--accent2)">star</span>
+      <div class="stat-num" style="color:var(--accent2)">4.7★</div>
+      <div class="stat-label">Average Rating</div>
+    </div>
+    <div class="glass stat-card">
+      <span class="material-icons-round stat-icon" style="color:var(--accent3)">download</span>
+      <div class="stat-num" style="color:var(--accent3)">50K+</div>
+      <div class="stat-label">Total Downloads</div>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section" style="animation-delay:0.2s">
+    <div class="section-head">
+      <span class="material-icons-round" style="color:var(--accent1)">code</span>
+      <h2 class="section-title">Skills & Tools</h2>
+    </div>
+    <div class="skills-grid">
+      <span class="skill-chip"><span class="material-icons-round" style="color:#3DDC84">android</span> Android SDK</span>
+      <span class="skill-chip"><span class="material-icons-round" style="color:#7F52FF">code</span> Kotlin</span>
+      <span class="skill-chip"><span class="material-icons-round" style="color:#F6821F">construction</span> Java</span>
+      <span class="skill-chip"><span class="material-icons-round" style="color:#00E5FF">layers</span> Jetpack Compose</span>
+      <span class="material-icons-round skill-chip" style="display:none"></span>
+      <span class="skill-chip"><span class="material-icons-round" style="color:#FFAB40">cloud</span> Firebase</span>
+      <span class="skill-chip"><span class="material-icons-round" style="color:#E040FB">storage</span> Room DB</span>
+      <span class="skill-chip"><span class="material-icons-round" style="color:#69FF47">api</span> REST APIs</span>
+      <span class="skill-chip"><span class="material-icons-round" style="color:#FF4081">smart_toy</span> ML Kit</span>
+      <span class="skill-chip"><span class="material-icons-round" style="color:#40C4FF">color_lens</span> Material Design</span>
+      <span class="skill-chip"><span class="material-icons-round" style="color:#FFD740">bolt</span> Play Store Publishing</span>
+      <span class="skill-chip"><span class="material-icons-round" style="color:#B388FF">analytics</span> AdMob</span>
+      <span class="skill-chip"><span class="material-icons-round" style="color:#80CBC4">source</span> Git & GitHub</span>
+    </div>
+  </section>
+
+  <!-- APPS -->
+  <section id="apps" class="section" style="animation-delay:0.3s">
+    <div class="section-head">
+      <span class="material-icons-round" style="color:var(--accent2)">apps</span>
+      <h2 class="section-title">My Apps</h2>
+    </div>
+    <div class="apps-grid">
+
+      <div class="glass app-card">
+        <div class="app-icon" style="background:linear-gradient(135deg,#00E5FF,#0096FF)">
+          <span class="material-icons-round">fitness_center</span>
+        </div>
+        <div class="app-name">FitTrack Pro</div>
+        <div class="app-desc">A complete fitness tracker with workout plans, progress charts, and daily step counter built with Jetpack Compose.</div>
+        <div class="app-tags">
+          <span class="tag" style="color:var(--accent1)">Health</span>
+          <span class="tag" style="color:var(--accent2)">Kotlin</span>
+          <span class="tag">Compose</span>
+        </div>
+      </div>
+
+      <div class="glass app-card">
+        <div class="app-icon" style="background:linear-gradient(135deg,#E040FB,#FF4081)">
+          <span class="material-icons-round">translate</span>
+        </div>
+        <div class="app-name">QuickTranslate</div>
+        <div class="app-desc">Instant offline translation for 50+ languages using ML Kit. No internet needed — fast, private, reliable.</div>
+        <div class="app-tags">
+          <span class="tag" style="color:var(--accent2)">ML Kit</span>
+          <span class="tag" style="color:var(--accent5)">NLP</span>
+          <span class="tag">Offline</span>
+        </div>
+      </div>
+
+      <div class="glass app-card">
+        <div class="app-icon" style="background:linear-gradient(135deg,#69FF47,#00BCD4)">
+          <span class="material-icons-round">account_balance_wallet</span>
+        </div>
+        <div class="app-name">SpendSmart</div>
+        <div class="app-desc">Budget management app with beautiful charts, category tracking, and monthly spending insights synced to Firebase.</div>
+        <div class="app-tags">
+          <span class="tag" style="color:var(--accent3)">Finance</span>
+          <span class="tag" style="color:var(--accent1)">Firebase</span>
+          <span class="tag">Charts</span>
+        </div>
+      </div>
+
+      <div class="glass app-card">
+        <div class="app-icon" style="background:linear-gradient(135deg,#FFAB40,#FF6D00)">
+          <span class="material-icons-round">menu_book</span>
+        </div>
+        <div class="app-name">ReadZen</div>
+        <div class="app-desc">E-reader with focus mode, reading stats, and customizable typography. Helps you build daily reading habits.</div>
+        <div class="app-tags">
+          <span class="tag" style="color:var(--accent4)">Productivity</span>
+          <span class="tag">Room DB</span>
+          <span class="tag">Dark Mode</span>
+        </div>
+      </div>
+
+      <div class="glass app-card">
+        <div class="app-icon" style="background:linear-gradient(135deg,#FF4081,#E040FB)">
+          <span class="material-icons-round">music_note</span>
+        </div>
+        <div class="app-name">LoFi Studio</div>
+        <div class="app-desc">Ambient sound mixer for focus and relaxation. Mix rain, café noise, binaural beats and save your perfect sound combo.</div>
+        <div class="app-tags">
+          <span class="tag" style="color:var(--accent5)">Audio</span>
+          <span class="tag" style="color:var(--accent2)">Lifestyle</span>
+          <span class="tag">Free</span>
+        </div>
+      </div>
+
+      <div class="glass app-card">
+        <div class="app-icon" style="background:linear-gradient(135deg,#B388FF,#7C4DFF)">
+          <span class="material-icons-round">qr_code_scanner</span>
+        </div>
+        <div class="app-name">ScanVault</div>
+        <div class="app-desc">Advanced QR & barcode scanner with history, batch scanning, and product info lookup powered by REST APIs.</div>
+        <div class="app-tags">
+          <span class="tag" style="color:#B388FF">Utilities</span>
+          <span class="tag">Camera</span>
+          <span class="tag">REST API</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section" style="animation-delay:0.35s">
+    <div class="section-head">
+      <span class="material-icons-round" style="color:var(--accent3)">person</span>
+      <h2 class="section-title">About Me</h2>
+    </div>
+    <div class="glass about-card">
+      <div class="about-facts">
+        <div class="fact">
+          <span class="material-icons-round" style="color:var(--accent1)">location_on</span>
+          <div>
+            <div class="fact-label">Location</div>
+            <div class="fact-val">Albania 🇦🇱</div>
+          </div>
+        </div>
+        <div class="fact">
+          <span class="material-icons-round" style="color:var(--accent2)">cake</span>
+          <div>
+            <div class="fact-label">Age</div>
+            <div class="fact-val">35 years old</div>
+          </div>
+        </div>
+        <div class="fact">
+          <span class="material-icons-round" style="color:var(--accent3)">work</span>
+          <div>
+            <div class="fact-label">Role</div>
+            <div class="fact-val">Android Developer</div>
+          </div>
+        </div>
+        <div class="fact">
+          <span class="material-icons-round" style="color:var(--accent4)">android</span>
+          <div>
+            <div class="fact-label">Platform</div>
+            <div class="fact-val">Google Play Store</div>
+          </div>
+        </div>
+        <div class="fact">
+          <span class="material-icons-round" style="color:var(--accent5)">translate</span>
+          <div>
+            <div class="fact-label">Languages</div>
+            <div class="fact-val">Albanian, English</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-text">
+        <h3>Passionate about building <span style="color:var(--accent1)">mobile experiences</span></h3>
+        <p>
+          I'm Urim, an Android developer from Albania with a passion for creating apps that are both beautiful and functional. I believe great software should feel effortless to use — every tap, every screen, every interaction should feel natural.
+        </p>
+        <br/>
+        <p>
+          From fitness trackers to productivity tools, I've shipped apps used by tens of thousands of people worldwide. I write clean Kotlin code, follow Material Design guidelines, and always push for the best user experience possible.
+        </p>
+        <br/>
+        <p>
+          When I'm not coding, I'm exploring the Albanian mountains, experimenting with new Android APIs, or contributing to open-source projects.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section" style="animation-delay:0.4s">
+    <div class="section-head">
+      <span class="material-icons-round" style="color:var(--accent5)">mail</span>
+      <h2 class="section-title">Get in Touch</h2>
+    </div>
+    <div class="glass contact-card">
+      <h3>Let's Build Something <span style="color:var(--accent2)">Great</span></h3>
+      <p>Interested in collaborating, hiring, or just saying hi? I'd love to hear from you.</p>
+      <div class="contact-links">
+        <a href="/cdn-cgi/l/email-protection#1366617a7e53766b727e637f763d707c7e" class="contact-link">
+          <span class="material-icons-round" style="color:var(--accent1)">mail</span>
+          Email Me
+        </a>
+        <a href="https://play.google.com/store/apps" target="_blank" class="contact-link">
+          <span class="material-icons-round" style="color:var(--accent3)">android</span>
+          Play Store
+        </a>
+        <a href="https://github.com/" target="_blank" class="contact-link">
+          <span class="material-icons-round" style="color:var(--accent2)">code</span>
+          GitHub
+        </a>
+        <a href="https://linkedin.com/" target="_blank" class="contact-link">
+          <span class="material-icons-round" style="color:var(--accent4)">work</span>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>© 2025 Urim Mustafa · Built with Node.js · Albania �
