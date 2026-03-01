@@ -13,7 +13,7 @@
       --glass-shadow: 0 8px 32px rgba(0,0,0,0.37);
       --blur: blur(18px);
       --accent1: #00E5FF;
-      --accent2: #E040FB;
+      --accent2: #4759ff;
       --accent3: #69FF47;
       --accent4: #FFAB40;
       --accent5: #FF4081;
@@ -34,10 +34,10 @@
     /* ─── ANIMATED BACKGROUND ─── */
     .bg-canvas {
       position: fixed; inset: 0; z-index: 0;
-      background: radial-gradient(ellipse at 20% 20%, rgba(0,229,255,0.15) 0%, transparent 55%),
-                  radial-gradient(ellipse at 80% 80%, rgba(224,64,251,0.15) 0%, transparent 55%),
-                  radial-gradient(ellipse at 50% 50%, rgba(105,255,71,0.06) 0%, transparent 70%),
-                  linear-gradient(135deg, #060A1A 0%, #0D1130 50%, #060A1A 100%);
+      background: radial-gradient(ellipse at 20% 20%, #000000 0%, transparent 55%),
+                  radial-gradient(ellipse at 80% 80%, #00000046 0%, transparent 55%),
+                  radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.486) 0%, transparent 70%),
+                  linear-gradient(135deg, #000000 0%, #000000 50%, #000000 100%);
     }
     .orb {
       position: absolute;
@@ -45,9 +45,8 @@
       filter: blur(80px);
       animation: floatOrb 10s ease-in-out infinite alternate;
     }
-    .orb1 { width: 500px; height: 500px; background: rgba(0,229,255,0.12); top: -100px; left: -100px; animation-delay: 0s; }
-    .orb2 { width: 400px; height: 400px; background: rgba(224,64,251,0.12); bottom: -100px; right: -100px; animation-delay: -3s; }
-    .orb3 { width: 300px; height: 300px; background: rgba(255,64,129,0.08); top: 40%; left: 60%; animation-delay: -6s; }
+    .orb1 { width: 800px; height: 800px; background: rgba(1, 29, 61, 0.411); top: -100px; left: -100px; animation-delay: 0s; }
+    .orb3 { width: 400px; height: 400px; background: rgba(4, 0, 255, 0.123); top: 40%; left: 60%; animation-delay: -6s; }
 
     @keyframes floatOrb {
       0% { transform: translate(0,0) scale(1); }
@@ -325,7 +324,7 @@
 
   <!-- NAV -->
   <nav>
-    <div class="nav-logo">UM/</div>
+    <div class="nav-logo"></div>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
@@ -342,11 +341,11 @@
     <div>
       <div class="hero-tag">
         <span class="material-icons-round">android</span>
-        Android Developer · Albania
+        Android Developer
       </div>
-      <h1>Hi, I'm <span>Urim Mustafa</span></h1>
+      <h1>Hi, I'm <span>Urim</span></h1>
       <p class="hero-desc">
-        I craft polished, high-performance Android apps that people love. Based in Albania, shipping apps to the Play Store and building digital experiences that make a difference.
+        I craft polished, high-performance Android apps that people love. Based in Malta, shipping apps to the Play Store and building digital experiences that make a difference.
       </p>
       <div class="hero-btns">
         <a href="#apps" class="btn btn-primary">
@@ -359,24 +358,24 @@
         </a>
       </div>
     </div>
-    <div class="hero-avatar">UM</div>
+    <div class="hero-avatar"></div>
   </section>
 
   <!-- STATS -->
   <div class="stats">
     <div class="glass stat-card">
-      <span class="material-icons-round stat-icon" style="color:var(--accent1)">android</span>
-      <div class="stat-num" style="color:var(--accent1)">10+</div>
-      <div class="stat-label">Apps on Play Store</div>
+      <span class="material-icons-round stat-icon" style="color:#7F52FF">android</span>
+      <div class="stat-num" style="color:#7F52FF">1</div>
+      <div class="stat-label">App on Play Store</div>
     </div>
     <div class="glass stat-card">
-      <span class="material-icons-round stat-icon" style="color:var(--accent2)">star</span>
-      <div class="stat-num" style="color:var(--accent2)">4.7★</div>
+      <span class="material-icons-round stat-icon" style="color:#7F52FF">star</span>
+      <div class="stat-num" style="color:#7F52FF">4.7★</div>
       <div class="stat-label">Average Rating</div>
     </div>
     <div class="glass stat-card">
-      <span class="material-icons-round stat-icon" style="color:var(--accent3)">download</span>
-      <div class="stat-num" style="color:var(--accent3)">50K+</div>
+      <span class="material-icons-round stat-icon" style="color:#7F52FF">download</span>
+      <div class="stat-num" style="color:#7F52FF">50K+</div>
       <div class="stat-label">Total Downloads</div>
     </div>
   </div>
@@ -413,80 +412,80 @@
     <div class="apps-grid">
 
       <div class="glass app-card">
-        <div class="app-icon" style="background:linear-gradient(135deg,#00E5FF,#0096FF)">
-          <span class="material-icons-round">fitness_center</span>
+        <div class="app-icon" style="background:linear-gradient(135deg,#ff0000,#fc0000)">
+          <span class="material-icons-round">edit_note</span>
         </div>
-        <div class="app-name">FitTrack Pro</div>
-        <div class="app-desc">A complete fitness tracker with workout plans, progress charts, and daily step counter built with Jetpack Compose.</div>
+        <div class="app-name">PayTrack</div>
+        <div class="app-desc">PayTrack tracks your work hours, calculates earnings, deducts taxes, and shows your real net salary — simple and clear.</div>
         <div class="app-tags">
-          <span class="tag" style="color:var(--accent1)">Health</span>
+          <span class="tag" style="color:var(--accent1)">Finance</span>
           <span class="tag" style="color:var(--accent2)">Kotlin</span>
-          <span class="tag">Compose</span>
+          <span class="tag" style="color:var(--accent3)">Compose</span>
         </div>
       </div>
 
       <div class="glass app-card">
-        <div class="app-icon" style="background:linear-gradient(135deg,#E040FB,#FF4081)">
-          <span class="material-icons-round">translate</span>
+        <div class="app-icon" style="background:linear-gradient(135deg,#1f1f1f,#000000)">
+          <span class="material-icons-round">android</span>
         </div>
-        <div class="app-name">QuickTranslate</div>
-        <div class="app-desc">Instant offline translation for 50+ languages using ML Kit. No internet needed — fast, private, reliable.</div>
+        <div class="app-name">******</div>
+        <div class="app-desc">******</div>
         <div class="app-tags">
-          <span class="tag" style="color:var(--accent2)">ML Kit</span>
-          <span class="tag" style="color:var(--accent5)">NLP</span>
-          <span class="tag">Offline</span>
+          <span class="tag" style="color:var(--DELETEaccent2)">***</span>
+          <span class="tag" style="color:var(--DELETEaccent5)">***</span>
+          <span class="tag">***</span>
         </div>
       </div>
 
       <div class="glass app-card">
-        <div class="app-icon" style="background:linear-gradient(135deg,#69FF47,#00BCD4)">
-          <span class="material-icons-round">account_balance_wallet</span>
+        <div class="app-icon" style="background:linear-gradient(135deg,#353535,#000000)">
+          <span class="material-icons-round">android</span>
         </div>
-        <div class="app-name">SpendSmart</div>
-        <div class="app-desc">Budget management app with beautiful charts, category tracking, and monthly spending insights synced to Firebase.</div>
+        <div class="app-name">******</div>
+        <div class="app-desc">******</div>
         <div class="app-tags">
-          <span class="tag" style="color:var(--accent3)">Finance</span>
-          <span class="tag" style="color:var(--accent1)">Firebase</span>
-          <span class="tag">Charts</span>
+          <span class="tag" style="color:var(--DELETEaccent3)">***</span>
+          <span class="tag" style="color:var(--DELETEaccent1)">***</span>
+          <span class="tag">***</span>
         </div>
       </div>
 
       <div class="glass app-card">
-        <div class="app-icon" style="background:linear-gradient(135deg,#FFAB40,#FF6D00)">
-          <span class="material-icons-round">menu_book</span>
+        <div class="app-icon" style="background:linear-gradient(135deg,#363636,#000000)">
+          <span class="material-icons-round">android</span>
         </div>
-        <div class="app-name">ReadZen</div>
-        <div class="app-desc">E-reader with focus mode, reading stats, and customizable typography. Helps you build daily reading habits.</div>
+        <div class="app-name">******</div>
+        <div class="app-desc">******</div>
         <div class="app-tags">
-          <span class="tag" style="color:var(--accent4)">Productivity</span>
-          <span class="tag">Room DB</span>
-          <span class="tag">Dark Mode</span>
+          <span class="tag" style="color:var(--DELETEaccent4)">***</span>
+          <span class="tag">***</span>
+          <span class="tag">***</span>
         </div>
       </div>
 
       <div class="glass app-card">
-        <div class="app-icon" style="background:linear-gradient(135deg,#FF4081,#E040FB)">
-          <span class="material-icons-round">music_note</span>
+        <div class="app-icon" style="background:linear-gradient(135deg,#252525,#000000)">
+          <span class="material-icons-round">android</span>
         </div>
-        <div class="app-name">LoFi Studio</div>
-        <div class="app-desc">Ambient sound mixer for focus and relaxation. Mix rain, café noise, binaural beats and save your perfect sound combo.</div>
+        <div class="app-name">******</div>
+        <div class="app-desc">******</div>
         <div class="app-tags">
-          <span class="tag" style="color:var(--accent5)">Audio</span>
-          <span class="tag" style="color:var(--accent2)">Lifestyle</span>
-          <span class="tag">Free</span>
+          <span class="tag" style="color:var(--DELETEaccent5)">***</span>
+          <span class="tag" style="color:var(--DELETEaccent2)">***</span>
+          <span class="tag">***</span>
         </div>
       </div>
 
       <div class="glass app-card">
-        <div class="app-icon" style="background:linear-gradient(135deg,#B388FF,#7C4DFF)">
-          <span class="material-icons-round">qr_code_scanner</span>
+        <div class="app-icon" style="background:linear-gradient(135deg,#303030,#000000)">
+          <span class="material-icons-round">android</span>
         </div>
-        <div class="app-name">ScanVault</div>
-        <div class="app-desc">Advanced QR & barcode scanner with history, batch scanning, and product info lookup powered by REST APIs.</div>
+        <div class="app-name">******</div>
+        <div class="app-desc">******</div>
         <div class="app-tags">
-          <span class="tag" style="color:#B388FF">Utilities</span>
-          <span class="tag">Camera</span>
-          <span class="tag">REST API</span>
+          <span class="tag" style="color:#ffffff">***</span>
+          <span class="tag">***</span>
+          <span class="tag">***</span>
         </div>
       </div>
 
@@ -505,7 +504,7 @@
           <span class="material-icons-round" style="color:var(--accent1)">location_on</span>
           <div>
             <div class="fact-label">Location</div>
-            <div class="fact-val">Albania 🇦🇱</div>
+            <div class="fact-val">Malta MT</div>
           </div>
         </div>
         <div class="fact">
@@ -519,7 +518,7 @@
           <span class="material-icons-round" style="color:var(--accent3)">work</span>
           <div>
             <div class="fact-label">Role</div>
-            <div class="fact-val">Android Developer</div>
+            <div class="fact-val">Android Developer & UI/UX Designer</div>
           </div>
         </div>
         <div class="fact">
@@ -540,15 +539,16 @@
       <div class="about-text">
         <h3>Passionate about building <span style="color:var(--accent1)">mobile experiences</span></h3>
         <p>
-          I'm Urim, an Android developer from Albania with a passion for creating apps that are both beautiful and functional. I believe great software should feel effortless to use — every tap, every screen, every interaction should feel natural.
+          I’m an Android developer with a strong passion for building practical and meaningful applications. I enjoy turning ideas into real digital solutions that help people in their everyday lives. My first app, PayTrack, is a project I’m especially proud of. PayTrack allows users to log their work hours, automatically calculate their earnings, deduct taxes, and clearly display the real net salary amount. I created it to solve a simple but important problem — understanding exactly how much you truly earn after deductions.
         </p>
         <br/>
         <p>
-          From fitness trackers to productivity tools, I've shipped apps used by tens of thousands of people worldwide. I write clean Kotlin code, follow Material Design guidelines, and always push for the best user experience possible.
         </p>
+        <br/>  Building PayTrack was an incredibly exciting milestone for me. Starting with limited experience and pushing myself to learn, experiment, and improve along the way made the journey even more rewarding. Seeing my app go from just an idea to a fully functional product gave me a huge boost of motivation and confidence.
+        </p> 
         <br/>
         <p>
-          When I'm not coding, I'm exploring the Albanian mountains, experimenting with new Android APIs, or contributing to open-source projects.
+          I’m genuinely excited about this path as an Android developer, and this is only the beginning. I’m committed to continuous learning, improving my skills, and building apps that make a real difference
         </p>
       </div>
     </div>
@@ -557,11 +557,11 @@
   <!-- CONTACT -->
   <section id="contact" class="section" style="animation-delay:0.4s">
     <div class="section-head">
-      <span class="material-icons-round" style="color:var(--accent5)">mail</span>
+      <span class="material-icons-round" style="color:var(--accent1)">mail</span>
       <h2 class="section-title">Get in Touch</h2>
     </div>
     <div class="glass contact-card">
-      <h3>Let's Build Something <span style="color:var(--accent2)">Great</span></h3>
+      <h3>Let's Build Something <span style="color:var(--accent3)">Great</span></h3>
       <p>Interested in collaborating, hiring, or just saying hi? I'd love to hear from you.</p>
       <div class="contact-links">
         <a href="/cdn-cgi/l/email-protection#1366617a7e53766b727e637f763d707c7e" class="contact-link">
@@ -599,4 +599,4 @@
   });
 </script>
 
-  <footer>© 2025 Urim Mustafa · Built with Node.js · Albania �
+  <footer>© 2026 Urim Mustafa</footer>
