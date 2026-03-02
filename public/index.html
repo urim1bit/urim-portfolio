@@ -6,6 +6,17 @@
   <title>Urim Mustafa – Android Developer</title>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&family=Roboto:wght@400;500&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+  
+  <script>
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  </script>
+
   <style>
     /* ─── GREEN MATERIAL YOU COLOR SYSTEM ─── */
     :root {
@@ -25,9 +36,7 @@
       --md-text: #191C19;
       --md-text-variant: #414941;
       --md-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      
-      /* Sped up transition for mobile performance */
-      --transition: 0.2s ease-out; 
+      --transition: 0.2s ease-out;
       
       /* Mesh Background Colors */
       --mesh-1: rgba(25, 109, 51, 0.08);
@@ -66,7 +75,7 @@
       font-family: 'Roboto', sans-serif;
       background-color: var(--md-bg);
       color: var(--md-text);
-      transition: background-color var(--transition), color var(--transition);
+      /* Removed background transition here to fix mobile lag */
       line-height: 1.6;
       overflow-x: hidden;
       position: relative;
@@ -83,7 +92,7 @@
         radial-gradient(circle at 50% 80%, var(--mesh-3), transparent 50%);
       filter: blur(60px);
       animation: breathe 15s ease-in-out infinite alternate;
-      transition: var(--transition);
+      /* Removed transition here to fix mobile lag */
     }
     @keyframes breathe {
       0% { transform: scale(1) translate(0, 0); }
@@ -109,7 +118,7 @@
       border: 1px solid var(--md-outline-variant);
       display: flex; align-items: center; justify-content: space-between;
       padding: 12px 24px; border-radius: 100px; width: 100%; max-width: 900px;
-      box-shadow: var(--md-shadow); transition: var(--transition);
+      box-shadow: var(--md-shadow); transition: background-color var(--transition), border-color var(--transition);
     }
     .brand { font-size: 20px; font-weight: 800; color: var(--md-primary); letter-spacing: -0.5px; }
     .nav-links { display: flex; list-style: none; gap: 4px; }
@@ -135,7 +144,7 @@
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 14px 28px; border-radius: 100px; font-weight: 600; font-size: 16px; text-decoration: none;
-      transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+      transition: transform 0.2s, box-shadow 0.2s, background-color var(--transition), color var(--transition);
     }
     .btn:active { transform: scale(0.96); }
     .btn-filled { background: var(--md-primary); color: var(--md-on-primary); }
@@ -150,6 +159,7 @@
       display: inline-flex; align-items: center; gap: 8px;
       background: var(--md-secondary-container); color: var(--md-on-secondary-container);
       padding: 6px 16px; border-radius: 100px; font-size: 14px; font-weight: 500; margin-bottom: 24px;
+      transition: background-color var(--transition), color var(--transition);
     }
     .hero-content h1 { font-size: clamp(3rem, 6vw, 4.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -1.5px; margin-bottom: 20px; color: var(--md-text); }
     .hero-content h1 span { color: var(--md-primary); }
@@ -159,14 +169,14 @@
       width: 300px; height: 300px; border-radius: 50%;
       object-fit: cover; box-shadow: var(--md-shadow);
       border: 8px solid var(--md-surface);
-      transition: var(--transition);
+      transition: border-color var(--transition);
     }
 
     /* ─── SERVICES GRID (WHAT I DO) ─── */
     .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
     .service-card {
       background: var(--md-surface); border-radius: 32px; padding: 40px 32px;
-      border: 1px solid var(--md-outline-variant); transition: var(--transition);
+      border: 1px solid var(--md-outline-variant); transition: transform var(--transition), background-color var(--transition), border-color var(--transition);
       text-align: center;
     }
     .service-card:hover { transform: translateY(-8px); background: var(--md-surface-container); border-color: var(--md-primary); }
@@ -174,6 +184,7 @@
       width: 80px; height: 80px; border-radius: 24px; margin: 0 auto 24px;
       background: var(--md-primary-container); color: var(--md-primary);
       display: flex; align-items: center; justify-content: center; font-size: 40px;
+      transition: background-color var(--transition), color var(--transition);
     }
     .service-card h3 { font-size: 1.5rem; margin-bottom: 12px; color: var(--md-text); }
     .service-card p { color: var(--md-text-variant); font-size: 0.95rem; }
@@ -182,7 +193,7 @@
     .apps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
     .app-card {
       background: var(--md-surface); border-radius: 28px; padding: 32px;
-      border: 1px solid var(--md-outline-variant); transition: var(--transition);
+      border: 1px solid var(--md-outline-variant); transition: transform var(--transition), background-color var(--transition), border-color var(--transition), box-shadow var(--transition);
       display: flex; flex-direction: column; height: 100%;
     }
     .app-card:hover { background: var(--md-surface-container); border-color: transparent; transform: translateY(-4px); box-shadow: var(--md-shadow); }
@@ -190,35 +201,35 @@
     .app-icon {
       width: 72px; height: 72px; border-radius: 20px; background: var(--md-primary-container); color: var(--md-primary);
       display: flex; align-items: center; justify-content: center; font-size: 36px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: background-color var(--transition), color var(--transition);
     }
     .app-title { font-size: 1.5rem; font-weight: 700; color: var(--md-text); margin-bottom: 4px; }
     .app-company { font-size: 0.95rem; color: var(--md-primary); font-weight: 500; }
     .app-desc { color: var(--md-text-variant); margin-bottom: 32px; flex-grow: 1; font-size: 1.05rem; }
     .app-tags { display: flex; gap: 8px; flex-wrap: wrap; }
-    .tag { padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; background: var(--md-surface-container-high); color: var(--md-text-variant); }
+    .tag { padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; background: var(--md-surface-container-high); color: var(--md-text-variant); transition: background-color var(--transition), color var(--transition);}
 
     /* ─── SKILLS BENTO BOX ─── */
-    .skills-bento {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
-    }
+    .skills-bento { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
     .bento-card {
       background: var(--md-surface); border-radius: 32px; padding: 40px;
-      border: 1px solid var(--md-outline-variant); transition: var(--transition);
+      border: 1px solid var(--md-outline-variant); transition: background-color var(--transition), border-color var(--transition);
     }
     .bento-card h3 { font-size: 1.8rem; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
     
     /* Visual Progress Bars */
     .skill-bar-wrapper { margin-bottom: 20px; }
-    .skill-info { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 500; }
-    .progress-bg { width: 100%; height: 12px; background: var(--md-surface-container-high); border-radius: 100px; overflow: hidden; }
-    .progress-fill { height: 100%; background: var(--md-primary); border-radius: 100px; transition: width 1s ease-out; }
+    .skill-info { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 500; color: var(--md-text);}
+    .progress-bg { width: 100%; height: 12px; background: var(--md-surface-container-high); border-radius: 100px; overflow: hidden; transition: background-color var(--transition);}
+    .progress-fill { height: 100%; background: var(--md-primary); border-radius: 100px; transition: width 1s ease-out, background-color var(--transition); }
 
     /* Tools Grid */
     .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .tool-item {
       display: flex; flex-direction: column; align-items: center; gap: 8px;
       padding: 16px; background: var(--md-surface-container); border-radius: 16px;
-      transition: var(--transition); text-align: center;
+      transition: background-color var(--transition), color var(--transition); text-align: center;
+      color: var(--md-text);
     }
     .tool-item:hover { background: var(--md-primary-container); color: var(--md-primary); }
     .tool-item .material-icons-round { font-size: 32px; }
@@ -228,6 +239,7 @@
     .timeline {
       position: relative; max-width: 800px; margin: 0 auto;
       padding-left: 40px; border-left: 3px solid var(--md-surface-container-high);
+      transition: border-color var(--transition);
     }
     .timeline-item { position: relative; margin-bottom: 48px; }
     .timeline-item:last-child { margin-bottom: 0; }
@@ -235,23 +247,27 @@
       position: absolute; left: -49px; top: 0;
       width: 16px; height: 16px; border-radius: 50%;
       background: var(--md-primary); border: 4px solid var(--md-bg);
+      transition: background-color var(--transition), border-color var(--transition);
     }
     .timeline-content {
       background: var(--md-surface); padding: 32px; border-radius: 24px;
-      border: 1px solid var(--md-outline-variant); transition: var(--transition);
+      border: 1px solid var(--md-outline-variant); transition: background-color var(--transition), border-color var(--transition);
     }
     .timeline-content:hover { background: var(--md-surface-container); border-color: var(--md-primary); }
     .time-badge {
       display: inline-block; padding: 4px 12px; background: var(--md-primary-container);
       color: var(--md-on-primary-container); border-radius: 8px; font-size: 0.85rem; font-weight: 600; margin-bottom: 12px;
+      transition: background-color var(--transition), color var(--transition);
     }
-    .timeline-content h3 { font-size: 1.5rem; margin-bottom: 4px; }
+    .timeline-content h3 { font-size: 1.5rem; margin-bottom: 4px; color: var(--md-text);}
     .timeline-content h4 { font-size: 1rem; color: var(--md-outline); font-weight: 500; margin-bottom: 16px; }
+    .timeline-content p { color: var(--md-text-variant); }
 
     /* ─── CONTACT ─── */
     .contact-banner {
       background: var(--md-primary-container); color: var(--md-on-primary-container);
       border-radius: 40px; padding: 80px 40px; text-align: center; position: relative; overflow: hidden;
+      transition: background-color var(--transition), color var(--transition);
     }
     .contact-banner::before, .contact-banner::after {
       content: ''; position: absolute; background: var(--md-primary); opacity: 0.05; border-radius: 50%;
@@ -350,7 +366,7 @@
       <div class="apps-grid">
         <div class="app-card">
           <div class="app-header">
-            <div class="app-icon" style="background: #e4e4e4; color: #252525;">
+            <div class="app-icon" style="background: #FFD4D4; color: #B3261E;">
               <span class="material-icons-round">edit_note</span>
             </div>
             <div>
@@ -460,17 +476,17 @@
             <span class="time-badge">Present</span>
             <h3>Independent Android Developer</h3>
             <h4>Freelance / Self-Employed</h4>
-            <p style="color: var(--md-text-variant);">Focusing on building proprietary applications and freelance client projects. Architecting modern Android solutions using Kotlin and maintaining apps on the Google Play Store.</p>
+            <p>Focusing on building proprietary applications and freelance client projects. Architecting modern Android solutions using Kotlin and maintaining apps on the Google Play Store.</p>
           </div>
         </div>
 
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-content">
-            <span class="time-badge">2026</span>
+            <span class="time-badge">2023</span>
             <h3>Launched PayTrack</h3>
             <h4>Google Play Store</h4>
-            <p style="color: var(--md-text-variant);">Successfully designed, developed, and published my first major application. Handled the entire lifecycle from UI/UX wireframing to database engineering and store listing optimization.</p>
+            <p>Successfully designed, developed, and published my first major application. Handled the entire lifecycle from UI/UX wireframing to database engineering and store listing optimization.</p>
           </div>
         </div>
 
@@ -480,7 +496,7 @@
             <span class="time-badge">2022</span>
             <h3>Deep Dive into Android</h3>
             <h4>Self-Taught Engineering</h4>
-            <p style="color: var(--md-text-variant);">Transitioned heavily into mobile development. Mastered core concepts like Activity lifecycles, RecyclerViews, MVVM architecture, and eventually transitioned from XML to Jetpack Compose.</p>
+            <p>Transitioned heavily into mobile development. Mastered core concepts like Activity lifecycles, RecyclerViews, MVVM architecture, and eventually transitioned from XML to Jetpack Compose.</p>
           </div>
         </div>
 
@@ -507,26 +523,18 @@
   </footer>
 
   <script>
+    // Bottom script updates icon and handles clicks
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = document.getElementById('themeIcon');
     const html = document.documentElement;
 
-    // 1. Check local storage first
-    const savedTheme = localStorage.getItem('theme');
-    
-    // 2. Check system preference if no saved theme exists
-    const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    // Apply the correct theme immediately on load
-    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-      html.setAttribute('data-theme', 'dark');
+    // Set correct icon on initial load
+    if (html.getAttribute('data-theme') === 'dark') {
       themeIcon.textContent = 'light_mode';
     } else {
-      html.setAttribute('data-theme', 'light');
       themeIcon.textContent = 'dark_mode';
     }
 
-    // Toggle theme and save choice to local storage
     themeToggle.addEventListener('click', () => {
       const isCurrentlyDark = html.getAttribute('data-theme') === 'dark';
       
