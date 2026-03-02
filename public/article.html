@@ -180,51 +180,64 @@
     <article>
       <header class="article-header">
         <span class="tag">Engineering</span>
-        <h1 class="article-title">Migrating from XML to Jetpack Compose</h1>
+        <h1 class="article-title">Implementing Material You in Android 16</h1>
         <div class="article-meta">
           <span>Jan 12, 2026</span> &bull; <span>5 min read</span>
         </div>
-      </header>
 
-      <img src="https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?q=80&w=1000&auto=format&fit=crop" alt="Android Code on Screen" class="article-hero-img">
 
-      <div class="article-content">
-        <p>For years, Android UI was built using XML layouts. It worked, but as applications grew more complex, managing the state between XML views and Kotlin code became a massive headache. Enter <strong>Jetpack Compose</strong>.</p>
-        
-        <p>In this article, I want to share my personal experience migrating a legacy application entirely to Compose, the challenges I faced, and why I believe it's the future of Android development.</p>
+       <div class="article-content">
+        <p>If you've been working with Android over the last few years, you already know the massive shift that happened when Google introduced Material You. Suddenly, the operating system wasn't just a static canvas; it adapted to the user. It felt personal.</p>
 
-        <h2>The Problem with XML</h2>
-        <p>In the traditional View system, UI is stateful. When data changes, you have to manually update the UI by finding the view (using <code>findViewById</code> or View Binding) and setting its new properties. This imperative approach often leads to bugs where the UI and the data get out of sync.</p>
+<p>Now, with <strong>Android 16</strong>, Material Design 3 has evolved from being just a "neat color trick" into a deeply expressive, highly accessible design system. I recently spent some time upgrading the UI architecture of my own projects to fully leverage the latest Android 16 APIs, and honestly? It’s never been easier, especially if you are using Jetpack Compose.</p>
 
-        <blockquote>"Compose changes the paradigm from imperative UI to declarative UI. You describe what the UI should look like for a given state, and the framework handles the rest."</blockquote>
+<p>Let’s talk about how to implement it, and more importantly, why you should care.</p>
 
-        <h2>A Simple Comparison</h2>
-        <p>Let's look at a simple example. Here is how we used to define a basic text element in XML:</p>
+<h2>The Magic of Dynamic Colors</h2>
+<p>The cornerstone of Material You is the dynamic color scheme. The system extracts a primary color from the user's wallpaper and generates a beautiful, accessible tonal palette (spanning primary, secondary, tertiary, error, and surface colors). </p>
 
-<pre><code>&lt;TextView
-    android:id="@+id/titleText"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Hello World"
-    android:textSize="20sp" /&gt;</code></pre>
-
-        <p>And here is the exact same element using Jetpack Compose in Kotlin:</p>
+<p>Back in the XML days, implementing custom themes felt like wrestling with massive <code>colors.xml</code> files. In Jetpack Compose, it’s almost shockingly simple. Here is the standard way to hook into the system's dynamic colors:</p>
 
 <pre><code>@Composable
-fun TitleText() {
-    Text(
-        text = "Hello World",
-        fontSize = 20.sp
+fun AppTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    // Dynamic color is available on Android 12+ 
+    // but deeply optimized in Android 16
+    dynamicColor: Boolean = true,
+    content: @Composable () -> Unit
+) {
+    val colorScheme = when {
+        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+            val context = LocalContext.current
+            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        }
+        darkTheme -> DarkColorScheme
+        else -> LightColorScheme
+    }
+
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = Typography,
+        content = content
     )
 }</code></pre>
 
-        <h2>The Migration Strategy</h2>
-        <p>You don't have to rewrite your whole app at once. Compose is highly interoperable. You can add a <code>ComposeView</code> inside an existing XML layout, or you can host Android Views inside a Composable using <code>AndroidView</code>.</p>
-        
-        <p>My strategy was bottom-up: I started by migrating the smallest, standalone UI components (like buttons and list items) and eventually worked my way up to entire screens and navigation graphs.</p>
+<blockquote>"Material You isn't about giving up control of your app's branding. It's about respecting the user's device-wide choices so your app feels like a native extension of their phone."</blockquote>
 
-        <h2>Conclusion</h2>
-        <p>Migrating to Jetpack Compose has drastically reduced my boilerplate code and made UI development actually fun again. If you haven't started learning it yet, now is the time.</p>
+<h2>Going Beyond Colors: Contrast and Accessibility</h2>
+<p>One of the biggest pushes in Android 16 is advanced accessibility, specifically regarding spatial contrast. The new Material You guidelines heavily emphasize <strong>Surface Containers</strong>. </p>
+
+<p>Instead of relying on heavy drop shadows to show elevation (like we did in Material Design 2), Android 16 relies on subtle shifts in background tones. For example, your main screen background might use <code>colorScheme.surface</code>, while a floating card uses <code>colorScheme.surfaceContainerHigh</code>. This creates visual depth that looks incredibly premium and is much easier on the eyes in dark mode.</p>
+
+<h2>Predictive Back and Motion</h2>
+<p>Material You is also about how things <em>feel</em>. Android 16 makes the predictive back gesture a mandatory first-class citizen. If you are building with Compose Navigation, you get a lot of this for free, but you should always test how your surfaces animate when a user swipes back.</p>
+
+<p>Using Compose's <code>AnimatedContent</code> or <code>SharedTransitionLayout</code> combined with dynamic colors makes your app feel like it’s breathing.</p>
+
+<h2>Final Thoughts</h2>
+<p>If you are still hardcoding hex values for your primary buttons, I highly encourage you to take the leap into dynamic theming. It takes very little time to set up in Compose, but the payoff is massive. When a user opens your app and sees that it perfectly matches their carefully chosen wallpaper aesthetic, it instantly builds trust and makes your software feel top-tier.</p>
+
+<p>Dive into the code, experiment with surface tones, and let the system do the heavy lifting for you!</p>e has drastically reduced my boilerplate code and made UI development actually fun again. If you haven't started learning it yet, now is the time.</p>
       </div>
     </article>
   </main>
