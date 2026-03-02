@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Urim Mustafa – Android Developer</title>
   
-<meta property="og:type" content="website">
-<meta property="og:title" content="Urim Mustafa – Android Developer">
-<meta property="og:description" content="I build high-performance, beautiful mobile applications using Kotlin and Jetpack Compose. Based in Malta.">
-<meta property="og:image" content="image_1.webp">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Urim Mustafa – Android Developer">
+  <meta property="og:description" content="I build high-performance, beautiful mobile applications using Kotlin and Jetpack Compose. Based in Malta.">
+  <meta property="og:image" content="image_1.webp">
 
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   
@@ -28,7 +28,6 @@
   <style>
     /* ─── GREEN MATERIAL YOU COLOR SYSTEM ─── */
     :root {
-      /* Light Theme */
       --md-bg: #F7FBF4;
       --md-surface: #FFFFFF;
       --md-surface-container: #EEF5EA;
@@ -52,7 +51,6 @@
     }
 
     [data-theme="dark"] {
-      /* Dark Theme */
       --md-bg: #101410;
       --md-surface: #191D19;
       --md-surface-container: #262B25;
@@ -75,13 +73,15 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth;
-      overflow-x: hidden; /* Locks horizontal scrolling */
+
+    /* ─── MOBILE SCROLL LOCK ─── */
+    html, body { 
+      scroll-behavior: smooth;
       width: 100%;
-      max-width: 100%;
+      overflow-x: clip; /* Modern fix for horizontal wiggle */
     }
 
-    /* ─── 4. CUSTOM SCROLLBAR ─── */
+    /* CUSTOM SCROLLBAR */
     ::-webkit-scrollbar { width: 12px; }
     ::-webkit-scrollbar-track { background: var(--md-bg); }
     ::-webkit-scrollbar-thumb { background: var(--md-outline-variant); border-radius: 10px; border: 3px solid var(--md-bg); }
@@ -98,14 +98,21 @@
 
     h1, h2, h3, h4, .brand, .btn, .watermark { font-family: 'Outfit', sans-serif; }
 
-    /* ─── 1. SCROLL REVEAL ANIMATIONS ─── */
+    /* PAGE WRAPPER - EXTRA SAFETY */
+    .page-wrapper {
+      width: 100%;
+      overflow-x: clip; 
+      position: relative;
+    }
+
+    /* ─── ANIMATIONS ─── */
     .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.2, 0, 0, 1); }
     .reveal.active { opacity: 1; transform: translateY(0); }
     .delay-1 { transition-delay: 0.1s; }
     .delay-2 { transition-delay: 0.2s; }
 
-    /* ─── 6. TYPOGRAPHY WATERMARKS ─── */
-    .section { padding: 100px 0; position: relative; }
+    /* ─── WATERMARKS ─── */
+    .section { padding: 100px 0; position: relative; overflow: clip; }
     .watermark {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
       font-size: 18vw; font-weight: 900; color: transparent;
@@ -113,9 +120,9 @@
       opacity: 0.1; z-index: 0; pointer-events: none; user-select: none;
       white-space: nowrap; transition: -webkit-text-stroke var(--transition);
     }
-    .content-layer { position: relative; z-index: 1; } /* Keeps content above watermarks */
+    .content-layer { position: relative; z-index: 1; }
 
-    /* ─── AMBIENT MESH BACKGROUND ─── */
+    /* ─── AMBIENT MESH ─── */
     .mesh-bg {
       position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: -1;
       background: 
@@ -130,9 +137,10 @@
       100% { transform: scale(1.1) translate(20px, -20px); }
     }
 
-    /* ─── FLOATING NAVIGATION ─── */
-    .nav-wrapper { position: fixed; top: 24px; left: 0; right: 0; display: flex; justify-content: center; z-index: 1000; padding: 0 24px; }
+    /* ─── NAVIGATION ─── */
+    .nav-wrapper { position: fixed; top: 24px; left: 0; right: 0; display: flex; justify-content: center; z-index: 1000; padding: 0 24px; pointer-events: none; }
     nav {
+      pointer-events: auto;
       background: var(--md-surface-container); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       border: 1px solid var(--md-outline-variant); display: flex; align-items: center; justify-content: space-between;
       padding: 12px 24px; border-radius: 100px; width: 100%; max-width: 900px;
@@ -168,21 +176,18 @@
     .hero-content p { font-size: 1.15rem; color: var(--md-text-variant); margin-bottom: 36px; max-width: 500px; transition: color var(--transition);}
     .hero-img { width: 300px; height: 300px; border-radius: 50%; object-fit: cover; box-shadow: var(--md-shadow); border: 8px solid var(--md-surface); transition: border-color var(--transition); }
 
-    /* ─── 3. 3D TILT CARDS ─── */
-    /* Shared styles for Apps and Bento boxes to allow JS 3D manipulation */
+    /* ─── TILT CARDS ─── */
     .tilt-card {
       background: var(--md-surface); border-radius: 32px; padding: 32px;
       border: 1px solid var(--md-outline-variant);
       transform-style: preserve-3d; will-change: transform;
-      /* Notice: Transform transition is very fast to follow the mouse smoothly, color transitions are slow */
       transition: transform 0.1s ease-out, background-color var(--transition), border-color var(--transition), box-shadow var(--transition);
       box-shadow: var(--md-shadow);
     }
     .tilt-card:hover { border-color: var(--md-primary); box-shadow: 0 20px 40px rgba(0,0,0,0.1); z-index: 10;}
-    /* Fix for inner elements so they pop out slightly in 3D space */
     .tilt-card > * { transform: translateZ(30px); }
 
-    /* ─── APPS CARDS ─── */
+    /* APPS GRID */
     .apps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
     .app-card { display: flex; flex-direction: column; height: 100%; border-radius: 28px; }
     .app-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
@@ -193,7 +198,7 @@
     .app-tags { display: flex; gap: 8px; flex-wrap: wrap; }
     .tag { padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; background: var(--md-surface-container-high); color: var(--md-text-variant); transition: background-color var(--transition), color var(--transition);}
 
-    /* ─── SKILLS BENTO BOX ─── */
+    /* SKILLS BENTO */
     .skills-bento { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
     .bento-card h3 { font-size: 1.8rem; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; color: var(--md-text); transition: color var(--transition); }
     .skill-bar-wrapper { margin-bottom: 20px; }
@@ -206,19 +211,19 @@
     .tool-item .material-icons-round { font-size: 32px; }
     .tool-item span { font-size: 0.85rem; font-weight: 500; }
 
-    /* ─── EXPERIENCE TIMELINE ─── */
+    /* TIMELINE */
     .timeline { position: relative; max-width: 800px; margin: 0 auto; padding-left: 40px; border-left: 3px solid var(--md-surface-container-high); transition: border-color var(--transition); }
     .timeline-item { position: relative; margin-bottom: 48px; }
     .timeline-item:last-child { margin-bottom: 0; }
     .timeline-dot { position: absolute; left: -49px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--md-primary); border: 4px solid var(--md-bg); transition: background-color var(--transition), border-color var(--transition); }
     .timeline-content { background: var(--md-surface); padding: 32px; border-radius: 24px; border: 1px solid var(--md-outline-variant); transition: background-color var(--transition), border-color var(--transition); }
-    .timeline-content:hover { background: var(--md-surface-container); border-color: var(--md-primary); transform: translateX(10px); } /* Tiny slide effect on hover */
+    .timeline-content:hover { background: var(--md-surface-container); border-color: var(--md-primary); transform: translateX(10px); }
     .time-badge { display: inline-block; padding: 4px 12px; background: var(--md-primary-container); color: var(--md-on-primary-container); border-radius: 8px; font-size: 0.85rem; font-weight: 600; margin-bottom: 12px; transition: background-color var(--transition), color var(--transition); }
     .timeline-content h3 { font-size: 1.5rem; margin-bottom: 4px; color: var(--md-text); transition: color var(--transition);}
     .timeline-content h4 { font-size: 1rem; color: var(--md-outline); font-weight: 500; margin-bottom: 16px; transition: color var(--transition);}
     .timeline-content p { color: var(--md-text-variant); transition: color var(--transition); }
 
-    /* ─── BLOG SECTION ─── */
+    /* BLOG */
     .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
     .blog-card { background: var(--md-surface); border-radius: 28px; overflow: hidden; border: 1px solid var(--md-outline-variant); transition: transform var(--transition), box-shadow var(--transition), background-color var(--transition), border-color var(--transition); display: flex; flex-direction: column; }
     .blog-card:hover { transform: translateY(-8px); box-shadow: var(--md-shadow); border-color: var(--md-primary); }
@@ -232,7 +237,7 @@
     .read-more:hover { gap: 8px; }
     .read-more .material-icons-round { font-size: 18px; }
 
-    /* ─── CONTACT ─── */
+    /* CONTACT */
     .contact-banner { background: var(--md-primary-container); color: var(--md-on-primary-container); border-radius: 40px; padding: 80px 40px; text-align: center; position: relative; overflow: hidden; transition: background-color var(--transition), color var(--transition); }
     .contact-banner::before, .contact-banner::after { content: ''; position: absolute; background: var(--md-primary); opacity: 0.05; border-radius: 50%; }
     .contact-banner::before { width: 300px; height: 300px; top: -100px; right: -100px; }
@@ -243,7 +248,7 @@
 
     footer { text-align: center; padding: 48px; color: var(--md-text-variant); font-size: 14px; transition: color var(--transition); }
 
-    /* ─── RESPONSIVE ─── */
+    /* RESPONSIVE */
     @media (max-width: 850px) { .skills-bento { grid-template-columns: 1fr; } }
     @media (max-width: 768px) {
       .nav-wrapper { padding: 0 16px; top: 16px; }
@@ -254,7 +259,7 @@
       .hero-img { width: 240px; height: 240px; order: -1; }
       .contact-banner { padding: 56px 24px; }
       .contact-banner h2 { font-size: 2.2rem; }
-      .watermark { font-size: 25vw; } /* adjust watermark on mobile */
+      .watermark { font-size: 25vw; }
     }
   </style>
 </head>
@@ -279,237 +284,225 @@
     </nav>
   </div>
 
-  <div class="container">
-    <section class="hero reveal">
-      <div class="hero-content">
-        <div class="hero-badge">
-          <span class="material-icons-round" style="font-size: 18px;">verified</span>
-          Malta-based Android Developer
-        </div>
-        <h1>Code that <br><span>connects.</span></h1>
-        <p>I build high-performance, beautiful mobile applications using Flutter and Jetpack Compose. Crafting native Android experiences that solve real problems.</p>
-        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-          <a href="#apps" class="btn btn-filled">Explore My Apps</a>
-          <a href="#contact" class="btn btn-tonal">Get in Touch</a>
-        </div>
-      </div>
-      <img src="image_1.webp" alt="Urim Mustafa Portrait" class="hero-img">
-    </section>
-
-    <section id="apps" class="section reveal">
-      <div class="watermark">APPS</div>
-      <div class="content-layer">
-        <div class="section-head">
-          <h2>Featured Apps</h2>
-          <p>Real products shipped to the Google Play Store.</p>
-        </div>
-        <div class="apps-grid">
-          <div class="app-card tilt-card reveal delay-1">
-            <div class="app-header">
-              <div class="app-icon" style="background: #FFD4D4; color: #B3261E;">
-                <span class="material-icons-round">edit_note</span>
-              </div>
-              <div>
-                <div class="app-title">PayTrack</div>
-                <div class="app-company">Finance & Utilities</div>
-              </div>
-            </div>
-            <p class="app-desc">Log work hours, calculate exact net earnings, and automate tax deductions instantly. Designed for ultimate clarity and ease of use.</p>
-            <div class="app-tags">
-              <span class="tag">Flutter</span>
-              <span class="tag">Jetpack Compose</span>
-              <span class="tag">Room DB</span>
-            </div>
+  <div class="page-wrapper">
+    <div class="container">
+      <section class="hero reveal">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="material-icons-round" style="font-size: 18px;">verified</span>
+            Malta-based Android Developer
           </div>
-          
-          <div class="app-card tilt-card reveal delay-2" style="border: 2px dashed var(--md-outline-variant); background: transparent;">
-            <div class="app-header">
-              <div class="app-icon" style="background: var(--md-surface-container); color: var(--md-outline);">
-                <span class="material-icons-round">rocket_launch</span>
-              </div>
-              <div>
-                <div class="app-title">Next Big Project</div>
-                <div class="app-company">In Development</div>
-              </div>
-            </div>
-            <p class="app-desc">Currently engineering a new application focused on daily productivity. Stay tuned for updates and the official Play Store release.</p>
-            <div class="app-tags">
-              <span class="tag">Android 16</span>
-              <span class="tag">Firebase</span>
-            </div>
+          <h1>Code that <br><span>connects.</span></h1>
+          <p>I build high-performance, beautiful mobile applications using Flutter and Jetpack Compose. Crafting native Android experiences that solve real problems.</p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <a href="#apps" class="btn btn-filled">Explore My Apps</a>
+            <a href="#contact" class="btn btn-tonal">Get in Touch</a>
           </div>
         </div>
-      </div>
-    </section>
+        <img src="image_1.webp" alt="Urim Mustafa Portrait" class="hero-img">
+      </section>
 
-    <section id="skills" class="section reveal">
-      <div class="watermark">SKILLS</div>
-      <div class="content-layer">
-        <div class="section-head">
-          <h2>Technical Arsenal</h2>
-          <p>The tools and technologies I use to bring ideas to life.</p>
-        </div>
-        <div class="skills-bento">
-          <div class="bento-card tilt-card reveal delay-1">
-            <h3><span class="material-icons-round" style="color: var(--md-primary)">code</span> Core Proficiencies</h3>
-            
-            <div class="skill-bar-wrapper">
-              <div class="skill-info"><span>Flutter</span> <span>90%</span></div>
-              <div class="progress-bg"><div class="progress-fill" style="width: 90%;"></div></div>
+      <section id="apps" class="section reveal">
+        <div class="watermark">APPS</div>
+        <div class="content-layer">
+          <div class="section-head">
+            <h2>Featured Apps</h2>
+            <p>Real products shipped to the Google Play Store.</p>
+          </div>
+          <div class="apps-grid">
+            <div class="app-card tilt-card reveal delay-1">
+              <div class="app-header">
+                <div class="app-icon" style="background: #FFD4D4; color: #B3261E;">
+                  <span class="material-icons-round">edit_note</span>
+                </div>
+                <div>
+                  <div class="app-title">PayTrack</div>
+                  <div class="app-company">Finance & Utilities</div>
+                </div>
+              </div>
+              <p class="app-desc">Log work hours, calculate exact net earnings, and automate tax deductions instantly. Designed for ultimate clarity and ease of use.</p>
+              <div class="app-tags">
+                <span class="tag">Flutter</span>
+                <span class="tag">Jetpack Compose</span>
+                <span class="tag">Room DB</span>
+              </div>
             </div>
             
-            <div class="skill-bar-wrapper">
-              <div class="skill-info"><span>Android SDK</span> <span>85%</span></div>
-              <div class="progress-bg"><div class="progress-fill" style="width: 85%;"></div></div>
-            </div>
-            
-            <div class="skill-bar-wrapper">
-              <div class="skill-info"><span>Jetpack Compose</span> <span>80%</span></div>
-              <div class="progress-bg"><div class="progress-fill" style="width: 80%;"></div></div>
-            </div>
-
-            <div class="skill-bar-wrapper">
-              <div class="skill-info"><span>Java</span> <span>70%</span></div>
-              <div class="progress-bg"><div class="progress-fill" style="width: 70%;"></div></div>
-            </div>
-          </div>
-
-          <div class="bento-card tilt-card reveal delay-2">
-            <h3><span class="material-icons-round" style="color: var(--md-primary)">build</span> Frameworks & Tools</h3>
-            <div class="tools-grid">
-              <div class="tool-item">
-                <span class="material-icons-round" style="color:#EA4335">local_fire_department</span>
-                <span>Firebase</span>
+            <div class="app-card tilt-card reveal delay-2" style="border: 2px dashed var(--md-outline-variant); background: transparent;">
+              <div class="app-header">
+                <div class="app-icon" style="background: var(--md-surface-container); color: var(--md-outline);">
+                  <span class="material-icons-round">rocket_launch</span>
+                </div>
+                <div>
+                  <div class="app-title">Next Big Project</div>
+                  <div class="app-company">In Development</div>
+                </div>
               </div>
-              <div class="tool-item">
-                <span class="material-icons-round" style="color:#1A73E8">storage</span>
-                <span>Room DB</span>
-              </div>
-              <div class="tool-item">
-                <span class="material-icons-round" style="color:#34A853">api</span>
-                <span>REST API</span>
-              </div>
-              <div class="tool-item">
-                <span class="material-icons-round" style="color:#E91E63">palette</span>
-                <span>Material 3</span>
-              </div>
-              <div class="tool-item">
-                <span class="material-icons-round" style="color:#1F1F1F">source</span>
-                <span>Git/GitHub</span>
-              </div>
-              <div class="tool-item">
-                <span class="material-icons-round" style="color:#F9AB00">bug_report</span>
-                <span>Testing</span>
+              <p class="app-desc">Currently engineering a new application focused on daily productivity. Stay tuned for updates and the official Play Store release.</p>
+              <div class="app-tags">
+                <span class="tag">Android 16</span>
+                <span class="tag">Firebase</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="experience" class="section reveal">
-      <div class="watermark">JOURNEY</div>
-      <div class="content-layer">
-        <div class="section-head">
-          <h2>My Journey</h2>
-          <p>A timeline of my growth and professional milestones.</p>
-        </div>
-        <div class="timeline">
-          
-          <div class="timeline-item reveal delay-1">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <span class="time-badge">Present</span>
-              <h3>Independent Android Developer</h3>
-              <h4>Freelance / Self-Employed</h4>
-              <p>Focusing on building proprietary applications and freelance client projects. Architecting modern Android solutions using Flutter and maintaining apps on the Google Play Store.</p>
+      <section id="skills" class="section reveal">
+        <div class="watermark">SKILLS</div>
+        <div class="content-layer">
+          <div class="section-head">
+            <h2>Technical Arsenal</h2>
+            <p>The tools and technologies I use to bring ideas to life.</p>
+          </div>
+          <div class="skills-bento">
+            <div class="bento-card tilt-card reveal delay-1">
+              <h3><span class="material-icons-round" style="color: var(--md-primary)">code</span> Core Proficiencies</h3>
+              <div class="skill-bar-wrapper">
+                <div class="skill-info"><span>Flutter</span> <span>90%</span></div>
+                <div class="progress-bg"><div class="progress-fill" style="width: 90%;"></div></div>
+              </div>
+              <div class="skill-bar-wrapper">
+                <div class="skill-info"><span>Android SDK</span> <span>85%</span></div>
+                <div class="progress-bg"><div class="progress-fill" style="width: 85%;"></div></div>
+              </div>
+              <div class="skill-bar-wrapper">
+                <div class="skill-info"><span>Jetpack Compose</span> <span>80%</span></div>
+                <div class="progress-bg"><div class="progress-fill" style="width: 80%;"></div></div>
+              </div>
+              <div class="skill-bar-wrapper">
+                <div class="skill-info"><span>Java</span> <span>70%</span></div>
+                <div class="progress-bg"><div class="progress-fill" style="width: 70%;"></div></div>
+              </div>
+            </div>
+
+            <div class="bento-card tilt-card reveal delay-2">
+              <h3><span class="material-icons-round" style="color: var(--md-primary)">build</span> Frameworks & Tools</h3>
+              <div class="tools-grid">
+                <div class="tool-item">
+                  <span class="material-icons-round" style="color:#EA4335">local_fire_department</span>
+                  <span>Firebase</span>
+                </div>
+                <div class="tool-item">
+                  <span class="material-icons-round" style="color:#1A73E8">storage</span>
+                  <span>Room DB</span>
+                </div>
+                <div class="tool-item">
+                  <span class="material-icons-round" style="color:#34A853">api</span>
+                  <span>REST API</span>
+                </div>
+                <div class="tool-item">
+                  <span class="material-icons-round" style="color:#E91E63">palette</span>
+                  <span>Material 3</span>
+                </div>
+                <div class="tool-item">
+                  <span class="material-icons-round" style="color:#1F1F1F">source</span>
+                  <span>Git/GitHub</span>
+                </div>
+                <div class="tool-item">
+                  <span class="material-icons-round" style="color:#F9AB00">bug_report</span>
+                  <span>Testing</span>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div class="timeline-item reveal delay-2">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <span class="time-badge">2026</span>
-              <h3>Launched PayTrack</h3>
-              <h4>Google Play Store</h4>
-              <p>Successfully designed, developed, and published my first major application. Handled the entire lifecycle from UI/UX wireframing to database engineering and store listing optimization.</p>
+      <section id="experience" class="section reveal">
+        <div class="watermark">JOURNEY</div>
+        <div class="content-layer">
+          <div class="section-head">
+            <h2>My Journey</h2>
+            <p>A timeline of my growth and professional milestones.</p>
+          </div>
+          <div class="timeline">
+            <div class="timeline-item reveal delay-1">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <span class="time-badge">Present</span>
+                <h3>Independent Android Developer</h3>
+                <h4>Freelance / Self-Employed</h4>
+                <p>Focusing on building proprietary applications and freelance client projects. Architecting modern Android solutions using Flutter and maintaining apps on the Google Play Store.</p>
+              </div>
+            </div>
+            <div class="timeline-item reveal delay-2">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <span class="time-badge">2026</span>
+                <h3>Launched PayTrack</h3>
+                <h4>Google Play Store</h4>
+                <p>Successfully designed, developed, and published my first major application. Handled the entire lifecycle from UI/UX wireframing to database engineering and store listing optimization.</p>
+              </div>
+            </div>
+            <div class="timeline-item reveal delay-1">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <span class="time-badge">2022</span>
+                <h3>Deep Dive into Android</h3>
+                <h4>Self-Taught Engineering</h4>
+                <p>Transitioned heavily into mobile development. Mastered core concepts like Activity lifecycles, RecyclerViews, MVVM architecture, and eventually transitioned from XML to Jetpack Compose.</p>
+              </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div class="timeline-item reveal delay-1">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <span class="time-badge">2022</span>
-              <h3>Deep Dive into Android</h3>
-              <h4>Self-Taught Engineering</h4>
-              <p>Transitioned heavily into mobile development. Mastered core concepts like Activity lifecycles, RecyclerViews, MVVM architecture, and eventually transitioned from XML to Jetpack Compose.</p>
-            </div>
+      <section id="blog" class="section reveal">
+        <div class="watermark">INSIGHTS</div>
+        <div class="content-layer">
+          <div class="section-head">
+            <h2>Insights & Writing</h2>
+            <p>Thoughts on Android development, design, and my latest projects.</p>
           </div>
-
+          <div class="blog-grid">
+            <article class="blog-card reveal delay-1">
+              <div class="blog-image">
+                <span class="material-icons-round">account_balance_wallet</span>
+              </div>
+              <div class="blog-content">
+                <div class="blog-meta"><span class="tag">Case Study</span> &bull; Jan 15, 2026</div>
+                <h3>The Story Behind PayTrack</h3>
+                <p>Why I built a financial utility app from scratch, the hard hours of coding, and turning an idea into a reality.</p>
+                <a href="article2.html" class="read-more">Read article <span class="material-icons-round">arrow_forward</span></a>
+              </div>
+            </article>
+            <article class="blog-card reveal delay-2">
+              <div class="blog-image">
+                <span class="material-icons-round">color_lens</span>
+              </div>
+              <div class="blog-content">
+                <div class="blog-meta"><span class="tag">UI/UX</span> &bull; Sep 05, 2024</div>
+                <h3>Implementing Material You in Android 16</h3>
+                <p>Exploring dynamic color palettes and how to make your apps feel perfectly at home on the latest Android operating system.</p>
+                <a href="article.html" class="read-more">Read article <span class="material-icons-round">arrow_forward</span></a>
+              </div>
+            </article>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="blog" class="section reveal">
-      <div class="watermark">INSIGHTS</div>
-      <div class="content-layer">
-        <div class="section-head">
-          <h2>Insights & Writing</h2>
-          <p>Thoughts on Android development, design, and my latest projects.</p>
+      <section id="contact" class="section reveal">
+        <div class="contact-banner">
+          <h2>Let's build together.</h2>
+          <p>Whether you have an app idea, need a developer for your team, or just want to say hi, my inbox is always open.</p>
+          <div class="contact-actions">
+            <button id="copyEmailBtn" class="btn btn-filled" style="background: var(--md-on-primary-container); color: var(--md-primary-container);">
+              <span class="material-icons-round">mail</span> Email Me
+            </button>
+            <a href="https://linkedin.com/" target="_blank" class="btn btn-tonal" style="background: rgba(255,255,255,0.2); color: var(--md-on-primary-container);">LinkedIn</a>
+            <a href="https://github.com/" target="_blank" class="btn btn-tonal" style="background: rgba(255,255,255,0.2); color: var(--md-on-primary-container);">GitHub</a>
+          </div>
         </div>
-        <div class="blog-grid">
-          
-          <article class="blog-card reveal delay-1">
-            <div class="blog-image">
-              <span class="material-icons-round">account_balance_wallet</span>
-            </div>
-            <div class="blog-content">
-              <div class="blog-meta"><span class="tag">Case Study</span> &bull; Jan 15, 2026</div>
-              <h3>The Story Behind PayTrack</h3>
-              <p>Why I built a financial utility app from scratch, the hard hours of coding, and turning an idea into a reality.</p>
-              <a href="article2.html" class="read-more">Read article <span class="material-icons-round">arrow_forward</span></a>
-            </div>
-          </article>
-  
-          <article class="blog-card reveal delay-2">
-            <div class="blog-image">
-              <span class="material-icons-round">color_lens</span>
-            </div>
-            <div class="blog-content">
-              <div class="blog-meta"><span class="tag">UI/UX</span> &bull; Sep 05, 2024</div>
-              <h3>Implementing Material You in Android 16</h3>
-              <p>Exploring dynamic color palettes and how to make your apps feel perfectly at home on the latest Android operating system.</p>
-              <a href="article.html" class="read-more">Read article <span class="material-icons-round">arrow_forward</span></a>
-            </div>
-          </article>
-  
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
-    <section id="contact" class="section reveal">
-      <div class="contact-banner">
-        <h2>Let's build together.</h2>
-        <p>Whether you have an app idea, need a developer for your team, or just want to say hi, my inbox is always open.</p>
-        <div class="contact-actions">
-          
-          <button id="copyEmailBtn" class="btn btn-filled" style="background: var(--md-on-primary-container); color: var(--md-primary-container);">
-            <span class="material-icons-round">mail</span> Email Me
-          </button>
-
-          <a href="https://linkedin.com/" target="_blank" class="btn btn-tonal" style="background: rgba(255,255,255,0.2); color: var(--md-on-primary-container);">LinkedIn</a>
-          <a href="https://github.com/" target="_blank" class="btn btn-tonal" style="background: rgba(255,255,255,0.2); color: var(--md-on-primary-container);">GitHub</a>
-        </div>
-      </div>
-    </section>
+    <footer>
+      <p>&copy; 2026 Urim Mustafa. Crafted with Material Design 3. Based in Malta.</p>
+    </footer>
   </div>
 
-  <footer>
-    <p>&copy; 2026 Urim Mustafa. Crafted with Material Design 3. Based in Malta.</p>
-  </footer>
-
   <script>
-    // ─── THEME SWITCHER LOGIC ───
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = document.getElementById('themeIcon');
     const html = document.documentElement;
@@ -533,72 +526,50 @@
       }
     });
 
-    // ─── 1. SCROLL REVEAL LOGIC ───
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.15
-    };
+    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('active');
-          // Optional: stop observing once revealed
           observer.unobserve(entry.target);
         }
       });
     }, observerOptions);
 
-    document.querySelectorAll('.reveal').forEach(el => {
-      observer.observe(el);
-    });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // ─── 3. 3D TILT EFFECT LOGIC ───
     const tiltCards = document.querySelectorAll('.tilt-card');
     tiltCards.forEach(card => {
       card.addEventListener('mousemove', e => {
-        // Don't tilt on small touch screens
         if(window.innerWidth <= 768) return; 
-        
         const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left; // x position within the element
-        const y = e.clientY - rect.top;  // y position within the element
-        
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-        
-        // Calculate rotation (max 6 degrees)
         const rotateX = ((y - centerY) / centerY) * -6; 
         const rotateY = ((x - centerX) / centerX) * 6;
-        
         card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
       });
-      
       card.addEventListener('mouseleave', () => {
         card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
       });
     });
 
-    // ─── 5. CLICK TO COPY EMAIL LOGIC ───
     const emailBtn = document.getElementById('copyEmailBtn');
-    // Change this to your actual email!
     const myEmail = "mustafa.urim1@gmail.com"; 
-
     emailBtn.addEventListener('click', (e) => {
       e.preventDefault();
       navigator.clipboard.writeText(myEmail).then(() => {
         const originalHtml = emailBtn.innerHTML;
         emailBtn.innerHTML = `<span class="material-icons-round">check_circle</span> Copied! ✨`;
-        emailBtn.style.backgroundColor = "#A4F6B2"; // Make it green briefly
+        emailBtn.style.backgroundColor = "#A4F6B2";
         emailBtn.style.color = "#002108";
-        
         setTimeout(() => { 
           emailBtn.innerHTML = originalHtml; 
           emailBtn.style.backgroundColor = ""; 
           emailBtn.style.color = "";
         }, 2000);
-      }).catch(err => {
-        console.error('Failed to copy email', err);
       });
     });
   </script>
