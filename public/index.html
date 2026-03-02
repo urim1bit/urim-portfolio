@@ -159,20 +159,15 @@
     .section-head p { color: var(--md-text-variant); font-size: 1.1rem; max-width: 600px; margin: 0 auto; transition: color var(--transition); }
 
     .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 100px; font-weight: 600; font-size: 16px; text-decoration: none; cursor: pointer; border: none; transition: transform 0.2s, box-shadow 0.2s, background-color var(--transition), color var(--transition); }
-    .btn:active { transform: scale(0.96); }
     .btn-filled { background: var(--md-primary); color: var(--md-on-primary); }
-    .btn-filled:hover { box-shadow: 0 4px 12px rgba(25, 109, 51, 0.3); opacity: 0.95; }
     .btn-tonal { background: var(--md-secondary-container); color: var(--md-on-secondary-container); }
-    .btn-tonal:hover { background: var(--md-surface-container-high); }
 
     .hero { display: flex; align-items: center; gap: 60px; padding: 40px 0 80px; }
     .hero-content { flex: 1; }
     .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--md-secondary-container); color: var(--md-on-secondary-container); padding: 6px 16px; border-radius: 100px; font-size: 14px; font-weight: 500; margin-bottom: 24px; transition: background-color var(--transition), color var(--transition); }
     .hero-content h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -1.5px; margin-bottom: 20px; color: var(--md-text); transition: color var(--transition); }
     .hero-content h1 span { color: var(--md-primary); transition: color var(--transition); }
-    .hero-content p { font-size: 1.15rem; color: var(--md-text-variant); margin-bottom: 36px; max-width: 500px; transition: color var(--transition); }
     
-    /* THE ADAPTIVE PORTRAIT */
     .hero-img { 
       width: 300px; height: 300px; border-radius: 50%; object-fit: cover; 
       box-shadow: var(--md-shadow); border: 8px solid var(--md-surface); 
@@ -189,35 +184,30 @@
       width: 100%;
     }
     .tilt-card:hover { border-color: var(--md-primary); box-shadow: 0 20px 40px rgba(0,0,0,0.1); z-index: 10;}
-    .tilt-card > * { transform: translateZ(30px); }
 
-    .apps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; width: 100%; }
-    .app-card { display: flex; flex-direction: column; height: 100%; border-radius: 28px; }
-    .app-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
-    .app-icon { width: 64px; height: 64px; border-radius: 18px; background: var(--md-primary-container); color: var(--md-primary); display: flex; align-items: center; justify-content: center; font-size: 32px; transition: background-color var(--transition), color var(--transition); }
-    .app-title { font-size: 1.4rem; font-weight: 700; color: var(--md-text); transition: color var(--transition); }
-    .app-desc { color: var(--md-text-variant); margin-bottom: 32px; flex-grow: 1; font-size: 1rem; transition: color var(--transition); }
-    .tag { padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 500; background: var(--md-surface-container-high); color: var(--md-text-variant); transition: background-color var(--transition), color var(--transition); }
+    .apps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; width: 100%; }
+    .app-icon { width: 72px; height: 72px; border-radius: 20px; background: var(--md-primary-container); color: var(--md-primary); display: flex; align-items: center; justify-content: center; font-size: 36px; transition: background-color var(--transition), color var(--transition); }
+    .tag { padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; background: var(--md-surface-container-high); color: var(--md-text-variant); transition: background-color var(--transition), color var(--transition); }
 
-    .skills-bento { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
-    .progress-bg { width: 100%; height: 10px; background: var(--md-surface-container-high); border-radius: 100px; overflow: hidden; transition: background-color var(--transition); }
+    .skills-bento { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
+    .progress-bg { width: 100%; height: 12px; background: var(--md-surface-container-high); border-radius: 100px; overflow: hidden; transition: background-color var(--transition); }
     .progress-fill { height: 100%; background: var(--md-primary); border-radius: 100px; transition: width 1s ease-out, background-color var(--transition); }
-    .tool-item { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px; background: var(--md-surface-container); border-radius: 16px; transition: var(--transition); text-align: center; color: var(--md-text); }
+    .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .tool-item { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: var(--md-surface-container); border-radius: 16px; transition: var(--transition); text-align: center; color: var(--md-text); }
     .tool-item:hover { background: var(--md-primary-container); color: var(--md-primary); }
 
-    .timeline { position: relative; max-width: 100%; margin: 0 auto; padding-left: 32px; border-left: 3px solid var(--md-surface-container-high); transition: border-color var(--transition); }
-    .timeline-dot { position: absolute; left: -41px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--md-primary); border: 4px solid var(--md-bg); transition: background-color var(--transition), border-color var(--transition); }
-    .timeline-content { background: var(--md-surface); padding: 28px; border-radius: 24px; border: 1px solid var(--md-outline-variant); width: 100%; transition: background-color var(--transition), border-color var(--transition); }
-    .time-badge { display: inline-block; padding: 4px 12px; background: var(--md-primary-container); color: var(--md-on-primary-container); border-radius: 8px; font-size: 0.8rem; font-weight: 600; margin-bottom: 12px; transition: background-color var(--transition), color var(--transition); }
+    .timeline { position: relative; max-width: 800px; margin: 0 auto; padding-left: 40px; border-left: 3px solid var(--md-surface-container-high); transition: border-color var(--transition); }
+    .timeline-dot { position: absolute; left: -49px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--md-primary); border: 4px solid var(--md-bg); transition: background-color var(--transition), border-color var(--transition); }
+    .timeline-content { background: var(--md-surface); padding: 32px; border-radius: 24px; border: 1px solid var(--md-outline-variant); width: 100%; transition: background-color var(--transition), border-color var(--transition); }
+    .time-badge { display: inline-block; padding: 4px 12px; background: var(--md-primary-container); color: var(--md-on-primary-container); border-radius: 8px; font-size: 0.85rem; font-weight: 600; margin-bottom: 12px; transition: background-color var(--transition), color var(--transition); }
 
+    .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
     .blog-card { background: var(--md-surface); border-radius: 28px; overflow: hidden; border: 1px solid var(--md-outline-variant); transition: transform var(--transition), background-color var(--transition), border-color var(--transition); display: flex; flex-direction: column; width: 100%; }
-    .blog-card:hover { transform: translateY(-8px); border-color: var(--md-primary); }
-    .blog-image { height: 160px; background: var(--md-surface-container-high); display: flex; align-items: center; justify-content: center; position: relative; transition: background-color var(--transition); }
-    .read-more { display: inline-flex; align-items: center; gap: 4px; color: var(--md-primary); font-weight: 600; text-decoration: none; transition: color var(--transition); }
+    .blog-image { height: 180px; background: var(--md-surface-container-high); display: flex; align-items: center; justify-content: center; position: relative; transition: background-color var(--transition); }
 
-    .contact-banner { background: var(--md-primary-container); color: var(--md-on-primary-container); border-radius: 40px; padding: 60px 24px; text-align: center; position: relative; overflow: hidden; width: 100%; transition: background-color var(--transition), color var(--transition); }
+    .contact-banner { background: var(--md-primary-container); color: var(--md-on-primary-container); border-radius: 40px; padding: 80px 40px; text-align: center; position: relative; overflow: hidden; width: 100%; transition: background-color var(--transition), color var(--transition); }
 
-    footer { text-align: center; padding: 48px; color: var(--md-text-variant); font-size: 13px; transition: color var(--transition); }
+    footer { text-align: center; padding: 48px; color: var(--md-text-variant); font-size: 14px; transition: color var(--transition); }
 
     @media (max-width: 768px) {
       .nav-wrapper { padding: 0 12px; top: 16px; }
@@ -282,20 +272,37 @@
           </div>
           <div class="apps-grid">
             <div class="app-card tilt-card reveal delay-1">
-              <div class="app-header">
+              <div class="app-header" style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
                 <div class="app-icon" style="background: var(--md-primary-container); color: var(--md-primary);">
                   <span class="material-icons-round">edit_note</span>
                 </div>
                 <div>
-                  <div class="app-title">PayTrack</div>
-                  <div class="app-company" style="color: var(--md-primary); font-size: 0.9rem; font-weight: 500;">Finance & Utilities</div>
+                  <div class="app-title" style="font-size: 1.5rem; font-weight: 700;">PayTrack</div>
+                  <div class="app-company" style="color: var(--md-primary); font-size: 0.95rem; font-weight: 500;">Finance & Utilities</div>
                 </div>
               </div>
-              <p class="app-desc">Log work hours, calculate exact net earnings, and automate tax deductions instantly.</p>
-              <div class="app-tags">
+              <p class="app-desc" style="color: var(--md-text-variant); margin-bottom: 32px; flex-grow: 1;">Log work hours, calculate exact net earnings, and automate tax deductions instantly. Designed for ultimate clarity and ease of use.</p>
+              <div class="app-tags" style="display: flex; gap: 8px; flex-wrap: wrap;">
                 <span class="tag">Flutter</span>
                 <span class="tag">Jetpack Compose</span>
                 <span class="tag">Room DB</span>
+              </div>
+            </div>
+            
+            <div class="app-card tilt-card reveal delay-2" style="border: 2px dashed var(--md-outline-variant); background: transparent;">
+              <div class="app-header" style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
+                <div class="app-icon" style="background: var(--md-surface-container); color: var(--md-outline);">
+                  <span class="material-icons-round">rocket_launch</span>
+                </div>
+                <div>
+                  <div class="app-title" style="font-size: 1.5rem; font-weight: 700;">Next Big Project</div>
+                  <div class="app-company" style="color: var(--md-outline); font-size: 0.95rem; font-weight: 500;">In Development</div>
+                </div>
+              </div>
+              <p class="app-desc" style="color: var(--md-text-variant); margin-bottom: 32px; flex-grow: 1;">Currently engineering a new application focused on daily productivity. Stay tuned for updates and the official Play Store release.</p>
+              <div class="app-tags" style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <span class="tag">Android 16</span>
+                <span class="tag">Firebase</span>
               </div>
             </div>
           </div>
@@ -307,29 +314,55 @@
         <div class="content-layer">
           <div class="section-head">
             <h2>Technical Arsenal</h2>
+            <p>The tools and technologies I use to bring ideas to life.</p>
           </div>
           <div class="skills-bento">
             <div class="bento-card tilt-card reveal delay-1">
-              <h3><span class="material-icons-round" style="color: var(--md-primary)">code</span> Core Proficiencies</h3>
-              <div class="skill-bar-wrapper">
+              <h3 style="font-size: 1.8rem; margin-bottom: 24px; display: flex; align-items: center; gap: 12px;"><span class="material-icons-round" style="color: var(--md-primary)">code</span> Core Proficiencies</h3>
+              <div class="skill-bar-wrapper" style="margin-bottom: 20px;">
                 <div class="skill-info" style="display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 500;"><span>Flutter</span> <span>90%</span></div>
                 <div class="progress-bg"><div class="progress-fill" style="width: 90%;"></div></div>
               </div>
-              <div class="skill-bar-wrapper">
+              <div class="skill-bar-wrapper" style="margin-bottom: 20px;">
                 <div class="skill-info" style="display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 500;"><span>Android SDK</span> <span>85%</span></div>
                 <div class="progress-bg"><div class="progress-fill" style="width: 85%;"></div></div>
               </div>
+              <div class="skill-bar-wrapper" style="margin-bottom: 20px;">
+                <div class="skill-info" style="display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 500;"><span>Jetpack Compose</span> <span>80%</span></div>
+                <div class="progress-bg"><div class="progress-fill" style="width: 80%;"></div></div>
+              </div>
+              <div class="skill-bar-wrapper">
+                <div class="skill-info" style="display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 500;"><span>Java</span> <span>70%</span></div>
+                <div class="progress-bg"><div class="progress-fill" style="width: 70%;"></div></div>
+              </div>
             </div>
+
             <div class="bento-card tilt-card reveal delay-2">
-              <h3><span class="material-icons-round" style="color: var(--md-primary)">build</span> Frameworks</h3>
+              <h3 style="font-size: 1.8rem; margin-bottom: 24px; display: flex; align-items: center; gap: 12px;"><span class="material-icons-round" style="color: var(--md-primary)">build</span> Frameworks & Tools</h3>
               <div class="tools-grid">
                 <div class="tool-item">
-                  <span class="material-icons-round" style="color: var(--md-primary)">local_fire_department</span>
+                  <span class="material-icons-round" style="color:#EA4335">local_fire_department</span>
                   <span>Firebase</span>
                 </div>
                 <div class="tool-item">
-                  <span class="material-icons-round" style="color: var(--md-primary)">palette</span>
+                  <span class="material-icons-round" style="color:#1A73E8">storage</span>
+                  <span>Room DB</span>
+                </div>
+                <div class="tool-item">
+                  <span class="material-icons-round" style="color:#34A853">api</span>
+                  <span>REST API</span>
+                </div>
+                <div class="tool-item">
+                  <span class="material-icons-round" style="color:#E91E63">palette</span>
                   <span>Material 3</span>
+                </div>
+                <div class="tool-item">
+                  <span class="material-icons-round" style="color:#1F1F1F">source</span>
+                  <span>Git/GitHub</span>
+                </div>
+                <div class="tool-item">
+                  <span class="material-icons-round" style="color:#F9AB00">bug_report</span>
+                  <span>Testing</span>
                 </div>
               </div>
             </div>
@@ -340,32 +373,88 @@
       <section id="experience" class="section reveal">
         <div class="watermark">JOURNEY</div>
         <div class="content-layer">
+          <div class="section-head">
+            <h2>My Journey</h2>
+            <p>A timeline of my growth and professional milestones.</p>
+          </div>
           <div class="timeline">
             <div class="timeline-item reveal delay-1">
               <div class="timeline-dot"></div>
               <div class="timeline-content">
                 <span class="time-badge">Present</span>
-                <h3>Independent Developer</h3>
-                <p>Building high-quality mobile solutions.</p>
+                <h3 style="font-size: 1.5rem; margin-bottom: 4px;">Independent Android Developer</h3>
+                <h4 style="font-size: 1rem; color: var(--md-outline); font-weight: 500; margin-bottom: 16px;">Freelance / Self-Employed</h4>
+                <p style="color: var(--md-text-variant);">Focusing on building proprietary applications and freelance client projects. Architecting modern Android solutions using Flutter and maintaining apps on the Google Play Store.</p>
+              </div>
+            </div>
+            <div class="timeline-item reveal delay-2">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <span class="time-badge">2026</span>
+                <h3 style="font-size: 1.5rem; margin-bottom: 4px;">Launched PayTrack</h3>
+                <h4 style="font-size: 1rem; color: var(--md-outline); font-weight: 500; margin-bottom: 16px;">Google Play Store</h4>
+                <p style="color: var(--md-text-variant);">Successfully designed, developed, and published my first major application. Handled the entire lifecycle from UI/UX wireframing to database engineering and store listing optimization.</p>
+              </div>
+            </div>
+            <div class="timeline-item reveal delay-1">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <span class="time-badge">2022</span>
+                <h3 style="font-size: 1.5rem; margin-bottom: 4px;">Deep Dive into Android</h3>
+                <h4 style="font-size: 1rem; color: var(--md-outline); font-weight: 500; margin-bottom: 16px;">Self-Taught Engineering</h4>
+                <p style="color: var(--md-text-variant);">Transitioned heavily into mobile development. Mastered core concepts like Activity lifecycles, RecyclerViews, MVVM architecture, and eventually transitioned from XML to Jetpack Compose.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      <section id="blog" class="section reveal">
+        <div class="watermark">INSIGHTS</div>
+        <div class="content-layer">
+          <div class="section-head">
+            <h2>Insights & Writing</h2>
+            <p>Thoughts on Android development, design, and my latest projects.</p>
+          </div>
+          <div class="blog-grid">
+            <article class="blog-card reveal delay-1">
+              <div class="blog-image"><span class="material-icons-round" style="font-size: 48px; opacity: 0.5;">account_balance_wallet</span></div>
+              <div class="blog-content" style="padding: 32px; flex-grow: 1;">
+                <div class="blog-meta" style="font-size: 0.85rem; color: var(--md-text-variant); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;"><span class="tag">Case Study</span> &bull; Jan 15, 2026</div>
+                <h3 style="font-size: 1.4rem; margin-bottom: 12px;">The Story Behind PayTrack</h3>
+                <p style="color: var(--md-text-variant); font-size: 1rem; margin-bottom: 32px; flex-grow: 1;">Why I built a financial utility app from scratch, the hard hours of coding, and turning an idea into a reality.</p>
+                <a href="article2.html" class="read-more" style="display: inline-flex; align-items: center; gap: 4px; color: var(--md-primary); font-weight: 600; text-decoration: none;">Read article <span class="material-icons-round" style="font-size: 18px;">arrow_forward</span></a>
+              </div>
+            </article>
+            <article class="blog-card reveal delay-2">
+              <div class="blog-image"><span class="material-icons-round" style="font-size: 48px; opacity: 0.5;">color_lens</span></div>
+              <div class="blog-content" style="padding: 32px; flex-grow: 1;">
+                <div class="blog-meta" style="font-size: 0.85rem; color: var(--md-text-variant); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;"><span class="tag">UI/UX</span> &bull; Sep 05, 2024</div>
+                <h3 style="font-size: 1.4rem; margin-bottom: 12px;">Implementing Material You in Android 16</h3>
+                <p style="color: var(--md-text-variant); font-size: 1rem; margin-bottom: 32px; flex-grow: 1;">Exploring dynamic color palettes and how to make your apps feel perfectly at home on the latest Android operating system.</p>
+                <a href="article.html" class="read-more" style="display: inline-flex; align-items: center; gap: 4px; color: var(--md-primary); font-weight: 600; text-decoration: none;">Read article <span class="material-icons-round" style="font-size: 18px;">arrow_forward</span></a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section id="contact" class="section reveal">
         <div class="contact-banner">
-          <h2>Let's build together.</h2>
-          <div class="contact-actions">
+          <h2 style="font-size: 3rem; font-weight: 800; margin-bottom: 16px; letter-spacing: -1px; position: relative; z-index: 1;">Let's build together.</h2>
+          <p style="font-size: 1.2rem; opacity: 0.8; margin-bottom: 40px; max-width: 500px; margin-inline: auto; position: relative; z-index: 1;">Whether you have an app idea, need a developer for your team, or just want to say hi, my inbox is always open.</p>
+          <div class="contact-actions" style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; position: relative; z-index: 1;">
             <button id="copyEmailBtn" class="btn btn-filled" style="background: var(--md-on-primary-container); color: var(--md-primary-container);">
               <span class="material-icons-round">mail</span> Email Me
             </button>
+            <a href="https://linkedin.com/" target="_blank" class="btn btn-tonal" style="background: rgba(255,255,255,0.2); color: var(--md-on-primary-container); text-decoration: none;">LinkedIn</a>
+            <a href="https://github.com/" target="_blank" class="btn btn-tonal" style="background: rgba(255,255,255,0.2); color: var(--md-on-primary-container); text-decoration: none;">GitHub</a>
           </div>
         </div>
       </section>
     </div>
 
-    <footer>
+    <footer style="text-align: center; padding: 48px; color: var(--md-text-variant); font-size: 14px;">
       <p>&copy; 2026 Urim Mustafa. Crafted with Material Design 3. Based in Malta.</p>
     </footer>
   </div>
@@ -382,7 +471,6 @@
       localStorage.setItem('theme', isDark ? 'light' : 'dark');
     });
 
-    // ─── DYNAMIC MATERIAL YOU COLOR GENERATOR ───
     const paletteBtn = document.getElementById('paletteToggle');
     paletteBtn.addEventListener('click', () => {
       const randomHue = Math.floor(Math.random() * 360);
