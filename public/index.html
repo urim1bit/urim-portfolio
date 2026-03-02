@@ -74,6 +74,14 @@
       --mesh-3: rgba(57, 75, 58, 0.08);
     }
 
+/* Kills mobile horizontal scroll without clipping widgets */
+    .page-wrapper {
+      overflow-x: hidden;
+      width: 100%;
+      position: relative;
+    }
+
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth;
       overflow-x: hidden; /* Locks horizontal scrolling */
@@ -263,6 +271,14 @@
   <div class="mesh-bg"></div>
 
   <div class="nav-wrapper">
+   </div>
+  
+   <div class="page-wrapper">
+   
+  <div class="container">
+      </div>
+
+
     <nav>
       <div class="brand">Urim.</div>
       <ul class="nav-links">
@@ -508,6 +524,8 @@
     <p>&copy; 2026 Urim Mustafa. Crafted with Material Design 3. Based in Malta.</p>
   </footer>
 
+  </div>
+  
   <script>
     // ─── THEME SWITCHER LOGIC ───
     const themeToggle = document.getElementById('themeToggle');
