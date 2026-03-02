@@ -75,7 +75,11 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth;
+      overflow-x: hidden; /* Locks horizontal scrolling */
+      width: 100%;
+      max-width: 100%;
+    }
 
     /* ─── 4. CUSTOM SCROLLBAR ─── */
     ::-webkit-scrollbar { width: 12px; }
@@ -89,7 +93,6 @@
       color: var(--md-text);
       transition: background-color var(--transition), color var(--transition);
       line-height: 1.6;
-      overflow-x: hidden;
       position: relative;
     }
 
@@ -114,7 +117,7 @@
 
     /* ─── AMBIENT MESH BACKGROUND ─── */
     .mesh-bg {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: -1;
       background: 
         radial-gradient(circle at 15% 50%, var(--mesh-1), transparent 50%),
         radial-gradient(circle at 85% 30%, var(--mesh-2), transparent 50%),
