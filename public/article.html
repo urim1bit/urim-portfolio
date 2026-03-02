@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Migrating from XML to Jetpack Compose - Urim Mustafa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+  
+  <script>
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  </script>
+
+  <style>
+    /* ─── GREEN MATERIAL YOU COLOR SYSTEM ─── */
+    :root {
+      --md-bg: #F7FBF4;
+      --md-surface: #FFFFFF;
+      --md-surface-container: #EEF5EA;
+      --md-surface-container-high: #E6EDE2;
+      --md-primary: #196D33;
+      --md-on-primary: #FFFFFF;
+      --md-primary-container: #A4F6B2;
+      --md-on-primary-container: #002108;
+      --md-secondary-container: #D1E8D2;
+      --md-on-secondary-container: #0D1F11;
+      --md-outline: #727970;
+      --md-outline-variant: #C1C9BE;
+      --md-text: #191C19;
+      --md-text-variant: #414941;
+      --md-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      --transition: 0.4s cubic-bezier(0.2, 0, 0, 1);
+      
+      --mesh-1: rgba(25, 109, 51, 0.05);
+      --mesh-2: rgba(164, 246, 178, 0.1);
+      --mesh-3: rgba(209, 232, 210, 0.15);
+    }
+
+    [data-theme="dark"] {
+      --md-bg: #101410;
+      --md-surface: #191D19;
+      --md-surface-container: #262B25;
+      --md-surface-container-high: #2E332D;
+      --md-primary: #89D998;
+      --md-on-primary: #003913;
+      --md-primary-container: #005320;
+      --md-on-primary-container: #A4F6B2;
+      --md-secondary-container: #394B3A;
+      --md-on-secondary-container: #D1E8D2;
+      --md-outline: #8B9389;
+      --md-outline-variant: #414941;
+      --md-text: #E0E4DE;
+      --md-text-variant: #C1C9BE;
+      --md-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+      --mesh-1: rgba(137, 217, 152, 0.03);
+      --mesh-2: rgba(0, 83, 32, 0.08);
+      --mesh-3: rgba(57, 75, 58, 0.05);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--md-bg);
+      color: var(--md-text);
+      transition: background-color var(--transition), color var(--transition);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .brand { font-family: 'Outfit', sans-serif; color: var(--md-text); transition: color var(--transition); }
+
+    /* ─── AMBIENT MESH BACKGROUND ─── */
+    .mesh-bg {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
+      background: 
+        radial-gradient(circle at 15% 50%, var(--mesh-1), transparent 50%),
+        radial-gradient(circle at 85% 30%, var(--mesh-2), transparent 50%),
+        radial-gradient(circle at 50% 80%, var(--mesh-3), transparent 50%);
+      filter: blur(60px);
+      transition: background var(--transition);
+    }
+
+    /* ─── FLOATING NAVIGATION ─── */
+    .nav-wrapper {
+      position: fixed; top: 24px; left: 0; right: 0;
+      display: flex; justify-content: center; z-index: 1000; padding: 0 24px;
+    }
+    nav {
+      background: var(--md-surface-container); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--md-outline-variant);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 24px; border-radius: 100px; width: 100%; max-width: 800px;
+      box-shadow: var(--md-shadow); transition: background-color var(--transition), border-color var(--transition);
+    }
+    .back-btn {
+      display: flex; align-items: center; gap: 8px; color: var(--md-text-variant);
+      text-decoration: none; font-weight: 500; font-size: 15px;
+      transition: color var(--transition);
+    }
+    .back-btn:hover { color: var(--md-primary); }
+    .icon-btn {
+      background: none; border: none; color: var(--md-text-variant); cursor: pointer; padding: 8px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; transition: var(--transition);
+    }
+    .icon-btn:hover { background: var(--md-surface-container-high); color: var(--md-text); }
+
+    /* ─── ARTICLE LAYOUT ─── */
+    .container { max-width: 800px; margin: 0 auto; padding: 140px 24px 80px; }
+    
+    .article-header { margin-bottom: 48px; text-align: center; }
+    .tag { 
+      display: inline-block; padding: 6px 16px; border-radius: 100px; font-size: 14px; font-weight: 600; 
+      background: var(--md-primary-container); color: var(--md-on-primary-container); margin-bottom: 24px; 
+      transition: background-color var(--transition), color var(--transition);
+    }
+    .article-title { font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -1px; margin-bottom: 24px; }
+    .article-meta { color: var(--md-text-variant); font-size: 1.05rem; display: flex; align-items: center; justify-content: center; gap: 12px; transition: color var(--transition); }
+    
+    .article-hero-img {
+      width: 100%; height: 400px; object-fit: cover; border-radius: 32px;
+      margin-bottom: 48px; box-shadow: var(--md-shadow);
+      background: var(--md-surface-container);
+    }
+
+    .article-content { font-size: 1.15rem; color: var(--md-text-variant); transition: color var(--transition); }
+    .article-content p { margin-bottom: 24px; }
+    .article-content h2 { font-size: 2rem; margin: 48px 0 24px; color: var(--md-text); }
+    .article-content h3 { font-size: 1.5rem; margin: 32px 0 16px; color: var(--md-text); }
+    
+    /* Code Blocks */
+    .article-content pre {
+      background: #1E1E1E; color: #D4D4D4; padding: 24px; border-radius: 16px;
+      overflow-x: auto; margin: 32px 0; font-size: 1rem; line-height: 1.5;
+      border: 1px solid var(--md-outline-variant);
+    }
+    .article-content code { font-family: monospace; }
+    .article-content p code { background: var(--md-surface-container-high); color: var(--md-text); padding: 4px 8px; border-radius: 6px; font-size: 0.95em; transition: background-color var(--transition), color var(--transition); }
+
+    /* Blockquotes */
+    .article-content blockquote {
+      border-left: 4px solid var(--md-primary); padding-left: 24px; margin: 32px 0;
+      font-style: italic; font-size: 1.25rem; color: var(--md-text);
+      transition: border-color var(--transition), color var(--transition);
+    }
+
+    footer { text-align: center; padding: 48px; color: var(--md-text-variant); font-size: 14px; border-top: 1px solid var(--md-outline-variant); margin-top: 80px; transition: color var(--transition), border-color var(--transition); }
+
+    @media (max-width: 768px) {
+      .nav-wrapper { padding: 0 16px; top: 16px; }
+      .article-hero-img { height: 250px; border-radius: 24px; }
+      .container { padding: 120px 20px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mesh-bg"></div>
+
+  <div class="nav-wrapper">
+    <nav>
+      <a href="index.html" class="back-btn">
+        <span class="material-icons-round">arrow_back</span> Back to Portfolio
+      </a>
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle Theme">
+        <span class="material-icons-round" id="themeIcon">dark_mode</span>
+      </button>
+    </nav>
+  </div>
+
+  <main class="container">
+    <article>
+      <header class="article-header">
+        <span class="tag">Engineering</span>
+        <h1 class="article-title">Migrating from XML to Jetpack Compose</h1>
+        <div class="article-meta">
+          <span>Oct 12, 2024</span> &bull; <span>5 min read</span>
+        </div>
+      </header>
+
+      <img src="https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?q=80&w=1000&auto=format&fit=crop" alt="Android Code on Screen" class="article-hero-img">
+
+      <div class="article-content">
+        <p>For years, Android UI was built using XML layouts. It worked, but as applications grew more complex, managing the state between XML views and Kotlin code became a massive headache. Enter <strong>Jetpack Compose</strong>.</p>
+        
+        <p>In this article, I want to share my personal experience migrating a legacy application entirely to Compose, the challenges I faced, and why I believe it's the future of Android development.</p>
+
+        <h2>The Problem with XML</h2>
+        <p>In the traditional View system, UI is stateful. When data changes, you have to manually update the UI by finding the view (using <code>findViewById</code> or View Binding) and setting its new properties. This imperative approach often leads to bugs where the UI and the data get out of sync.</p>
+
+        <blockquote>"Compose changes the paradigm from imperative UI to declarative UI. You describe what the UI should look like for a given state, and the framework handles the rest."</blockquote>
+
+        <h2>A Simple Comparison</h2>
+        <p>Let's look at a simple example. Here is how we used to define a basic text element in XML:</p>
+
+<pre><code>&lt;TextView
+    android:id="@+id/titleText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Hello World"
+    android:textSize="20sp" /&gt;</code></pre>
+
+        <p>And here is the exact same element using Jetpack Compose in Kotlin:</p>
+
+<pre><code>@Composable
+fun TitleText() {
+    Text(
+        text = "Hello World",
+        fontSize = 20.sp
+    )
+}</code></pre>
+
+        <h2>The Migration Strategy</h2>
+        <p>You don't have to rewrite your whole app at once. Compose is highly interoperable. You can add a <code>ComposeView</code> inside an existing XML layout, or you can host Android Views inside a Composable using <code>AndroidView</code>.</p>
+        
+        <p>My strategy was bottom-up: I started by migrating the smallest, standalone UI components (like buttons and list items) and eventually worked my way up to entire screens and navigation graphs.</p>
+
+        <h2>Conclusion</h2>
+        <p>Migrating to Jetpack Compose has drastically reduced my boilerplate code and made UI development actually fun again. If you haven't started learning it yet, now is the time.</p>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Urim Mustafa. Crafted with Material Design 3. Based in Malta.</p>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+
+    if (html.getAttribute('data-theme') === 'dark') {
+      themeIcon.textContent = 'light_mode';
+    } else {
+      themeIcon.textContent = 'dark_mode';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const isCurrentlyDark = html.getAttribute('data-theme') === 'dark';
+      
+      if (isCurrentlyDark) {
+        html.setAttribute('data-theme', 'light');
+        themeIcon.textContent = 'dark_mode';
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        themeIcon.textContent = 'light_mode';
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+  </script>
+</body>
+</html>
