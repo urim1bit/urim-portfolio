@@ -27,7 +27,7 @@
 
   <style>
     /* ─── GREEN MATERIAL YOU COLOR SYSTEM ─── */
-:root {
+    :root {
       --md-bg: #F7FBF4;
       --md-surface: #FFFFFF;
       --md-surface-container: #EEF5EA;
@@ -111,11 +111,11 @@
     .delay-2 { transition-delay: 0.2s; }
 
     /* ─── WATERMARKS ─── */
-    .section { padding: 100px 0; position: relative; width: 100%; }
+    .section { padding: 100px 0; position: relative; width: 100%; overflow: clip; }
     .watermark {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
       font-size: 18vw; font-weight: 900; color: transparent;
-      -webkit-text-stroke: 1px var(--md-outline-variant); /* Thinner stroke for mobile clarity */
+      -webkit-text-stroke: 1px var(--md-outline-variant);
       opacity: 0.1; z-index: 0; pointer-events: none; user-select: none;
       white-space: nowrap; transition: -webkit-text-stroke var(--transition);
     }
@@ -152,6 +152,23 @@
     .icon-btn { background: none; border: none; color: var(--md-text-variant); cursor: pointer; padding: 8px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
     .icon-btn:hover { background: var(--md-surface-container-high); color: var(--md-text); }
 
+    /* ─── HERO BUTTONS MEDIA QUERY ─── */
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+    .hero-btns .btn {
+      width: auto;
+      min-width: 180px;
+      justify-content: center;
+    }
+    @media (max-width: 768px) {
+      .hero-btns { justify-content: center; }
+      .hero-btns .btn { width: 100%; max-width: 280px; }
+    }
+
     /* ─── LAYOUT ─── */
     .container { width: 100%; max-width: 1000px; margin: 0 auto; padding: 120px 20px 40px; }
     .section-head { margin-bottom: 48px; text-align: center; }
@@ -170,9 +187,9 @@
     .hero { display: flex; align-items: center; gap: 60px; padding: 40px 0 80px; }
     .hero-content { flex: 1; }
     .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--md-secondary-container); color: var(--md-on-secondary-container); padding: 6px 16px; border-radius: 100px; font-size: 14px; font-weight: 500; margin-bottom: 24px; transition: background-color var(--transition), color var(--transition); }
-    .hero-content h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -1.5px; margin-bottom: 20px; color: var(--md-text); transition: color var(--transition);}
-    .hero-content h1 span { color: var(--md-primary); transition: color var(--transition);}
-    .hero-content p { font-size: 1.15rem; color: var(--md-text-variant); margin-bottom: 36px; max-width: 500px; transition: color var(--transition);}
+    .hero-content h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -1.5px; margin-bottom: 20px; color: var(--md-text); }
+    .hero-content h1 span { color: var(--md-primary); }
+    .hero-content p { font-size: 1.15rem; color: var(--md-text-variant); margin-bottom: 36px; max-width: 500px; }
     .hero-img { width: 300px; height: 300px; border-radius: 50%; object-fit: cover; box-shadow: var(--md-shadow); border: 8px solid var(--md-surface); transition: border-color var(--transition); }
 
     /* ─── TILT CARDS ─── */
@@ -191,67 +208,57 @@
     .apps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; width: 100%; }
     .app-card { display: flex; flex-direction: column; height: 100%; border-radius: 28px; }
     .app-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
-    .app-icon { width: 64px; height: 64px; border-radius: 18px; background: var(--md-primary-container); color: var(--md-primary); display: flex; align-items: center; justify-content: center; font-size: 32px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: background-color var(--transition), color var(--transition); }
-    .app-title { font-size: 1.4rem; font-weight: 700; color: var(--md-text); margin-bottom: 4px; transition: color var(--transition);}
-    .app-company { font-size: 0.9rem; color: var(--md-primary); font-weight: 500; transition: color var(--transition);}
-    .app-desc { color: var(--md-text-variant); margin-bottom: 32px; flex-grow: 1; font-size: 1rem; transition: color var(--transition);}
+    .app-icon { width: 64px; height: 64px; border-radius: 18px; background: var(--md-primary-container); color: var(--md-primary); display: flex; align-items: center; justify-content: center; font-size: 32px; }
+    .app-title { font-size: 1.4rem; font-weight: 700; color: var(--md-text); }
+    .app-company { font-size: 0.9rem; color: var(--md-primary); font-weight: 500; }
+    .app-desc { color: var(--md-text-variant); margin-bottom: 32px; flex-grow: 1; font-size: 1rem; }
     .app-tags { display: flex; gap: 8px; flex-wrap: wrap; }
-    .tag { padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 500; background: var(--md-surface-container-high); color: var(--md-text-variant); transition: background-color var(--transition), color var(--transition);}
+    .tag { padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 500; background: var(--md-surface-container-high); color: var(--md-text-variant); }
 
     /* SKILLS BENTO */
     .skills-bento { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
-    .bento-card h3 { font-size: 1.6rem; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; color: var(--md-text); transition: color var(--transition); }
+    .bento-card h3 { font-size: 1.6rem; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
     .skill-bar-wrapper { margin-bottom: 20px; }
-    .skill-info { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 500; color: var(--md-text); transition: color var(--transition);}
-    .progress-bg { width: 100%; height: 10px; background: var(--md-surface-container-high); border-radius: 100px; overflow: hidden; transition: background-color var(--transition);}
-    .progress-fill { height: 100%; background: var(--md-primary); border-radius: 100px; transition: width 1s ease-out, background-color var(--transition); }
+    .skill-info { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 500; }
+    .progress-bg { width: 100%; height: 10px; background: var(--md-surface-container-high); border-radius: 100px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--md-primary); border-radius: 100px; transition: width 1s ease-out; }
     .tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .tool-item { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px; background: var(--md-surface-container); border-radius: 16px; transition: background-color var(--transition), color var(--transition); text-align: center; color: var(--md-text); }
-    .tool-item:hover { background: var(--md-primary-container); color: var(--md-primary); }
+    .tool-item { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px; background: var(--md-surface-container); border-radius: 16px; transition: var(--transition); text-align: center; }
     .tool-item .material-icons-round { font-size: 28px; }
     .tool-item span { font-size: 0.8rem; font-weight: 500; }
 
     /* TIMELINE */
-    .timeline { position: relative; max-width: 100%; margin: 0 auto; padding-left: 32px; border-left: 3px solid var(--md-surface-container-high); transition: border-color var(--transition); }
+    .timeline { position: relative; max-width: 100%; margin: 0 auto; padding-left: 32px; border-left: 3px solid var(--md-surface-container-high); }
     .timeline-item { position: relative; margin-bottom: 48px; width: 100%; }
-    .timeline-item:last-child { margin-bottom: 0; }
-    .timeline-dot { position: absolute; left: -41px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--md-primary); border: 4px solid var(--md-bg); transition: background-color var(--transition), border-color var(--transition); }
-    .timeline-content { background: var(--md-surface); padding: 28px; border-radius: 24px; border: 1px solid var(--md-outline-variant); transition: background-color var(--transition), border-color var(--transition); width: 100%; }
-    .timeline-content:hover { background: var(--md-surface-container); border-color: var(--md-primary); transform: translateX(5px); }
-    .time-badge { display: inline-block; padding: 4px 12px; background: var(--md-primary-container); color: var(--md-on-primary-container); border-radius: 8px; font-size: 0.8rem; font-weight: 600; margin-bottom: 12px; transition: background-color var(--transition), color var(--transition); }
-    .timeline-content h3 { font-size: 1.3rem; margin-bottom: 4px; color: var(--md-text); transition: color var(--transition);}
-    .timeline-content h4 { font-size: 0.9rem; color: var(--md-outline); font-weight: 500; margin-bottom: 16px; transition: color var(--transition);}
-    .timeline-content p { color: var(--md-text-variant); font-size: 0.95rem; transition: color var(--transition); }
+    .timeline-dot { position: absolute; left: -41px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--md-primary); border: 4px solid var(--md-bg); }
+    .timeline-content { background: var(--md-surface); padding: 28px; border-radius: 24px; border: 1px solid var(--md-outline-variant); width: 100%; }
+    .time-badge { display: inline-block; padding: 4px 12px; background: var(--md-primary-container); color: var(--md-on-primary-container); border-radius: 8px; font-size: 0.8rem; font-weight: 600; margin-bottom: 12px; }
 
     /* BLOG */
     .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; width: 100%; }
-    .blog-card { background: var(--md-surface); border-radius: 28px; overflow: hidden; border: 1px solid var(--md-outline-variant); transition: transform var(--transition), box-shadow var(--transition), background-color var(--transition), border-color var(--transition); display: flex; flex-direction: column; width: 100%; }
-    .blog-card:hover { transform: translateY(-8px); box-shadow: var(--md-shadow); border-color: var(--md-primary); }
-    .blog-image { height: 160px; background: var(--md-surface-container-high); display: flex; align-items: center; justify-content: center; color: var(--md-outline); transition: background-color var(--transition), color var(--transition); position: relative; }
+    .blog-card { background: var(--md-surface); border-radius: 28px; overflow: hidden; border: 1px solid var(--md-outline-variant); transition: transform var(--transition); display: flex; flex-direction: column; width: 100%; }
+    .blog-card:hover { transform: translateY(-8px); border-color: var(--md-primary); }
+    .blog-image { height: 160px; background: var(--md-surface-container-high); display: flex; align-items: center; justify-content: center; position: relative; }
     .blog-content { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
-    .blog-meta { font-size: 0.8rem; color: var(--md-text-variant); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; transition: color var(--transition); }
-    .blog-card h3 { font-size: 1.3rem; margin-bottom: 12px; color: var(--md-text); line-height: 1.3; transition: color var(--transition); }
-    .blog-card p { color: var(--md-text-variant); font-size: 0.9rem; margin-bottom: 24px; flex-grow: 1; transition: color var(--transition); }
+    .blog-meta { font-size: 0.8rem; color: var(--md-text-variant); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .read-more { display: inline-flex; align-items: center; gap: 4px; color: var(--md-primary); font-weight: 600; text-decoration: none; }
 
     /* CONTACT */
-    .contact-banner { background: var(--md-primary-container); color: var(--md-on-primary-container); border-radius: 40px; padding: 60px 24px; text-align: center; position: relative; overflow: hidden; transition: background-color var(--transition), color var(--transition); width: 100%; }
-    .contact-banner h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; letter-spacing: -1px; position: relative; z-index: 1; transition: color var(--transition);}
-    .contact-banner p { font-size: 1.1rem; opacity: 0.8; margin-bottom: 32px; max-width: 500px; margin-inline: auto; position: relative; z-index: 1; transition: color var(--transition);}
+    .contact-banner { background: var(--md-primary-container); color: var(--md-on-primary-container); border-radius: 40px; padding: 60px 24px; text-align: center; position: relative; overflow: hidden; width: 100%; }
+    .contact-banner h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; position: relative; z-index: 1; }
+    .contact-banner p { font-size: 1.1rem; opacity: 0.8; margin-bottom: 32px; position: relative; z-index: 1; }
+    .contact-actions { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; position: relative; z-index: 1; }
 
-    footer { text-align: center; padding: 48px; color: var(--md-text-variant); font-size: 13px; transition: color var(--transition); }
+    footer { text-align: center; padding: 48px; color: var(--md-text-variant); font-size: 13px; }
 
-    /* ─── RESPONSIVE ─── */
+    /* RESPONSIVE */
     @media (max-width: 850px) { .skills-bento { grid-template-columns: 1fr; } }
     @media (max-width: 768px) {
       .nav-wrapper { padding: 0 12px; top: 16px; }
       nav { padding: 10px 20px; }
-      .brand { font-size: 18px; }
       .nav-links { display: none; }
       .hero { flex-direction: column; text-align: center; gap: 32px; padding: 40px 0; }
-      .hero-content p { margin: 0 auto 32px; }
-      .hero-badge { margin: 0 auto 24px; }
       .hero-img { width: 220px; height: 220px; order: -1; }
-      .contact-banner { padding: 48px 20px; }
       .contact-banner h2 { font-size: 2rem; }
       .watermark { font-size: 30vw; }
       .container { padding: 100px 16px 40px; }
@@ -289,10 +296,11 @@
           </div>
           <h1>Code that <br><span>connects.</span></h1>
           <p>I build high-performance, beautiful mobile applications using Flutter and Jetpack Compose. Crafting native Android experiences that solve real problems.</p>
-        <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
-          <a href="#apps" class="btn btn-filled" style="width: 100%; max-width: 250px; justify-content: center;">Explore My Apps</a>
-          <a href="#contact" class="btn btn-tonal" style="width: 100%; max-width: 250px; justify-content: center;">Get in Touch</a>
-        </div>
+          
+          <div class="hero-btns">
+            <a href="#apps" class="btn btn-filled">Explore My Apps</a>
+            <a href="#contact" class="btn btn-tonal">Get in Touch</a>
+          </div>
         </div>
         <img src="image_1.webp" alt="Urim Mustafa Portrait" class="hero-img">
       </section>
@@ -315,7 +323,7 @@
                   <div class="app-company">Finance & Utilities</div>
                 </div>
               </div>
-              <p class="app-desc">Log work hours, calculate exact net earnings, and automate tax deductions instantly. Designed for ultimate clarity and ease of use.</p>
+              <p class="app-desc">Log work hours, calculate exact net earnings, and automate tax deductions instantly.</p>
               <div class="app-tags">
                 <span class="tag">Flutter</span>
                 <span class="tag">Jetpack Compose</span>
@@ -333,7 +341,7 @@
                   <div class="app-company">In Development</div>
                 </div>
               </div>
-              <p class="app-desc">Currently engineering a new application focused on daily productivity. Stay tuned for updates and the official Play Store release.</p>
+              <p class="app-desc">Currently engineering a new application focused on daily productivity.</p>
               <div class="app-tags">
                 <span class="tag">Android 16</span>
                 <span class="tag">Firebase</span>
@@ -418,7 +426,7 @@
                 <span class="time-badge">Present</span>
                 <h3>Independent Android Developer</h3>
                 <h4>Freelance / Self-Employed</h4>
-                <p>Focusing on building proprietary applications and freelance client projects. Architecting modern Android solutions using Flutter and maintaining apps on the Google Play Store.</p>
+                <p>Focusing on building proprietary applications using Flutter.</p>
               </div>
             </div>
             <div class="timeline-item reveal delay-2">
@@ -427,7 +435,7 @@
                 <span class="time-badge">2026</span>
                 <h3>Launched PayTrack</h3>
                 <h4>Google Play Store</h4>
-                <p>Successfully designed, developed, and published my first major application. Handled the entire lifecycle from UI/UX wireframing to database engineering and store listing optimization.</p>
+                <p>Successfully designed, developed, and published my first major application.</p>
               </div>
             </div>
             <div class="timeline-item reveal delay-1">
@@ -436,7 +444,7 @@
                 <span class="time-badge">2022</span>
                 <h3>Deep Dive into Android</h3>
                 <h4>Self-Taught Engineering</h4>
-                <p>Transitioned heavily into mobile development. Mastered core concepts like Activity lifecycles, RecyclerViews, MVVM architecture, and eventually transitioned from XML to Jetpack Compose.</p>
+                <p>Transitioned heavily into mobile development with Kotlin and Jetpack Compose.</p>
               </div>
             </div>
           </div>
@@ -448,7 +456,7 @@
         <div class="content-layer">
           <div class="section-head">
             <h2>Insights & Writing</h2>
-            <p>Thoughts on Android development, design, and my latest projects.</p>
+            <p>Thoughts on Android development and design.</p>
           </div>
           <div class="blog-grid">
             <article class="blog-card reveal delay-1">
@@ -458,7 +466,7 @@
               <div class="blog-content">
                 <div class="blog-meta"><span class="tag">Case Study</span> &bull; Jan 15, 2026</div>
                 <h3>The Story Behind PayTrack</h3>
-                <p>Why I built a financial utility app from scratch, the hard hours of coding, and turning an idea into a reality.</p>
+                <p>Why I built a financial utility app from scratch.</p>
                 <a href="article2.html" class="read-more">Read article <span class="material-icons-round">arrow_forward</span></a>
               </div>
             </article>
@@ -469,7 +477,7 @@
               <div class="blog-content">
                 <div class="blog-meta"><span class="tag">UI/UX</span> &bull; Sep 05, 2024</div>
                 <h3>Implementing Material You in Android 16</h3>
-                <p>Exploring dynamic color palettes and how to make your apps feel perfectly at home on the latest Android operating system.</p>
+                <p>Exploring dynamic color palettes and Android 16 APIs.</p>
                 <a href="article.html" class="read-more">Read article <span class="material-icons-round">arrow_forward</span></a>
               </div>
             </article>
@@ -480,7 +488,7 @@
       <section id="contact" class="section reveal">
         <div class="contact-banner">
           <h2>Let's build together.</h2>
-          <p>Whether you have an app idea, need a developer for your team, or just want to say hi, my inbox is always open.</p>
+          <p>Whether you have an app idea or just want to say hi, my inbox is always open.</p>
           <div class="contact-actions">
             <button id="copyEmailBtn" class="btn btn-filled" style="background: var(--md-on-primary-container); color: var(--md-primary-container);">
               <span class="material-icons-round">mail</span> Email Me
