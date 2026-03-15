@@ -189,28 +189,29 @@
 
 
       <div class="article-content">
- <p>Pull up a chair, my friend, and let me tell you a little story about what I’ve been up to over the last month.</p>
+        <p>PayTrack started as a personal problem. I was working long hours at a construction job and had no clean way to track what I was actually earning after tax deductions. Spreadsheets felt clunky, generic finance apps were overkill, and nothing purpose-built existed. So I decided to engineer one myself.</p>
 
-<p>The story begins just a few weeks ago, in the chilly days of January 2026. By day, I put in long, hard hours working for a construction company called FG Construction / Elzan. Now, let me get one thing straight right away—I didn't start this project because I didn't trust my bosses. Not at all. I did it simply because I wanted to understand my own life. I wanted to know exactly where I stood with my taxes and my net income. I just wanted a clear picture of what my hard work actually translated to at the end of the month.</p>
+        <h2>Defining the Problem Space</h2>
+        <p>Before writing a single line of code, I spent time mapping out exactly what the app needed to do. The core requirement was straightforward: given an hourly rate, hours worked, and a tax rate, compute net income accurately and store the records persistently. But the moment I started thinking about edge cases — overtime thresholds, partial weeks, varying deduction rules — the data model became genuinely interesting.</p>
 
-<h2>The Little Laptop That Could</h2>
-<p>For the longest time, I had this dream of making an app. I always wanted to do it, but I never quite had the courage. I was so skeptical about my own abilities. <em>"Can I really do this?"</em> I’d ask myself. But then, a little light sparked inside my mind, and I finally decided to listen to it.</p>
+        <p>I settled on three primary entities: <code>WorkSession</code>, <code>TaxProfile</code>, and <code>EarningsSummary</code>. Each session would store raw hours and rate; the tax profile would hold the user's deduction configuration; and the summary would be a derived, on-demand computation rather than a stored value — keeping the database lean and the UI always in sync with the source data.</p>
 
-<p>I didn't have fancy equipment. I just went out and bought a cheap, humble little laptop—just barely strong enough to open up Android Studio without freezing. I took a deep breath, and I began to code using Flutter.</p>
+        <h2>Stack Decisions</h2>
+        <p>I chose Flutter for the UI layer. Cross-platform reach mattered less than the quality of the widget system — Jetpack Compose was tempting, but Flutter's declarative model and hot-reload cycle made iteration significantly faster during the design phase. For persistence, I used <code>sqflite</code> wrapped behind a repository abstraction, so swapping to Room or another backend later wouldn't require touching the business logic.</p>
 
-<h2>Midnight Oil and Burning Eyes</h2>
-<p>What followed was one month of absolute madness. By day, I was giving my all to the construction site, and by night, I was giving my soul to that glowing screen. I coded for heavy, endless hours. I worked on it until I felt like I was going blind, squinting at lines of code while the rest of the world was fast asleep.</p>
+        <p>State management went through a few iterations. I started with <code>setState</code> for speed, then migrated the earnings flow to a <code>ChangeNotifier</code> + <code>Provider</code> pattern once the widget tree grew deep enough that prop-drilling became painful. Not the flashiest architecture, but pragmatic and easy to reason about at 1am after a long shift.</p>
 
-<p>At first, it was just a secret project for myself, just a personal tool to keep my own records straight. But as the nights went on, I couldn't stop. I kept implementing a new feature here, a little tweak there. Before I knew it, the app had become something really neat. It was simple, it was clear, and yet, it was incredibly powerful.</p>
+        <h2>The Hard Parts</h2>
+        <p>The trickiest engineering challenge was the tax calculation engine. Different regions apply deductions differently — flat rates, progressive brackets, employer-side contributions. I abstracted this into a <code>TaxStrategy</code> interface with pluggable implementations, which made testing each variant in isolation clean and gave a clear extension point for adding new regions later.</p>
 
-<h2>Sharing the Spark</h2>
-<p>Sitting there in the dark, rubbing my tired eyes, it suddenly hit me: Maybe I’m not the only one. Maybe someone else out there is looking for an app exactly like this.</p>
+        <blockquote>"The trickiest part wasn't the math — it was making the math feel invisible to the user."</blockquote>
 
-<p>I'm not expecting this app to miraculously change my life or hand me a brighter future on a silver platter. At the end of the day, it's just a really nice, practical tool. I'm already profiting from using it in my own daily routine, and I realized that maybe someone else working hard out there could benefit from it, too.</p>
+        <p>UI polish consumed more time than expected. Material You's dynamic color system is genuinely powerful, but getting tonal surface containers to maintain contrast across both light and dark themes — especially with the palette randomizer — required careful use of <code>on-primary-container</code> and <code>surface-container-high</code> tokens rather than hardcoded hex values. A lesson I'll carry into every future project.</p>
 
-<p>To this day, no one truly knows just how happy I am that I finally took the leap. That guy who was too scared to try, who doubted his own abilities? He finally built something with his own two hands.</p>
+        <h2>Shipping It</h2>
+        <p>The Play Store pipeline was its own mini-project: generating a signed release build, writing the store listing, crafting screenshots that communicated value at a glance, and passing the policy review. Total time from first commit to live listing was just under four weeks, built entirely around a full-time day job.</p>
 
-<p>So, my friend, if you ever feel that little spark inside you... don't ignore it. You never know what useful little thing you might end up bringing into the world.</p>
+        <p>PayTrack isn't a moonshot. It's a focused, well-engineered tool that solves one problem exceptionally well. If you work hourly and want clarity on your take-home pay, it does exactly that — nothing more, nothing less. Sometimes that's the hardest thing to build.</p>
       </div>
     </article>  
 

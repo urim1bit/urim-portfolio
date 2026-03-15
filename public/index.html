@@ -249,7 +249,7 @@
           </div>
           <div class="grid">
             <div class="tilt-card">
-              <div class="app-icon" style="background: #FFD4D4; color: #B3261E;"><span class="material-icons-round">edit_note</span></div>
+              <div class="app-icon" style="background: transparent; padding: 0; overflow: hidden; border-radius: 18px;"><img src="edit_note.svg" alt="PayTrack Icon" style="width:100%;height:100%;object-fit:contain;display:block;"></div>
               <h3>PayTrack</h3>
               <p style="margin: 12px 0 24px; color: var(--md-text-variant);">Log work hours, calculate net earnings, and automate tax deductions instantly. Built for simplicity.</p>
               <div><span class="tag">Flutter</span><span class="tag">Room DB</span><span class="tag">Material 3</span></div>
@@ -296,23 +296,109 @@
         <div class="reveal">
           <div class="section-head"><h2>Insights & Writing</h2></div>
           <div class="grid">
-            <article class="tilt-card blog-card">
-              <div class="blog-img-placeholder"><span class="material-icons-round" style="font-size: 48px">article</span></div>
-              <div class="blog-content">
-                <div class="tag" style="margin: 0 0 12px 0; width: fit-content;">Case Study</div>
-                <h3>The Story Behind PayTrack</h3>
-                <p style="color: var(--md-text-variant); font-size: 0.95rem; margin-top: 8px;">Turning a financial utility idea into a reality through month-long intensive engineering.</p>
-                <a href="article2.html" class="blog-link">Read More <span class="material-icons-round">arrow_forward</span></a>
+            <article class="tilt-card blog-card" style="overflow:hidden; position:relative; min-height: 340px; padding: 0; border: none; background: transparent;">
+              <!-- Animated gradient background -->
+              <div style="position:absolute; inset:0; z-index:0; background: linear-gradient(135deg, var(--md-primary-container) 0%, var(--md-surface-container) 50%, var(--md-primary-container) 100%); overflow:hidden; border-radius: 28px;">
+                <div style="position:absolute; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, var(--md-primary) 0%, transparent 70%); opacity:0.18; top:-40px; right:-40px; animation: orbFloat 6s ease-in-out infinite;"></div>
+                <div style="position:absolute; width:160px; height:160px; border-radius:50%; background:radial-gradient(circle, var(--md-primary) 0%, transparent 70%); opacity:0.12; bottom:20px; left:10px; animation: orbFloat 8s ease-in-out infinite reverse;"></div>
+                <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.07" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="ptgrid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M 32 0 L 0 0 0 32" fill="none" stroke="var(--md-primary)" stroke-width="0.5"/></pattern></defs><rect width="100%" height="100%" fill="url(#ptgrid)"/></svg>
               </div>
+              <!-- Header content -->
+              <div style="position:relative; z-index:1; padding: 28px 28px 0 28px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;">
+                  <div style="display:flex; align-items:center; gap:12px;">
+                    <div style="width:48px; height:48px; border-radius:14px; overflow:hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.4); flex-shrink:0;">
+                      <img src="edit_note.svg" alt="PayTrack" style="width:100%;height:100%;object-fit:contain;display:block;">
+                    </div>
+                    <div>
+                      <div style="font-family:'Outfit',sans-serif; font-weight:800; font-size:1.1rem; color:var(--md-primary); letter-spacing:-0.02em;">PayTrack</div>
+                      <div style="font-size:0.72rem; color:var(--md-text-variant); font-family:'Roboto',sans-serif;">Built from scratch</div>
+                    </div>
+                  </div>
+                  <div style="background:var(--md-surface-container-high); border:1px solid var(--md-outline-variant); color:var(--md-primary); font-size:0.7rem; font-weight:700; padding:4px 10px; border-radius:100px; letter-spacing:0.06em; font-family:'Outfit',sans-serif;">CASE STUDY</div>
+                </div>
+                <h3 style="font-family:'Outfit',sans-serif; font-weight:900; font-size:1.35rem; color:var(--md-on-primary-container); line-height:1.2; margin-bottom:10px; letter-spacing:-0.02em;">Building PayTrack:<br><span style="color:var(--md-primary);">From Idea to Play Store</span></h3>
+                <p style="font-size:0.85rem; color:rgba(255,255,255,0.55); margin-bottom:20px; font-family:'Roboto',sans-serif; line-height:1.5;">Month-long journey: architecture, UI/UX, Room DB, and store listing — all solo.</p>
+              </div>
+              <!-- Build process timeline strip -->
+              <div style="position:relative; z-index:1; padding: 0 28px 22px 28px;">
+                <div style="display:flex; align-items:center; gap:0; position:relative;">
+                  <div class="pt-step" style="animation-delay:0s"><div class="pt-step-dot" style="background:var(--md-primary);"><span class="material-icons-round" style="font-size:13px;color:var(--md-on-primary);">lightbulb</span></div><div class="pt-step-label">Idea</div></div>
+                  <div class="pt-step-line pt-line-fill"></div>
+                  <div class="pt-step" style="animation-delay:0.6s"><div class="pt-step-dot" style="background:var(--md-primary);"><span class="material-icons-round" style="font-size:13px;color:var(--md-on-primary);">architecture</span></div><div class="pt-step-label">Design</div></div>
+                  <div class="pt-step-line pt-line-fill"></div>
+                  <div class="pt-step" style="animation-delay:1.2s"><div class="pt-step-dot" style="background:var(--md-primary);"><span class="material-icons-round" style="font-size:13px;color:var(--md-on-primary);">code</span></div><div class="pt-step-label">Code</div></div>
+                  <div class="pt-step-line pt-line-fill"></div>
+                  <div class="pt-step" style="animation-delay:1.8s"><div class="pt-step-dot" style="background:var(--md-primary);"><span class="material-icons-round" style="font-size:13px;color:var(--md-on-primary);">bug_report</span></div><div class="pt-step-label">Test</div></div>
+                  <div class="pt-step-line pt-line-fill"></div>
+                  <div class="pt-step" style="animation-delay:2.4s"><div class="pt-step-dot" style="background:var(--md-on-primary-container); box-shadow:0 0 12px var(--md-primary);"><span class="material-icons-round" style="font-size:13px;color:var(--md-primary-container);">rocket_launch</span></div><div class="pt-step-label" style="color:var(--md-primary); font-weight:700;">Live</div></div>
+                </div>
+              </div>
+              <!-- Footer link -->
+              <div style="position:relative;z-index:1;padding:0 28px 24px 28px;">
+                <a href="article2.html" style="display:inline-flex;align-items:center;gap:6px;color:var(--md-primary);text-decoration:none;font-weight:700;font-size:0.9rem;font-family:'Outfit',sans-serif;" onmouseover="this.style.gap='10px'" onmouseout="this.style.gap='6px'">
+                  Read the Full Story <span class="material-icons-round" style="font-size:18px;">arrow_forward</span>
+                </a>
+              </div>
+              <style>
+                @keyframes orbFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+                @keyframes stepPop { 0%{opacity:0;transform:scale(0.5)} 80%{transform:scale(1.15)} 100%{opacity:1;transform:scale(1)} }
+                @keyframes lineFill { 0%{width:0;opacity:0} 100%{width:100%;opacity:1} }
+                .pt-step { display:flex;flex-direction:column;align-items:center;gap:5px;flex-shrink:0;opacity:0;animation:stepPop 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+                .pt-step-dot { width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+                .pt-step-label { font-size:0.65rem;color:rgba(255,255,255,0.55);font-family:'Roboto',sans-serif;white-space:nowrap; }
+                .pt-step-line { flex:1;height:2px;background:var(--md-outline-variant);position:relative;overflow:hidden;margin-bottom:20px; }
+                .pt-line-fill::after { content:'';position:absolute;inset:0;background:var(--md-primary);width:0;opacity:0;animation:lineFill 0.4s ease forwards; }
+                .pt-line-fill:nth-of-type(2)::after{animation-delay:0.45s}
+                .pt-line-fill:nth-of-type(4)::after{animation-delay:1.05s}
+                .pt-line-fill:nth-of-type(6)::after{animation-delay:1.65s}
+                .pt-line-fill:nth-of-type(8)::after{animation-delay:2.25s}
+              </style>
             </article>
-            <article class="tilt-card blog-card">
-              <div class="blog-img-placeholder"><span class="material-icons-round" style="font-size: 48px">palette</span></div>
-              <div class="blog-content">
-                <div class="tag" style="margin: 0 0 12px 0; width: fit-content;">UI/UX</div>
-                <h3>Material You in Android 16</h3>
-                <p style="color: var(--md-text-variant); font-size: 0.95rem; margin-top: 8px;">Exploring the future of dynamic color palettes and adaptive mobile interfaces.</p>
-                <a href="article.html" class="blog-link">Read More <span class="material-icons-round">arrow_forward</span></a>
+            <article class="tilt-card blog-card" style="overflow:hidden; position:relative; min-height: 340px; padding: 0; border: none; background: transparent;">
+              <div style="position:absolute; inset:0; z-index:0; background: linear-gradient(135deg, var(--md-primary-container) 0%, var(--md-surface-container) 50%, var(--md-primary-container) 100%); overflow:hidden; border-radius: 28px;">
+                <div style="position:absolute; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, var(--md-primary) 0%, transparent 70%); opacity:0.18; top:-40px; left:-40px; animation: orbFloat 7s ease-in-out infinite;"></div>
+                <div style="position:absolute; width:160px; height:160px; border-radius:50%; background:radial-gradient(circle, var(--md-primary) 0%, transparent 70%); opacity:0.12; bottom:20px; right:10px; animation: orbFloat 9s ease-in-out infinite reverse;"></div>
+                <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.07" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="muygrid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M 32 0 L 0 0 0 32" fill="none" stroke="var(--md-primary)" stroke-width="0.5"/></pattern></defs><rect width="100%" height="100%" fill="url(#muygrid)"/></svg>
               </div>
+              <div style="position:relative; z-index:1; padding: 28px 28px 0 28px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;">
+                  <div style="display:flex; align-items:center; gap:12px;">
+                    <div style="width:48px; height:48px; border-radius:14px; background:var(--md-surface-container-high); display:flex; align-items:center; justify-content:center; box-shadow: 0 4px 16px rgba(0,0,0,0.15); flex-shrink:0;">
+                      <span class="material-icons-round" style="font-size:26px; color:var(--md-primary);">palette</span>
+                    </div>
+                    <div>
+                      <div style="font-family:'Outfit',sans-serif; font-weight:800; font-size:1.1rem; color:var(--md-primary); letter-spacing:-0.02em;">Material You</div>
+                      <div style="font-size:0.72rem; color:var(--md-text-variant); font-family:'Roboto',sans-serif;">Android 16</div>
+                    </div>
+                  </div>
+                  <div style="background:var(--md-surface-container-high); border:1px solid var(--md-outline-variant); color:var(--md-primary); font-size:0.7rem; font-weight:700; padding:4px 10px; border-radius:100px; letter-spacing:0.06em; font-family:'Outfit',sans-serif;">UI/UX</div>
+                </div>
+                <h3 style="font-family:'Outfit',sans-serif; font-weight:900; font-size:1.35rem; color:var(--md-on-primary-container); line-height:1.2; margin-bottom:10px; letter-spacing:-0.02em;">Material You<br><span style="color:var(--md-primary);">in Android 16</span></h3>
+                <p style="font-size:0.85rem; color:var(--md-text-variant); margin-bottom:20px; font-family:'Roboto',sans-serif; line-height:1.5;">Exploring the future of dynamic color palettes and adaptive mobile interfaces.</p>
+              </div>
+              <div style="position:relative; z-index:1; padding: 0 28px 22px 28px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <div class="mu-swatch" style="animation-delay:0s; background:var(--md-primary);"></div>
+                  <div class="mu-swatch" style="animation-delay:0.15s; background:var(--md-primary-container);"></div>
+                  <div class="mu-swatch" style="animation-delay:0.3s; background:var(--md-on-primary-container);"></div>
+                  <div class="mu-swatch" style="animation-delay:0.45s; background:var(--md-secondary-container);"></div>
+                  <div class="mu-swatch" style="animation-delay:0.6s; background:var(--md-surface-container-high);"></div>
+                  <div class="mu-swatch mu-swatch-wide" style="animation-delay:0.75s; background:var(--md-outline-variant); display:flex; align-items:center; justify-content:center;">
+                    <span class="material-icons-round" style="font-size:14px; color:var(--md-primary);">auto_awesome</span>
+                  </div>
+                </div>
+              </div>
+              <div style="position:relative;z-index:1;padding:0 28px 24px 28px;">
+                <a href="article.html" style="display:inline-flex;align-items:center;gap:6px;color:var(--md-primary);text-decoration:none;font-weight:700;font-size:0.9rem;font-family:'Outfit',sans-serif;" onmouseover="this.style.gap='10px'" onmouseout="this.style.gap='6px'">
+                  Read the Full Story <span class="material-icons-round" style="font-size:18px;">arrow_forward</span>
+                </a>
+              </div>
+              <style>
+                .mu-swatch { width:36px; height:36px; border-radius:10px; opacity:0; animation: swatchPop 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards; flex-shrink:0; }
+                .mu-swatch-wide { width:52px; }
+                @keyframes swatchPop { 0%{opacity:0;transform:scale(0.5) rotate(-10deg)} 80%{transform:scale(1.1) rotate(2deg)} 100%{opacity:1;transform:scale(1) rotate(0deg)} }
+              </style>
             </article>
           </div>
         </div>
