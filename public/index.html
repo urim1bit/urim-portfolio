@@ -504,5 +504,408 @@
       setTimeout(() => this.innerHTML = original, 2000);
     });
   </script>
+<script>
+// ─── TERMINAL EASTER EGG ───
+// Inject this <script> block just before </body> in your index.html
+
+(function () {
+  // ── Trigger: press T three times within 1.5s ──
+  let tCount = 0, tTimer = null;
+  document.addEventListener('keydown', (e) => {
+    if (e.key.toLowerCase() !== 't' || e.ctrlKey || e.metaKey || e.altKey) return;
+    if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
+    tCount++;
+    clearTimeout(tTimer);
+    tTimer = setTimeout(() => tCount = 0, 1500);
+    if (tCount >= 3) { tCount = 0; openTerminal(); }
+  });
+
+  // ── Commands ──
+  const COMMANDS = {
+    help: () => `<span class="t-dim">Available commands:</span>
+  <span class="t-primary">about</span>       — who am i
+  <span class="t-primary">skills</span>      — tech stack
+  <span class="t-primary">projects</span>    — what i've shipped
+  <span class="t-primary">contact</span>     — get in touch
+  <span class="t-primary">paytrack</span>    — tell me about the app
+  <span class="t-primary">sudo</span>        — i dare you
+  <span class="t-primary">matrix</span>      — 👀
+  <span class="t-primary">coffee</span>      — fuel source
+  <span class="t-primary">clear</span>       — clear terminal
+  <span class="t-primary">exit</span>        — close terminal`,
+
+    about: () => `<span class="t-primary">Urim Mustafa</span> — Android & Flutter Developer
+Based in <span class="t-accent">Malta 🇲🇹</span>
+Obsessed with clean architecture, Material You, and shipping things that actually work.
+Currently: building apps that solve real problems.`,
+
+    skills: () => `<span class="t-dim">── Languages ──</span>
+  Kotlin · Dart · JavaScript · HTML/CSS
+
+<span class="t-dim">── Android ──</span>
+  Jetpack Compose · Room · Coroutines · Material You
+
+<span class="t-dim">── Backend ──</span>
+  Node.js · Express · Firebase
+
+<span class="t-dim">── Tools ──</span>
+  Android Studio · Git · Railway · Figma`,
+
+    projects: () => `<span class="t-primary">PayTrack</span> <span class="t-dim">— Android App</span>
+  Malta-specific pay & tax tracker
+  SSC/NI engine · Shift logging · PDF exports
+  <a href="/paytrack" class="t-link">→ mustafaurim.dev/paytrack</a>
+
+<span class="t-dim">More projects coming soon...</span>`,
+
+    contact: () => `<span class="t-dim">Reach me at:</span>
+  <span class="t-primary">dev.paytrack<!-- -->@gmail.com</span>
+  <a href="https://mustafaurim.dev" class="t-link">mustafaurim.dev</a>`,
+
+    paytrack: () => `<span class="t-primary">PayTrack</span> — the app that started it all.
+
+Built because spreadsheets are terrible and generic finance apps
+don't understand Malta's SSC/NI system.
+
+Features: one-tap shifts · tax engine · deduction breakdown
+         leave tracker · PDF/Excel export · PIN lock
+         Google Drive backup · global mode
+
+<a href="https://play.google.com/store/apps/details?id=com.urim.paytrack" class="t-link">→ Get it on Google Play</a>`,
+
+    sudo: () => `<span class="t-error">sudo: Permission denied.</span>
+<span class="t-dim">Nice try though. 👀</span>`,
+
+    matrix: () => {
+      startMatrix();
+      return `<span class="t-primary">Initiating... follow the white rabbit. 🐇</span>
+<span class="t-dim">(press any key to stop)</span>`;
+    },
+
+    coffee: () => `<span class="t-primary">☕ Current fuel status:</span>
+  Cups today:    <span class="t-accent">████████░░</span> 4/5
+  Focus level:   <span class="t-accent">███████░░░</span> 70%
+  Bug squashing: <span class="t-accent">█████████░</span> 90%
+
+<span class="t-dim">Warning: Low on coffee. Productivity may decrease.</span>`,
+
+    clear: () => { clearOutput(); return null; },
+    exit: () => { closeTerminal(); return null; },
+
+    // ── Easter eggs within easter eggs ──
+    urim: () => `<span class="t-primary">Hey, that's me!</span> 👋
+<span class="t-dim">How did you know my name?</span>`,
+
+    malta: () => `🇲🇹 <span class="t-primary">Beautiful island. Terrible traffic.</span>
+Population: ~500,000
+Developers who built PayTrack here: <span class="t-accent">1</span>`,
+
+    ls: () => `<span class="t-dim">drwxr-xr-x</span>  index.html  paytrack.html  story.html
+<span class="t-dim">drwxr-xr-x</span>  materialyou.html  privacy.html
+<span class="t-dim">-rw-r--r--</span>  secrets.txt  <span class="t-error">← access denied</span>`,
+
+    'cat secrets.txt': () => `<span class="t-error">cat: secrets.txt: Permission denied</span>
+<span class="t-dim">Some things are better left unknown. 🤫</span>`,
+
+    hack: () => `<span class="t-primary">Initialising hack sequence...</span>
+<span class="t-dim">Just kidding. This is a portfolio, not Mr. Robot.</span>`,
+
+    whoami: () => `<span class="t-primary">visitor</span>
+<span class="t-dim">You found the secret terminal. That makes you curious — I like that.</span>`,
+
+    date: () => `<span class="t-primary">${new Date().toDateString()}</span> — another day of shipping code`,
+
+    pwd: () => `<span class="t-primary">/home/urim/portfolio</span>`,
+
+    vim: () => `<span class="t-error">You've opened vim.</span>
+<span class="t-dim">Good luck getting out. (hint: :q!)</span>`,
+
+    ':q!': () => `<span class="t-primary">Exited vim successfully.</span> <span class="t-dim">You're one of the chosen ones.</span>`,
+
+    konami: () => `<span class="t-primary">↑ ↑ ↓ ↓ ← → ← → B A</span>
+<span class="t-accent">+30 lives granted. Unfortunately this isn't a game.</span>`,
+  };
+
+  // ── Build DOM ──
+  function buildTerminal() {
+    const overlay = document.createElement('div');
+    overlay.id = 'urim-terminal';
+    overlay.innerHTML = `
+      <div class="t-backdrop"></div>
+      <div class="t-window">
+        <div class="t-titlebar">
+          <div class="t-dots">
+            <span class="t-dot t-dot-close" id="t-close-btn"></span>
+            <span class="t-dot t-dot-min"></span>
+            <span class="t-dot t-dot-max"></span>
+          </div>
+          <span class="t-title">urim@portfolio ~ terminal</span>
+          <span></span>
+        </div>
+        <div class="t-body" id="t-body">
+          <div class="t-output" id="t-output"></div>
+          <div class="t-input-row">
+            <span class="t-prompt">urim@portfolio:~$</span>
+            <input class="t-input" id="t-input" autocomplete="off" spellcheck="false" autofocus />
+          </div>
+        </div>
+      </div>`;
+
+    // Styles
+    const style = document.createElement('style');
+    style.textContent = `
+      #urim-terminal {
+        position: fixed; inset: 0; z-index: 99999;
+        display: flex; align-items: center; justify-content: center;
+        opacity: 0; transition: opacity 0.25s ease;
+        pointer-events: none;
+        font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+      }
+      #urim-terminal.t-open { opacity: 1; pointer-events: all; }
+      .t-backdrop {
+        position: absolute; inset: 0;
+        background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(8px);
+      }
+      .t-window {
+        position: relative; z-index: 1;
+        width: min(720px, 94vw);
+        max-height: 80vh;
+        background: var(--md-surface, #191D19);
+        border: 1px solid var(--md-outline-variant, #414941);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+        display: flex; flex-direction: column;
+        transform: scale(0.94) translateY(16px);
+        transition: transform 0.3s cubic-bezier(0.2,0,0,1);
+      }
+      #urim-terminal.t-open .t-window {
+        transform: scale(1) translateY(0);
+      }
+      .t-titlebar {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 12px 16px;
+        background: var(--md-surface-container, #262B25);
+        border-bottom: 1px solid var(--md-outline-variant, #414941);
+        user-select: none;
+      }
+      .t-dots { display: flex; gap: 8px; align-items: center; }
+      .t-dot {
+        width: 12px; height: 12px; border-radius: 50%; cursor: pointer;
+        transition: opacity 0.15s;
+      }
+      .t-dot:hover { opacity: 0.75; }
+      .t-dot-close { background: #FF5F57; }
+      .t-dot-min   { background: #FFBD2E; }
+      .t-dot-max   { background: #28CA41; }
+      .t-title {
+        font-size: 13px;
+        color: var(--md-text-variant, #C1C9BE);
+        letter-spacing: 0.02em;
+      }
+      .t-body {
+        flex: 1; overflow-y: auto; padding: 20px;
+        display: flex; flex-direction: column; gap: 8px;
+        min-height: 300px; max-height: calc(80vh - 48px);
+      }
+      .t-body::-webkit-scrollbar { width: 4px; }
+      .t-body::-webkit-scrollbar-track { background: transparent; }
+      .t-body::-webkit-scrollbar-thumb { background: var(--md-outline-variant, #414941); border-radius: 2px; }
+      .t-output { display: flex; flex-direction: column; gap: 6px; }
+      .t-line { font-size: 14px; line-height: 1.6; white-space: pre-wrap; word-break: break-word; }
+      .t-input-row {
+        display: flex; align-items: center; gap: 10px; margin-top: 4px;
+      }
+      .t-prompt {
+        font-size: 14px; white-space: nowrap;
+        color: var(--md-primary, #89D998);
+        font-weight: 600;
+      }
+      .t-input {
+        flex: 1; background: transparent; border: none; outline: none;
+        font-family: inherit; font-size: 14px; caret-color: var(--md-primary, #89D998);
+        color: var(--md-text, #E0E4DE);
+      }
+      .t-primary { color: var(--md-primary, #89D998); }
+      .t-accent   { color: #7AABFF; }
+      .t-dim      { color: var(--md-text-variant, #8A9DC8); }
+      .t-error    { color: #FF5F57; }
+      .t-link     { color: var(--md-primary, #89D998); text-decoration: underline; cursor: pointer; }
+      .t-cmd-echo { color: var(--md-text, #E0E4DE); }
+      .t-welcome  { color: var(--md-primary, #89D998); }
+
+      /* Matrix canvas */
+      #t-matrix-canvas {
+        position: fixed; inset: 0; z-index: 99998;
+        pointer-events: all;
+      }
+
+      @media (max-width: 600px) {
+        .t-window { border-radius: 12px; }
+        .t-title  { font-size: 11px; }
+        .t-line, .t-input, .t-prompt { font-size: 12px; }
+      }
+    `;
+
+    document.head.appendChild(style);
+    document.body.appendChild(overlay);
+
+    // Events
+    overlay.querySelector('#t-close-btn').addEventListener('click', closeTerminal);
+    overlay.querySelector('.t-backdrop').addEventListener('click', closeTerminal);
+
+    const input = overlay.querySelector('#t-input');
+    let history = [], histIdx = -1;
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const val = input.value.trim();
+        input.value = '';
+        histIdx = -1;
+        if (val) { history.unshift(val); processCommand(val); }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (histIdx < history.length - 1) { histIdx++; input.value = history[histIdx]; }
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (histIdx > 0) { histIdx--; input.value = history[histIdx]; }
+        else { histIdx = -1; input.value = ''; }
+      } else if (e.key === 'Escape') {
+        closeTerminal();
+      } else if (e.key === 'Tab') {
+        e.preventDefault();
+        autocomplete(input);
+      }
+    });
+
+    // Autocomplete
+    function autocomplete(inp) {
+      const val = inp.value.toLowerCase();
+      if (!val) return;
+      const match = Object.keys(COMMANDS).find(k => k.startsWith(val) && k !== val);
+      if (match) inp.value = match;
+    }
+
+    return overlay;
+  }
+
+  let terminal = null;
+
+  function openTerminal() {
+    if (!terminal) terminal = buildTerminal();
+    terminal.classList.add('t-open');
+    printWelcome();
+    setTimeout(() => document.getElementById('t-input')?.focus(), 50);
+  }
+
+  function closeTerminal() {
+    if (!terminal) return;
+    terminal.classList.remove('t-open');
+    stopMatrix();
+  }
+
+  function clearOutput() {
+    const out = document.getElementById('t-output');
+    if (out) out.innerHTML = '';
+  }
+
+  function printWelcome() {
+    const out = document.getElementById('t-output');
+    if (!out || out.innerHTML) return;
+    appendLine(`<span class="t-welcome">╔══════════════════════════════════════╗
+║   Welcome to urim's secret terminal  ║
+║   You found it. Impressive. 🎉        ║
+╚══════════════════════════════════════╝</span>`, false);
+    appendLine(`<span class="t-dim">Type <span class="t-primary">help</span> to see available commands. Tab to autocomplete.</span>`, false);
+    appendLine('', false);
+  }
+
+  function appendLine(html, withPrompt = true, cmdText = '') {
+    const out = document.getElementById('t-output');
+    if (!out) return;
+    if (withPrompt && cmdText) {
+      const echo = document.createElement('div');
+      echo.className = 't-line';
+      echo.innerHTML = `<span class="t-prompt">urim@portfolio:~$</span> <span class="t-cmd-echo">${escapeHtml(cmdText)}</span>`;
+      out.appendChild(echo);
+    }
+    if (html !== null) {
+      const line = document.createElement('div');
+      line.className = 't-line';
+      line.innerHTML = html;
+      out.appendChild(line);
+    }
+    // Scroll to bottom
+    const body = document.getElementById('t-body');
+    if (body) body.scrollTop = body.scrollHeight;
+  }
+
+  function processCommand(cmd) {
+    const lower = cmd.toLowerCase().trim();
+    const handler = COMMANDS[lower];
+    if (handler) {
+      const result = handler();
+      if (result !== null) appendLine(result, true, cmd);
+    } else {
+      appendLine(`<span class="t-error">command not found: ${escapeHtml(cmd)}</span>\n<span class="t-dim">Type <span class="t-primary">help</span> for available commands.</span>`, true, cmd);
+    }
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  // ── Matrix effect ──
+  let matrixAnim = null, matrixCanvas = null;
+
+  function startMatrix() {
+    stopMatrix();
+    matrixCanvas = document.createElement('canvas');
+    matrixCanvas.id = 't-matrix-canvas';
+    document.body.appendChild(matrixCanvas);
+
+    const ctx = matrixCanvas.getContext('2d');
+    matrixCanvas.width = window.innerWidth;
+    matrixCanvas.height = window.innerHeight;
+
+    const cols = Math.floor(matrixCanvas.width / 16);
+    const drops = Array(cols).fill(1);
+    const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノABCDEFGHIJKLM0123456789';
+
+    function draw() {
+      ctx.fillStyle = 'rgba(0,0,0,0.05)';
+      ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+      ctx.fillStyle = getComputedStyle(document.documentElement)
+        .getPropertyValue('--md-primary').trim() || '#89D998';
+      ctx.font = '15px monospace';
+      drops.forEach((y, i) => {
+        const char = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(char, i * 16, y * 16);
+        if (y * 16 > matrixCanvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      });
+    }
+
+    matrixAnim = setInterval(draw, 50);
+
+    // Stop on any key
+    function stopOnKey() {
+      stopMatrix();
+      document.removeEventListener('keydown', stopOnKey);
+      matrixCanvas?.removeEventListener('click', stopOnKey);
+    }
+    document.addEventListener('keydown', stopOnKey);
+    matrixCanvas.addEventListener('click', stopOnKey);
+  }
+
+  function stopMatrix() {
+    if (matrixAnim) { clearInterval(matrixAnim); matrixAnim = null; }
+    if (matrixCanvas) { matrixCanvas.remove(); matrixCanvas = null; }
+  }
+
+})();
+
+</script>
 </body>
 </html>
