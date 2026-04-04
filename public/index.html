@@ -958,27 +958,32 @@ Developers who built PayTrack here: <span class="t-accent">1</span>`,
 
 </script>
 <script>
-
-  // ─── 3D GLOBE ───
-  (function() {
+(function() {
+  function initGlobe() {
     const canvas = document.getElementById('globe-canvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     const tooltip = document.getElementById('globe-tooltip');
-    let W = canvas.width, H = canvas.height;
-    const R = W * 0.42;
-    let rotX = 0.3, rotY = 0;
+
+    // Use actual pixel dimensions
+    const SIZE = 600;
+    canvas.width = SIZE;
+    canvas.height = SIZE;
+    const W = SIZE, H = SIZE;
+    const R = SIZE * 0.42;
+
+    let rotX = 0.3, rotY = 0.5;
     let dragging = false, lastX = 0, lastY = 0;
     let autoRotate = true;
     let visitors = [];
     let dots = [];
 
-    function buildDots() {
-      dots = [];
-      for (let lat = -90; lat <= 90; lat += 5) {
-        for (let lon = -180; lon <= 180; lon += 5) {
-          dots.push({ lat: lat * Math.PI / 180, lon: lon * Math.PI / 180 });
-        }
+    // Build sphere dot grid
+    for (let lat = -85; lat <= 85; lat += 6) {
+      const count = Math.floor(Math.cos(lat * Math.PI / 180) * 60);
+      for (let i = 0; i < count; i++) {
+        const lon = (i / count) * 360 - 180;
+        dots.push({ lat: lat * Math.PI / 180, lon: lon * Math.PI / 180 });
       }
     }
 
@@ -992,109 +997,174 @@ Developers who built PayTrack here: <span class="t-accent">1</span>`,
       const z2 = x3 * sinY + z3 * cosY;
       const y2 = y3 * cosX - z2 * sinX;
       const z1 = y3 * sinX + z2 * cosX;
-      return { x: W/2 + x2 * R, y: H/2 - y2 * R, z: z1, visible: z1 > -0.1 };
-    }
-
-    function latLonToRad(lat, lon) {
-      return { lat: lat * Math.PI / 180, lon: lon * Math.PI / 180 };
+      return { x: W/2 + x2*R, y: H/2 - y2*R, z: z1, visible: z1 > 0 };
     }
 
     function draw() {
       ctx.clearRect(0, 0, W, H);
-      // Shadow
-      const shadowGrad = ctx.createRadialGradient(W/2+R*0.15,H/2+R*0.15,R*0.1,W/2+R*0.15,H/2+R*0.15,R*1.2);
-      shadowGrad.addColorStop(0,'rgba(0,0,0,0.3)');
-      shadowGrad.addColorStop(1,'rgba(0,0,0,0)');
-      ctx.fillStyle = shadowGrad;
-      ctx.beginPath(); ctx.ellipse(W/2+R*0.1,H/2+R*0.15,R*1.1,R*0.4,0,0,Math.PI*2); ctx.fill();
-      // Globe base
-      const grad = ctx.createRadialGradient(W/2-R*0.3,H/2-R*0.3,R*0.1,W/2,H/2,R);
-      grad.addColorStop(0,'#1a2535'); grad.addColorStop(0.5,'#0d1520'); grad.addColorStop(1,'#060c14');
-      ctx.beginPath(); ctx.arc(W/2,H/2,R,0,Math.PI*2); ctx.fillStyle=grad; ctx.fill();
-      // Grid dots
-      dots.forEach(d => {
+
+      // Outer glow
+      const glow = ctx.createRadialGradient(W/2, H/2, R*0.8, W/2, H/2, R*1.15);
+      glow.addColorStop(0, 'rgba(25,109,51,0)');
+      glow.addColorStop(0.6, 'rgba(25,109,51,0.06)');
+      glow.addColorStop(1, 'rgba(137,217,152,0.18)');
+      ctx.beginPath(); ctx.arc(W/2, H/2, R*1.15, 0, Math.PI*2);
+      ctx.fillStyle = glow; ctx.fill();
+
+      // Globe body
+      const globe = ctx.createRadialGradient(W/2-R*0.25, H/2-R*0.25, R*0.05, W/2, H/2, R);
+      globe.addColorStop(0, '#1e2d3d');
+      globe.addColorStop(0.4, '#0f1e2d');
+      globe.addColorStop(1, '#050d18');
+      ctx.beginPath(); ctx.arc(W/2, H/2, R, 0, Math.PI*2);
+      ctx.fillStyle = globe; ctx.fill();
+
+      // Grid dots (back hemisphere first)
+      dots.filter(d => !project(d.lat, d.lon).visible).forEach(d => {
         const p = project(d.lat, d.lon);
-        if (!p.visible) return;
-        ctx.beginPath(); ctx.arc(p.x,p.y,1.2,0,Math.PI*2);
-        ctx.fillStyle = `rgba(137,217,152,${(0.06 + p.z * 0.14).toFixed(2)})`; ctx.fill();
+        ctx.beginPath(); ctx.arc(p.x, p.y, 1, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(100,160,130,0.06)'; ctx.fill();
       });
-      // Atmosphere
-      const atmo = ctx.createRadialGradient(W/2,H/2,R*0.85,W/2,H/2,R*1.05);
-      atmo.addColorStop(0,'rgba(137,217,152,0)'); atmo.addColorStop(0.7,'rgba(137,217,152,0.04)'); atmo.addColorStop(1,'rgba(137,217,152,0.14)');
-      ctx.beginPath(); ctx.arc(W/2,H/2,R*1.05,0,Math.PI*2); ctx.fillStyle=atmo; ctx.fill();
-      // Clip for visitor pins
+      // Front hemisphere dots
+      dots.filter(d => project(d.lat, d.lon).visible).forEach(d => {
+        const p = project(d.lat, d.lon);
+        const alpha = 0.05 + p.z * 0.2;
+        ctx.beginPath(); ctx.arc(p.x, p.y, 1.3, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(137,217,152,${alpha.toFixed(2)})`; ctx.fill();
+      });
+
+      // Visitor pins (clipped)
       ctx.save();
-      ctx.beginPath(); ctx.arc(W/2,H/2,R,0,Math.PI*2); ctx.clip();
+      ctx.beginPath(); ctx.arc(W/2, H/2, R, 0, Math.PI*2); ctx.clip();
       visitors.forEach(v => {
-        const rad = latLonToRad(v.lat, v.lng);
+        const rad = { lat: v.lat * Math.PI/180, lon: v.lng * Math.PI/180 };
         const p = project(rad.lat, rad.lon);
         if (!p.visible) return;
-        const pulse = 6 + Math.sin(Date.now()/600 + v.lat) * 3;
-        const ring = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,pulse*2);
-        ring.addColorStop(0,'rgba(137,217,152,0.5)'); ring.addColorStop(1,'rgba(137,217,152,0)');
-        ctx.beginPath(); ctx.arc(p.x,p.y,pulse*2,0,Math.PI*2); ctx.fillStyle=ring; ctx.fill();
-        ctx.beginPath(); ctx.arc(p.x,p.y,4,0,Math.PI*2);
-        ctx.fillStyle='#89D998'; ctx.shadowBlur=12; ctx.shadowColor='#89D998'; ctx.fill(); ctx.shadowBlur=0;
-        v._px=p.x; v._py=p.y; v._vis=true;
+        v._px = p.x; v._py = p.y; v._vis = true;
+        // Pulse ring
+        const t = (Date.now() / 800 + v.lat * 0.1) % (Math.PI * 2);
+        const pulse = 5 + Math.sin(t) * 3;
+        const ring = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, pulse * 3);
+        ring.addColorStop(0, 'rgba(137,217,152,0.7)');
+        ring.addColorStop(1, 'rgba(137,217,152,0)');
+        ctx.beginPath(); ctx.arc(p.x, p.y, pulse*3, 0, Math.PI*2);
+        ctx.fillStyle = ring; ctx.fill();
+        // Core
+        ctx.beginPath(); ctx.arc(p.x, p.y, 4.5, 0, Math.PI*2);
+        ctx.fillStyle = '#89D998';
+        ctx.shadowBlur = 14; ctx.shadowColor = '#89D998';
+        ctx.fill(); ctx.shadowBlur = 0;
       });
       ctx.restore();
-      // Specular
-      const spec = ctx.createRadialGradient(W/2-R*0.35,H/2-R*0.35,0,W/2-R*0.2,H/2-R*0.2,R*0.6);
-      spec.addColorStop(0,'rgba(255,255,255,0.08)'); spec.addColorStop(1,'rgba(255,255,255,0)');
-      ctx.beginPath(); ctx.arc(W/2,H/2,R,0,Math.PI*2); ctx.fillStyle=spec; ctx.fill();
-      // Country labels on visible pins
+
+      // Labels for front-facing pins
       visitors.forEach(v => {
-        if (!v._vis) return;
-        const rad = latLonToRad(v.lat, v.lng);
+        if (!v._vis || !v._px) return;
+        const rad = { lat: v.lat * Math.PI/180, lon: v.lng * Math.PI/180 };
         const p = project(rad.lat, rad.lon);
-        if (!p.visible || p.z < 0.2) return;
-        ctx.font = '12px Outfit, sans-serif';
-        ctx.fillStyle = 'rgba(255,255,255,0.85)';
-        ctx.fillText((v.flag||'') + ' ' + (v.city || v.country || ''), p.x + 8, p.y - 6);
+        if (!p.visible || p.z < 0.25) return;
+        ctx.font = '600 11px Outfit, sans-serif';
+        ctx.fillStyle = 'rgba(255,255,255,0.9)';
+        ctx.shadowBlur = 4; ctx.shadowColor = 'rgba(0,0,0,0.8)';
+        ctx.fillText((v.flag || '') + ' ' + (v.city || v.country || ''), p.x + 8, p.y - 6);
+        ctx.shadowBlur = 0;
       });
+
+      // Specular highlight
+      const spec = ctx.createRadialGradient(W/2-R*0.3, H/2-R*0.32, 0, W/2-R*0.15, H/2-R*0.15, R*0.55);
+      spec.addColorStop(0, 'rgba(255,255,255,0.1)');
+      spec.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.beginPath(); ctx.arc(W/2, H/2, R, 0, Math.PI*2);
+      ctx.fillStyle = spec; ctx.fill();
+
+      // Globe border
+      ctx.beginPath(); ctx.arc(W/2, H/2, R, 0, Math.PI*2);
+      ctx.strokeStyle = 'rgba(137,217,152,0.15)'; ctx.lineWidth = 1; ctx.stroke();
     }
 
     function animate() {
-      if (autoRotate) rotY += 0.003;
+      if (autoRotate) rotY += 0.004;
       draw();
       requestAnimationFrame(animate);
     }
 
-    // Drag
-    canvas.addEventListener('mousedown', e => { dragging=true; autoRotate=false; lastX=e.clientX; lastY=e.clientY; canvas.style.cursor='grabbing'; });
-    window.addEventListener('mouseup', () => { dragging=false; canvas.style.cursor='grab'; setTimeout(()=>autoRotate=true,2000); });
+    // Mouse drag
+    canvas.addEventListener('mousedown', e => {
+      dragging = true; autoRotate = false;
+      lastX = e.clientX; lastY = e.clientY;
+      canvas.style.cursor = 'grabbing';
+    });
+    window.addEventListener('mouseup', () => {
+      dragging = false; canvas.style.cursor = 'grab';
+      setTimeout(() => autoRotate = true, 3000);
+    });
     window.addEventListener('mousemove', e => {
-      if (!dragging) {
-        const rect = canvas.getBoundingClientRect();
-        const mx=e.clientX-rect.left, my=e.clientY-rect.top;
-        const scaleX=rect.width/W, scaleY=rect.height/H;
-        let hit=null;
-        visitors.forEach(v => { if(!v._vis) return; const dx=(v._px||0)*scaleX-mx, dy=(v._py||0)*scaleY-my; if(Math.sqrt(dx*dx+dy*dy)<14) hit=v; });
-        if (hit) { tooltip.style.display='block'; tooltip.style.left=(e.clientX+14)+'px'; tooltip.style.top=(e.clientY-10)+'px'; tooltip.textContent=(hit.flag||'')+' '+(hit.city?hit.city+', ':')+(hit.country||'Unknown'); }
-        else tooltip.style.display='none';
+      if (dragging) {
+        rotY += (e.clientX - lastX) * 0.006;
+        rotX += (e.clientY - lastY) * 0.006;
+        rotX = Math.max(-Math.PI/2, Math.min(Math.PI/2, rotX));
+        lastX = e.clientX; lastY = e.clientY;
         return;
       }
-      rotY+=(e.clientX-lastX)*0.005; rotX+=(e.clientY-lastY)*0.005;
-      rotX=Math.max(-Math.PI/2,Math.min(Math.PI/2,rotX)); lastX=e.clientX; lastY=e.clientY;
+      // Tooltip
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = W / rect.width, scaleY = H / rect.height;
+      const mx = (e.clientX - rect.left) * scaleX;
+      const my = (e.clientY - rect.top) * scaleY;
+      let hit = null;
+      visitors.forEach(v => {
+        if (!v._vis || !v._px) return;
+        const dx = v._px - mx, dy = v._py - my;
+        if (Math.sqrt(dx*dx + dy*dy) < 16) hit = v;
+      });
+      if (hit) {
+        tooltip.style.display = 'block';
+        tooltip.style.left = (e.clientX + 14) + 'px';
+        tooltip.style.top = (e.clientY - 10) + 'px';
+        tooltip.textContent = (hit.flag || '') + ' ' + (hit.city ? hit.city + ', ' : '') + (hit.country || 'Unknown');
+      } else {
+        tooltip.style.display = 'none';
+      }
     });
-    canvas.addEventListener('touchstart', e=>{dragging=true;autoRotate=false;lastX=e.touches[0].clientX;lastY=e.touches[0].clientY;},{passive:true});
-    window.addEventListener('touchend',()=>{dragging=false;setTimeout(()=>autoRotate=true,2000);});
-    window.addEventListener('touchmove',e=>{if(!dragging)return;rotY+=(e.touches[0].clientX-lastX)*0.005;rotX+=(e.touches[0].clientY-lastY)*0.005;rotX=Math.max(-Math.PI/2,Math.min(Math.PI/2,rotX));lastX=e.touches[0].clientX;lastY=e.touches[0].clientY;},{passive:true});
 
-    // Data
-    fetch('/api/visitor-locations').then(r=>r.json()).then(data=>{
-      visitors=data.locations||[];
-      const count=data.total||0, countries=data.countries||0;
-      const el=document.getElementById('globe-visitor-count');
-      if(el) el.textContent=count.toLocaleString()+' visitors from '+countries+' countries';
-    }).catch(()=>{
-      const el=document.getElementById('globe-visitor-count');
-      if(el) el.textContent='Tracking visitors around the world';
-    });
+    // Touch
+    canvas.addEventListener('touchstart', e => {
+      dragging = true; autoRotate = false;
+      lastX = e.touches[0].clientX; lastY = e.touches[0].clientY;
+    }, {passive: true});
+    window.addEventListener('touchend', () => { dragging = false; setTimeout(() => autoRotate = true, 3000); });
+    window.addEventListener('touchmove', e => {
+      if (!dragging) return;
+      rotY += (e.touches[0].clientX - lastX) * 0.006;
+      rotX += (e.touches[0].clientY - lastY) * 0.006;
+      rotX = Math.max(-Math.PI/2, Math.min(Math.PI/2, rotX));
+      lastX = e.touches[0].clientX; lastY = e.touches[0].clientY;
+    }, {passive: true});
 
-    buildDots(); animate();
-  })();
+    // Fetch visitor locations
+    fetch('/api/visitor-locations')
+      .then(r => r.json())
+      .then(data => {
+        visitors = (data.locations || []).map(v => ({ ...v, _vis: false }));
+        const count = data.total || 0;
+        const countries = data.countries || 0;
+        const el = document.getElementById('globe-visitor-count');
+        if (el) el.textContent = count.toLocaleString() + ' visitors from ' + countries + ' countries';
+      })
+      .catch(() => {
+        const el = document.getElementById('globe-visitor-count');
+        if (el) el.textContent = 'Tracking visitors around the world';
+      });
 
+    animate();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGlobe);
+  } else {
+    initGlobe();
+  }
+})();
 </script>
 <script>
 
