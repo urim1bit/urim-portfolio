@@ -427,10 +427,70 @@
     </div>
 
     <footer>
-      <div class="container" style="text-align: center; padding: 48px; opacity: 0.6; font-size: 0.85rem;">
-        <p>&copy; 2026 mustafaurim.dev. All rights reserved.</p>
+      <div class="container" style="text-align: center; padding: 48px; font-size: 0.85rem;">
+        <p style="opacity: 0.6;">&copy; 2026 mustafaurim.dev. All rights reserved.</p>
+        <div id="visitor-counter" style="
+          display: inline-flex; align-items: center; gap: 10px;
+          margin-top: 20px;
+          padding: 10px 20px;
+          background: var(--md-surface-container);
+          border: 1px solid var(--md-outline-variant);
+          border-radius: 100px;
+          font-family: 'Outfit', sans-serif;
+          font-size: 0.85rem;
+          color: var(--md-text-variant);
+          transition: background var(--transition), border-color var(--transition);
+        ">
+          <span style="
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--md-primary);
+            display: inline-block;
+            box-shadow: 0 0 6px var(--md-primary);
+            animation: pulse-dot 2s infinite;
+          "></span>
+          <span>You are visitor</span>
+          <span id="visitor-count" style="
+            font-weight: 700;
+            color: var(--md-primary);
+            font-size: 1rem;
+            min-width: 2ch;
+            letter-spacing: 0.02em;
+          ">—</span>
+        </div>
       </div>
     </footer>
+
+    <style>
+      @keyframes pulse-dot {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50%       { opacity: 0.5; transform: scale(0.85); }
+      }
+      #visitor-count.t-count-bump {
+        animation: count-bump 0.4s cubic-bezier(0.2, 0, 0, 1);
+      }
+      @keyframes count-bump {
+        0%   { transform: scale(1); }
+        50%  { transform: scale(1.3); color: var(--md-primary); }
+        100% { transform: scale(1); }
+      }
+    </style>
+
+    <script>
+      fetch('/api/visitors', { method: 'POST' })
+        .then(r => r.json())
+        .then(data => {
+          const el = document.getElementById('visitor-count');
+          if (el) {
+            el.textContent = '#' + data.count.toLocaleString();
+            el.classList.add('t-count-bump');
+            setTimeout(() => el.classList.remove('t-count-bump'), 400);
+          }
+        })
+        .catch(() => {
+          const el = document.getElementById('visitor-count');
+          if (el) el.textContent = '#?';
+        });
+    </script>
   </div>
 
   <script>

@@ -1,4 +1,59 @@
-const express = require('express');
+const { Pool } = require('pg');
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }
+});
+
+async function initDB() {
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS visitors (
+      id INTEGER PRIMARY KEY DEFAULT 1,
+      count BIGINT NOT NULL DEFAULT 0,
+      CHECK (id = 1)
+    )
+  `);
+  await pool.query(`
+    INSERT INTO visitors (id, count) VALUES (1, 0)
+    ON CONFLICT (id) DO NOTHING
+  `);
+}
+
+initDB().catch(err => console.error('DB init error:', err));
+
+async function incrementCount() {
+  const result = await pool.query(
+    'UPDATE visitors SET count = count + 1 WHERE id = 1 RETURNING count'
+  );
+  return result.rows[0].count;
+}
+
+async function getCount() {
+  const result = await pool.query('SELECT count FROM visitors WHERE id = 1');
+  return result.rows[0]?.count || 0;
+}
+
+app.post('/api/visitors', async (req, res) => {
+  try {
+    const count = await incrementCount();
+    res.json({ count: Number(count) });
+  } catch (err) {
+    console.error('Visitor increment error:', err);
+    res.status(500).json({ count: 0 });
+  }
+});
+
+app.get('/api/visitors', async (req, res) => {
+  try {
+    const count = await getCount();
+    res.json({ count: Number(count) });
+  } catch (err) {
+    console.error('Visitor get error:', err);
+    res.status(500).json({ count: 0 });
+  }
+});
+
+
 const path = require('path');
 
 const app = express();
