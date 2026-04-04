@@ -4,6 +4,12 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Prevent Cloudflare from modifying HTML responses (disables email obfuscation)
+app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-transform');
+  next();
+});
+
 // Force HTTPS in production
 app.use((req, res, next) => {
   if (req.headers['x-forwarded-proto'] === 'http') {
