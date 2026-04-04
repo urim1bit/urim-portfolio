@@ -8,7 +8,8 @@ const PORT = process.env.PORT || 3000;
 app.use((req, res, next) => {
   if (req.path.endsWith('.html')) {
     const cleanPath = req.path.slice(0, -5); // remove .html
-    return res.redirect(301, cleanPath || '/');
+    const finalPath = cleanPath === '/index' ? '/' : cleanPath;
+    return res.redirect(301, finalPath || '/');
   }
   next();
 });
