@@ -4,6 +4,14 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Force HTTPS in production
+app.use((req, res, next) => {
+  if (req.headers['x-forwarded-proto'] === 'http') {
+    return res.redirect(301, 'https://' + req.headers.host + req.url);
+  }
+  next();
+});
+
 // Redirect any .html requests to clean URLs
 app.use((req, res, next) => {
   if (req.path.endsWith('.html')) {
@@ -38,6 +46,14 @@ app.get('/account-deletion', (req, res) => {
 
 app.get('/materialyou', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'materialyou.html'));
+});
+
+app.get('/sitemap.xml', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'sitemap.xml'));
+});
+
+app.get('/robots.txt', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'robots.txt'));
 });
 
 app.listen(PORT, () => {
