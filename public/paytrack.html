@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
@@ -13,7 +13,8 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
 
   <script>
-    const savedTheme = localStorage.getItem('theme') || 'dark';
+    // Default to light if no preference is saved
+    const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
   </script>
 
@@ -329,8 +330,8 @@
         <li><a href="#download">Download</a></li>
       </ul>
       <div style="display: flex; gap: 8px;">
-        <button class="icon-btn" id="themeToggle" title="Toggle Dark Mode">
-          <span class="material-icons-round" id="themeIcon">light_mode</span>
+        <button class="icon-btn" id="themeToggle" title="Toggle Mode">
+          <span class="material-icons-round" id="themeIcon">dark_mode</span>
         </button>
       </div>
     </nav>
@@ -339,7 +340,6 @@
   <div class="page-wrapper">
     <div class="container">
 
-      <!-- ─── HERO ─── -->
       <section class="hero reveal">
         <a href="index.html" class="back-link">
           <span class="material-icons-round" style="font-size:20px;">arrow_back</span> Back to Portfolio
@@ -359,7 +359,6 @@
         </div>
       </section>
 
-      <!-- ─── STATS ─── -->
       <section class="reveal" style="padding-bottom: 80px;">
         <div class="stats-row">
           <div class="stat-card">
@@ -381,7 +380,6 @@
         </div>
       </section>
 
-      <!-- ─── FEATURES BENTO GRID ─── -->
       <section id="features" class="section">
         <div class="watermark">FEATURES</div>
         <div class="reveal" style="position: relative; z-index: 1;">
@@ -392,7 +390,6 @@
 
           <div class="bento-grid">
 
-            <!-- Shift Logging — WIDE -->
             <div class="bento-cell col-8">
               <div class="cell-tag"><span class="material-icons-round" style="font-size:14px;">timer</span> Core</div>
               <div class="cell-icon"><span class="material-icons-round">schedule</span></div>
@@ -405,7 +402,6 @@
               </ul>
             </div>
 
-            <!-- Malta Tax Engine — NARROW ACCENT -->
             <div class="bento-cell col-4 accent">
               <div class="cell-tag">🇲🇹 Malta</div>
               <div class="cell-icon"><span class="material-icons-round">account_balance</span></div>
@@ -413,7 +409,6 @@
               <div class="cell-body">Built-in SSC (National Insurance) and income tax calculations based on official Malta rates. Supports Single, Married, and Parent filing statuses. Your deductions are always accurate.</div>
             </div>
 
-            <!-- Deduction Breakdown -->
             <div class="bento-cell col-4">
               <div class="cell-tag"><span class="material-icons-round" style="font-size:14px;">receipt_long</span> Deductions</div>
               <div class="cell-icon"><span class="material-icons-round">bar_chart</span></div>
@@ -421,7 +416,6 @@
               <div class="cell-body">See exactly what's deducted — SSC, income tax, and other withholdings — broken down per shift, per week, and per month. No more surprises on payday.</div>
             </div>
 
-            <!-- Visual Earnings Insights -->
             <div class="bento-cell col-8">
               <div class="cell-tag"><span class="material-icons-round" style="font-size:14px;">insights</span> Analytics</div>
               <div class="cell-icon"><span class="material-icons-round">trending_up</span></div>
@@ -434,7 +428,6 @@
               </div>
             </div>
 
-            <!-- Year View & Leave Tracker — FULL WIDTH -->
             <div class="bento-cell col-12" style="background: var(--md-surface-container); border: 1px solid var(--md-outline-variant);">
               <div style="display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap;">
                 <div style="flex: 1; min-width: 220px;">
@@ -452,7 +445,6 @@
               </div>
             </div>
 
-            <!-- PDF/Excel Export -->
             <div class="bento-cell col-6 accent">
               <div class="cell-tag">Export</div>
               <div class="cell-icon"><span class="material-icons-round">file_download</span></div>
@@ -465,7 +457,6 @@
               </div>
             </div>
 
-            <!-- Global Mode -->
             <div class="bento-cell col-6">
               <div class="cell-tag"><span class="material-icons-round" style="font-size:14px;">public</span> Worldwide</div>
               <div class="cell-icon"><span class="material-icons-round">language</span></div>
@@ -477,7 +468,6 @@
         </div>
       </section>
 
-      <!-- ─── PRIVACY SECTION ─── -->
       <section id="privacy" class="section">
         <div class="watermark">PRIVACY</div>
         <div class="reveal" style="position:relative; z-index:1;">
@@ -510,7 +500,6 @@
         </div>
       </section>
 
-      <!-- ─── TECH STACK ─── -->
       <section class="section" style="padding-top: 0;">
         <div class="reveal">
           <div class="section-head">
@@ -530,7 +519,6 @@
         </div>
       </section>
 
-      <!-- ─── CTA / DOWNLOAD ─── -->
       <section id="download" class="section" style="padding-top: 0;">
         <div class="reveal">
           <div class="cta-banner">
@@ -544,7 +532,7 @@
                    class="btn" style="background: var(--signal-gradient); color: #FFFFFF; box-shadow: 0 4px 20px rgba(44,107,237,0.3);">
                   <span class="material-icons-round">shop</span> Download on Play Store
                 </a>
-                <a href="/cdn-cgi/l/email-protection#107475663e607169646271737b50777d71797c3e737f7d" class="btn" style="background: rgba(255,255,255,0.15); color: var(--md-on-primary-container); border: 1px solid rgba(255,255,255,0.25);">
+                <a href="mailto:hello@example.com" class="btn" style="background: rgba(255,255,255,0.15); color: var(--md-on-primary-container); border: 1px solid rgba(255,255,255,0.25);">
                   <span class="material-icons-round">mail</span> Contact Developer
                 </a>
               </div>
@@ -562,28 +550,35 @@
     </div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
     const html = document.documentElement;
     const themeIcon = document.getElementById('themeIcon');
 
-    function updateThemeIcon() {
-      const current = html.getAttribute('data-theme');
-      themeIcon.textContent = current === 'dark' ? 'light_mode' : 'dark_mode';
+    function updateThemeIcon(theme) {
+      // If theme is dark, icon should suggest switching to light_mode
+      themeIcon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
     }
-    updateThemeIcon();
+
+    // Initialize UI based on actual attribute
+    updateThemeIcon(html.getAttribute('data-theme'));
 
     document.getElementById('themeToggle').addEventListener('click', () => {
-      const isDark = html.getAttribute('data-theme') === 'dark';
-      const newTheme = isDark ? 'light' : 'dark';
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
       html.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
-      updateThemeIcon();
+      updateThemeIcon(newTheme);
     });
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => { el.classList.add('animate'); observer.observe(el); });
+    
+    document.querySelectorAll('.reveal').forEach(el => { 
+      el.classList.add('animate'); 
+      observer.observe(el); 
+    });
 
     // Tilt on bento cells
     document.querySelectorAll('.bento-cell').forEach(card => {
@@ -592,4 +587,12 @@
         const rect = card.getBoundingClientRect();
         const x = (e.clientX - rect.left) / rect.width - 0.5;
         const y = (e.clientY - rect.top) / rect.height - 0.5;
-        card.style.transform = `perspective(1000px) rotateX(${y * -5}deg) rotateY($
+        card.style.transform = `perspective(1000px) rotateX(${y * -5}deg) rotateY(${x * 5}deg)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0) rotateY(0)`;
+      });
+    });
+  </script>
+</body>
+</html>
