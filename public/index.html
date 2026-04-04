@@ -520,6 +520,24 @@
     if (tCount >= 3) { tCount = 0; openTerminal(); }
   });
 
+  // ── Mobile trigger: tap footer 5 times within 2s ──
+  let tapCount = 0, tapTimer = null;
+  function setupMobileTrigger() {
+    const footer = document.querySelector('footer');
+    if (!footer) return;
+    footer.addEventListener('touchstart', (e) => {
+      tapCount++;
+      clearTimeout(tapTimer);
+      tapTimer = setTimeout(() => tapCount = 0, 2000);
+      if (tapCount >= 3) { tapCount = 0; openTerminal(); }
+    }, { passive: true });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupMobileTrigger);
+  } else {
+    setupMobileTrigger();
+  }
+
   // ── Commands ──
   const COMMANDS = {
     help: () => `<span class="t-dim">Available commands:</span>
@@ -647,6 +665,7 @@ Developers who built PayTrack here: <span class="t-accent">1</span>`,
           <div class="t-input-row">
             <span class="t-prompt">urim@portfolio:~$</span>
             <input class="t-input" id="t-input" autocomplete="off" spellcheck="false" autofocus />
+            <button class="t-send-btn" id="t-send-btn">↵</button>
           </div>
         </div>
       </div>`;
@@ -741,6 +760,20 @@ Developers who built PayTrack here: <span class="t-accent">1</span>`,
         pointer-events: all;
       }
 
+      .t-send-btn {
+        display: none;
+        background: var(--md-primary, #89D998);
+        color: var(--md-on-primary, #003913);
+        border: none; border-radius: 8px;
+        padding: 6px 12px; font-size: 16px;
+        cursor: pointer; font-family: inherit;
+        transition: opacity 0.15s;
+      }
+      .t-send-btn:hover { opacity: 0.85; }
+      @media (max-width: 768px) {
+        .t-send-btn { display: block; }
+      }
+
       @media (max-width: 600px) {
         .t-window { border-radius: 12px; }
         .t-title  { font-size: 11px; }
@@ -754,6 +787,13 @@ Developers who built PayTrack here: <span class="t-accent">1</span>`,
     // Events
     overlay.querySelector('#t-close-btn').addEventListener('click', closeTerminal);
     overlay.querySelector('.t-backdrop').addEventListener('click', closeTerminal);
+    overlay.querySelector('#t-send-btn').addEventListener('click', () => {
+      const val = input.value.trim();
+      input.value = '';
+      histIdx = -1;
+      if (val) { history.unshift(val); processCommand(val); }
+      input.focus();
+    });
 
     const input = overlay.querySelector('#t-input');
     let history = [], histIdx = -1;
