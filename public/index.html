@@ -456,6 +456,37 @@
   </div>
 </section>
 
+
+      <section id="visitor-map" class="section reveal">
+        <div style="text-align:center; margin-bottom:40px;">
+          <span style="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:100px;background:var(--md-surface-container);color:var(--md-text-variant);font-size:14px;font-weight:600;margin-bottom:16px;border:1px solid var(--md-outline-variant);">
+            <span class="material-icons-round" style="font-size:16px;">public</span>
+            Live Visitors
+          </span>
+          <h2 style="font-family:'Outfit',sans-serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;letter-spacing:-0.04em;margin-bottom:12px;">People visiting from around the world</h2>
+          <p style="color:var(--md-text-variant);max-width:480px;margin:0 auto;" id="globe-visitor-count">Loading visitor locations...</p>
+        </div>
+        <div style="position:relative;display:flex;justify-content:center;align-items:center;">
+          <canvas id="globe-canvas" width="600" height="600" style="max-width:min(600px,90vw);max-height:min(600px,90vw);cursor:grab;"></canvas>
+          <div id="globe-tooltip" style="
+            position:fixed;
+            background:var(--md-surface-container);
+            border:1px solid var(--md-outline-variant);
+            border-radius:12px;
+            padding:8px 14px;
+            font-family:'Outfit',sans-serif;
+            font-size:13px;
+            font-weight:600;
+            color:var(--md-text);
+            pointer-events:none;
+            display:none;
+            z-index:9999;
+            white-space:nowrap;
+            box-shadow:0 4px 16px rgba(0,0,0,0.2);
+          "></div>
+        </div>
+      </section>
+
     </div>
 
     <footer>
@@ -598,7 +629,214 @@
   </script>
 <script>
 // ─── TERMINAL EASTER EGG ───
-// Inject this <script> block just before </body> in your index.html
+// Inject this <script> block just before <script>
+  // ─── 3D GLOBE ───
+  (function() {
+    const canvas = document.getElementById('globe-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const tooltip = document.getElementById('globe-tooltip');
+
+    let W = canvas.width, H = canvas.height;
+    const R = W * 0.42;
+    let rotX = 0.3, rotY = 0;
+    let dragging = false, lastX = 0, lastY = 0;
+    let autoRotate = true;
+    let visitors = [];
+    let dots = [];
+
+    // Generate sphere dot grid
+    function buildDots() {
+      dots = [];
+      for (let lat = -90; lat <= 90; lat += 5) {
+        for (let lon = -180; lon <= 180; lon += 5) {
+          dots.push({ lat: lat * Math.PI / 180, lon: lon * Math.PI / 180 });
+        }
+      }
+    }
+
+    function project(lat, lon) {
+      const x3 = Math.cos(lat) * Math.sin(lon);
+      const y3 = Math.sin(lat);
+      const z3 = Math.cos(lat) * Math.cos(lon);
+      // Apply rotation
+      const cosY = Math.cos(rotY), sinY = Math.sin(rotY);
+      const cosX = Math.cos(rotX), sinX = Math.sin(rotX);
+      const x2 = x3 * cosY - z3 * sinY;
+      const z2 = x3 * sinY + z3 * cosY;
+      const y2 = y3 * cosX - z2 * sinX;
+      const z1 = y3 * sinX + z2 * cosX;
+      const scale = W / 2 + z1 * R * 0.5;
+      return {
+        x: W/2 + x2 * R,
+        y: H/2 - y2 * R,
+        z: z1,
+        visible: z1 > -0.1
+      };
+    }
+
+    function latLonToRad(lat, lon) {
+      return { lat: lat * Math.PI / 180, lon: lon * Math.PI / 180 };
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+
+      // Globe shadow
+      const shadowGrad = ctx.createRadialGradient(W/2+R*0.15, H/2+R*0.15, R*0.1, W/2+R*0.15, H/2+R*0.15, R*1.2);
+      shadowGrad.addColorStop(0, 'rgba(0,0,0,0.3)');
+      shadowGrad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = shadowGrad;
+      ctx.beginPath();
+      ctx.ellipse(W/2+R*0.1, H/2+R*0.15, R*1.1, R*0.4, 0, 0, Math.PI*2);
+      ctx.fill();
+
+      // Globe base
+      const grad = ctx.createRadialGradient(W/2-R*0.3, H/2-R*0.3, R*0.1, W/2, H/2, R);
+      grad.addColorStop(0, '#1a2535');
+      grad.addColorStop(0.5, '#0d1520');
+      grad.addColorStop(1, '#060c14');
+      ctx.beginPath();
+      ctx.arc(W/2, H/2, R, 0, Math.PI*2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // Grid dots
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const dotColor = isDark ? 'rgba(137,217,152,0.12)' : 'rgba(25,109,51,0.15)';
+      dots.forEach(d => {
+        const p = project(d.lat, d.lon);
+        if (!p.visible) return;
+        const alpha = 0.3 + p.z * 0.7;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 1.2, 0, Math.PI*2);
+        ctx.fillStyle = dotColor.replace('0.12', (0.08 + p.z * 0.15).toFixed(2))
+                                .replace('0.15', (0.08 + p.z * 0.15).toFixed(2));
+        ctx.fill();
+      });
+
+      // Atmosphere glow
+      const atmoGrad = ctx.createRadialGradient(W/2, H/2, R*0.85, W/2, H/2, R*1.05);
+      const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--md-primary').trim() || '#89D998';
+      atmoGrad.addColorStop(0, 'rgba(137,217,152,0)');
+      atmoGrad.addColorStop(0.7, 'rgba(137,217,152,0.04)');
+      atmoGrad.addColorStop(1, 'rgba(137,217,152,0.12)');
+      ctx.beginPath();
+      ctx.arc(W/2, H/2, R*1.05, 0, Math.PI*2);
+      ctx.fillStyle = atmoGrad;
+      ctx.fill();
+
+      // Clip to globe for visitor dots
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(W/2, H/2, R, 0, Math.PI*2);
+      ctx.clip();
+
+      // Visitor location dots
+      visitors.forEach(v => {
+        const rad = latLonToRad(v.lat, v.lng);
+        const p = project(rad.lat, rad.lon);
+        if (!p.visible) return;
+
+        // Pulse ring
+        const pulseR = 6 + Math.sin(Date.now() / 600 + v.lat) * 3;
+        const ringGrad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, pulseR*2);
+        ringGrad.addColorStop(0, 'rgba(137,217,152,0.6)');
+        ringGrad.addColorStop(1, 'rgba(137,217,152,0)');
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, pulseR*2, 0, Math.PI*2);
+        ctx.fillStyle = ringGrad;
+        ctx.fill();
+
+        // Core dot
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 4, 0, Math.PI*2);
+        ctx.fillStyle = '#89D998';
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = '#89D998';
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        v._px = p.x; v._py = p.y; v._visible = true;
+      });
+
+      ctx.restore();
+
+      // Specular highlight
+      const specGrad = ctx.createRadialGradient(W/2-R*0.35, H/2-R*0.35, 0, W/2-R*0.2, H/2-R*0.2, R*0.6);
+      specGrad.addColorStop(0, 'rgba(255,255,255,0.08)');
+      specGrad.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.beginPath();
+      ctx.arc(W/2, H/2, R, 0, Math.PI*2);
+      ctx.fillStyle = specGrad;
+      ctx.fill();
+    }
+
+    function animate() {
+      if (autoRotate) rotY += 0.003;
+      draw();
+      requestAnimationFrame(animate);
+    }
+
+    // Mouse/touch interaction
+    canvas.addEventListener('mousedown', e => { dragging = true; autoRotate = false; lastX = e.clientX; lastY = e.clientY; canvas.style.cursor = 'grabbing'; });
+    window.addEventListener('mouseup', () => { dragging = false; canvas.style.cursor = 'grab'; setTimeout(() => autoRotate = true, 2000); });
+    window.addEventListener('mousemove', e => {
+      if (!dragging) {
+        // Tooltip
+        const rect = canvas.getBoundingClientRect();
+        const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+        let hit = null;
+        visitors.forEach(v => {
+          if (!v._visible) return;
+          const dx = (v._px || 0) * (rect.width/W) - mx;
+          const dy = (v._py || 0) * (rect.height/H) - my;
+          if (Math.sqrt(dx*dx+dy*dy) < 12) hit = v;
+        });
+        if (hit) {
+          tooltip.style.display = 'block';
+          tooltip.style.left = (e.clientX + 12) + 'px';
+          tooltip.style.top = (e.clientY - 8) + 'px';
+          tooltip.textContent = (hit.flag || '') + ' ' + (hit.city ? hit.city + ', ' : '') + (hit.country || 'Unknown');
+        } else {
+          tooltip.style.display = 'none';
+        }
+        return;
+      }
+      rotY += (e.clientX - lastX) * 0.005;
+      rotX += (e.clientY - lastY) * 0.005;
+      rotX = Math.max(-Math.PI/2, Math.min(Math.PI/2, rotX));
+      lastX = e.clientX; lastY = e.clientY;
+    });
+    canvas.addEventListener('touchstart', e => { dragging = true; autoRotate = false; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; }, {passive:true});
+    window.addEventListener('touchend', () => { dragging = false; setTimeout(() => autoRotate = true, 2000); });
+    window.addEventListener('touchmove', e => {
+      if (!dragging) return;
+      rotY += (e.touches[0].clientX - lastX) * 0.005;
+      rotX += (e.touches[0].clientY - lastY) * 0.005;
+      rotX = Math.max(-Math.PI/2, Math.min(Math.PI/2, rotX));
+      lastX = e.touches[0].clientX; lastY = e.touches[0].clientY;
+    }, {passive:true});
+
+    // Load visitor data
+    fetch('/api/visitor-locations')
+      .then(r => r.json())
+      .then(data => {
+        visitors = data.locations || [];
+        const count = data.total || visitors.length;
+        const el = document.getElementById('globe-visitor-count');
+        if (el) el.textContent = count.toLocaleString() + ' visitors from ' + (data.countries || visitors.length) + ' countries';
+      })
+      .catch(() => {
+        const el = document.getElementById('globe-visitor-count');
+        if (el) el.textContent = 'Tracking visitors around the world';
+      });
+
+    buildDots();
+    animate();
+  })();
+</script>
+</body> in your index.html
 
 (function () {
   // ── Trigger: press T three times within 1.5s ──
@@ -1038,6 +1276,213 @@ Developers who built PayTrack here: <span class="t-accent">1</span>`,
 
 })();
 
+</script>
+<script>
+  // ─── 3D GLOBE ───
+  (function() {
+    const canvas = document.getElementById('globe-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const tooltip = document.getElementById('globe-tooltip');
+
+    let W = canvas.width, H = canvas.height;
+    const R = W * 0.42;
+    let rotX = 0.3, rotY = 0;
+    let dragging = false, lastX = 0, lastY = 0;
+    let autoRotate = true;
+    let visitors = [];
+    let dots = [];
+
+    // Generate sphere dot grid
+    function buildDots() {
+      dots = [];
+      for (let lat = -90; lat <= 90; lat += 5) {
+        for (let lon = -180; lon <= 180; lon += 5) {
+          dots.push({ lat: lat * Math.PI / 180, lon: lon * Math.PI / 180 });
+        }
+      }
+    }
+
+    function project(lat, lon) {
+      const x3 = Math.cos(lat) * Math.sin(lon);
+      const y3 = Math.sin(lat);
+      const z3 = Math.cos(lat) * Math.cos(lon);
+      // Apply rotation
+      const cosY = Math.cos(rotY), sinY = Math.sin(rotY);
+      const cosX = Math.cos(rotX), sinX = Math.sin(rotX);
+      const x2 = x3 * cosY - z3 * sinY;
+      const z2 = x3 * sinY + z3 * cosY;
+      const y2 = y3 * cosX - z2 * sinX;
+      const z1 = y3 * sinX + z2 * cosX;
+      const scale = W / 2 + z1 * R * 0.5;
+      return {
+        x: W/2 + x2 * R,
+        y: H/2 - y2 * R,
+        z: z1,
+        visible: z1 > -0.1
+      };
+    }
+
+    function latLonToRad(lat, lon) {
+      return { lat: lat * Math.PI / 180, lon: lon * Math.PI / 180 };
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+
+      // Globe shadow
+      const shadowGrad = ctx.createRadialGradient(W/2+R*0.15, H/2+R*0.15, R*0.1, W/2+R*0.15, H/2+R*0.15, R*1.2);
+      shadowGrad.addColorStop(0, 'rgba(0,0,0,0.3)');
+      shadowGrad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = shadowGrad;
+      ctx.beginPath();
+      ctx.ellipse(W/2+R*0.1, H/2+R*0.15, R*1.1, R*0.4, 0, 0, Math.PI*2);
+      ctx.fill();
+
+      // Globe base
+      const grad = ctx.createRadialGradient(W/2-R*0.3, H/2-R*0.3, R*0.1, W/2, H/2, R);
+      grad.addColorStop(0, '#1a2535');
+      grad.addColorStop(0.5, '#0d1520');
+      grad.addColorStop(1, '#060c14');
+      ctx.beginPath();
+      ctx.arc(W/2, H/2, R, 0, Math.PI*2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // Grid dots
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const dotColor = isDark ? 'rgba(137,217,152,0.12)' : 'rgba(25,109,51,0.15)';
+      dots.forEach(d => {
+        const p = project(d.lat, d.lon);
+        if (!p.visible) return;
+        const alpha = 0.3 + p.z * 0.7;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 1.2, 0, Math.PI*2);
+        ctx.fillStyle = dotColor.replace('0.12', (0.08 + p.z * 0.15).toFixed(2))
+                                .replace('0.15', (0.08 + p.z * 0.15).toFixed(2));
+        ctx.fill();
+      });
+
+      // Atmosphere glow
+      const atmoGrad = ctx.createRadialGradient(W/2, H/2, R*0.85, W/2, H/2, R*1.05);
+      const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--md-primary').trim() || '#89D998';
+      atmoGrad.addColorStop(0, 'rgba(137,217,152,0)');
+      atmoGrad.addColorStop(0.7, 'rgba(137,217,152,0.04)');
+      atmoGrad.addColorStop(1, 'rgba(137,217,152,0.12)');
+      ctx.beginPath();
+      ctx.arc(W/2, H/2, R*1.05, 0, Math.PI*2);
+      ctx.fillStyle = atmoGrad;
+      ctx.fill();
+
+      // Clip to globe for visitor dots
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(W/2, H/2, R, 0, Math.PI*2);
+      ctx.clip();
+
+      // Visitor location dots
+      visitors.forEach(v => {
+        const rad = latLonToRad(v.lat, v.lng);
+        const p = project(rad.lat, rad.lon);
+        if (!p.visible) return;
+
+        // Pulse ring
+        const pulseR = 6 + Math.sin(Date.now() / 600 + v.lat) * 3;
+        const ringGrad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, pulseR*2);
+        ringGrad.addColorStop(0, 'rgba(137,217,152,0.6)');
+        ringGrad.addColorStop(1, 'rgba(137,217,152,0)');
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, pulseR*2, 0, Math.PI*2);
+        ctx.fillStyle = ringGrad;
+        ctx.fill();
+
+        // Core dot
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 4, 0, Math.PI*2);
+        ctx.fillStyle = '#89D998';
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = '#89D998';
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        v._px = p.x; v._py = p.y; v._visible = true;
+      });
+
+      ctx.restore();
+
+      // Specular highlight
+      const specGrad = ctx.createRadialGradient(W/2-R*0.35, H/2-R*0.35, 0, W/2-R*0.2, H/2-R*0.2, R*0.6);
+      specGrad.addColorStop(0, 'rgba(255,255,255,0.08)');
+      specGrad.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.beginPath();
+      ctx.arc(W/2, H/2, R, 0, Math.PI*2);
+      ctx.fillStyle = specGrad;
+      ctx.fill();
+    }
+
+    function animate() {
+      if (autoRotate) rotY += 0.003;
+      draw();
+      requestAnimationFrame(animate);
+    }
+
+    // Mouse/touch interaction
+    canvas.addEventListener('mousedown', e => { dragging = true; autoRotate = false; lastX = e.clientX; lastY = e.clientY; canvas.style.cursor = 'grabbing'; });
+    window.addEventListener('mouseup', () => { dragging = false; canvas.style.cursor = 'grab'; setTimeout(() => autoRotate = true, 2000); });
+    window.addEventListener('mousemove', e => {
+      if (!dragging) {
+        // Tooltip
+        const rect = canvas.getBoundingClientRect();
+        const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+        let hit = null;
+        visitors.forEach(v => {
+          if (!v._visible) return;
+          const dx = (v._px || 0) * (rect.width/W) - mx;
+          const dy = (v._py || 0) * (rect.height/H) - my;
+          if (Math.sqrt(dx*dx+dy*dy) < 12) hit = v;
+        });
+        if (hit) {
+          tooltip.style.display = 'block';
+          tooltip.style.left = (e.clientX + 12) + 'px';
+          tooltip.style.top = (e.clientY - 8) + 'px';
+          tooltip.textContent = (hit.flag || '') + ' ' + (hit.city ? hit.city + ', ' : '') + (hit.country || 'Unknown');
+        } else {
+          tooltip.style.display = 'none';
+        }
+        return;
+      }
+      rotY += (e.clientX - lastX) * 0.005;
+      rotX += (e.clientY - lastY) * 0.005;
+      rotX = Math.max(-Math.PI/2, Math.min(Math.PI/2, rotX));
+      lastX = e.clientX; lastY = e.clientY;
+    });
+    canvas.addEventListener('touchstart', e => { dragging = true; autoRotate = false; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; }, {passive:true});
+    window.addEventListener('touchend', () => { dragging = false; setTimeout(() => autoRotate = true, 2000); });
+    window.addEventListener('touchmove', e => {
+      if (!dragging) return;
+      rotY += (e.touches[0].clientX - lastX) * 0.005;
+      rotX += (e.touches[0].clientY - lastY) * 0.005;
+      rotX = Math.max(-Math.PI/2, Math.min(Math.PI/2, rotX));
+      lastX = e.touches[0].clientX; lastY = e.touches[0].clientY;
+    }, {passive:true});
+
+    // Load visitor data
+    fetch('/api/visitor-locations')
+      .then(r => r.json())
+      .then(data => {
+        visitors = data.locations || [];
+        const count = data.total || visitors.length;
+        const el = document.getElementById('globe-visitor-count');
+        if (el) el.textContent = count.toLocaleString() + ' visitors from ' + (data.countries || visitors.length) + ' countries';
+      })
+      .catch(() => {
+        const el = document.getElementById('globe-visitor-count');
+        if (el) el.textContent = 'Tracking visitors around the world';
+      });
+
+    buildDots();
+    animate();
+  })();
 </script>
 </body>
 </html>
