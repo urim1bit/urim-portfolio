@@ -1,5 +1,11 @@
+const express = require('express');
+const path = require('path');
 const { Pool } = require('pg');
 
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// ─── PostgreSQL Visitor Counter ───
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false }
@@ -33,39 +39,13 @@ async function getCount() {
   return result.rows[0]?.count || 0;
 }
 
-app.post('/api/visitors', async (req, res) => {
-  try {
-    const count = await incrementCount();
-    res.json({ count: Number(count) });
-  } catch (err) {
-    console.error('Visitor increment error:', err);
-    res.status(500).json({ count: 0 });
-  }
-});
-
-app.get('/api/visitors', async (req, res) => {
-  try {
-    const count = await getCount();
-    res.json({ count: Number(count) });
-  } catch (err) {
-    console.error('Visitor get error:', err);
-    res.status(500).json({ count: 0 });
-  }
-});
-
-
-const path = require('path');
-
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Prevent Cloudflare from modifying HTML responses (disables email obfuscation)
+// ─── Prevent Cloudflare from modifying HTML responses ───
 app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-transform');
   next();
 });
 
-// Force HTTPS in production
+// ─── Force HTTPS in production ───
 app.use((req, res, next) => {
   if (req.headers['x-forwarded-proto'] === 'http') {
     return res.redirect(301, 'https://' + req.headers.host + req.url);
@@ -73,10 +53,10 @@ app.use((req, res, next) => {
   next();
 });
 
-// Redirect any .html requests to clean URLs
+// ─── Redirect .html requests to clean URLs ───
 app.use((req, res, next) => {
   if (req.path.endsWith('.html')) {
-    const cleanPath = req.path.slice(0, -5); // remove .html
+    const cleanPath = req.path.slice(0, -5);
     const finalPath = cleanPath === '/index' ? '/' : cleanPath;
     return res.redirect(301, finalPath || '/');
   }
@@ -85,6 +65,7 @@ app.use((req, res, next) => {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+// ─── Page routes ───
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -115,6 +96,27 @@ app.get('/sitemap.xml', (req, res) => {
 
 app.get('/robots.txt', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'robots.txt'));
+});
+
+// ─── Visitor counter API ───
+app.post('/api/visitors', async (req, res) => {
+  try {
+    const count = await incrementCount();
+    res.json({ count: Number(count) });
+  } catch (err) {
+    console.error('Visitor increment error:', err);
+    res.status(500).json({ count: 0 });
+  }
+});
+
+app.get('/api/visitors', async (req, res) => {
+  try {
+    const count = await getCount();
+    res.json({ count: Number(count) });
+  } catch (err) {
+    console.error('Visitor get error:', err);
+    res.status(500).json({ count: 0 });
+  }
 });
 
 app.listen(PORT, () => {
