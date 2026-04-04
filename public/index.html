@@ -120,6 +120,34 @@
     }
     .icon-btn:hover { background: var(--md-surface-container-high); color: var(--md-text); }
 
+    /* ─── AVAILABLE FOR WORK BADGE ─── */
+    .available-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 6px 14px; border-radius: 100px;
+      background: color-mix(in srgb, var(--md-primary) 12%, transparent);
+      border: 1px solid color-mix(in srgb, var(--md-primary) 30%, transparent);
+      font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600;
+      color: var(--md-primary);
+      white-space: nowrap;
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .available-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--md-primary);
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--md-primary) 40%, transparent);
+      animation: available-ping 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes available-ping {
+      0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--md-primary) 50%, transparent); }
+      70%  { box-shadow: 0 0 0 6px color-mix(in srgb, var(--md-primary) 0%, transparent); }
+      100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--md-primary) 0%, transparent); }
+    }
+    @media (max-width: 600px) {
+      .available-text { display: none; }
+      .available-badge { padding: 6px 8px; }
+    }
+
     /* ─── HERO ─── */
     .hero { display: flex; align-items: center; justify-content: space-between; gap: 40px; padding: 160px 0 80px; }
     .hero-content { flex: 1.2; }
@@ -217,7 +245,11 @@
         <li><a href="#experience">Journey</a></li>
         <li><a href="#blog">Blog</a></li>
       </ul>
-      <div style="display: flex; gap: 8px;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <div class="available-badge">
+          <span class="available-dot"></span>
+          <span class="available-text">Available for work</span>
+        </div>
         <button class="icon-btn" id="paletteToggle" title="Randomize Palette"><span class="material-icons-round">palette</span></button>
         <button class="icon-btn" id="themeToggle" title="Toggle Dark Mode"><span class="material-icons-round" id="themeIcon">light_mode</span></button>
       </div>
