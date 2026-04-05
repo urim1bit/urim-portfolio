@@ -325,8 +325,8 @@
               <div style="position:relative; z-index:1; padding: 28px 28px 0 28px;">
                 <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;">
                   <div style="display:flex; align-items:center; gap:12px;">
-                    <div style="width:48px; height:48px; border-radius:14px; overflow:hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.4); flex-shrink:0;">
-                      <img src="edit_note.svg" alt="PayTrack" style="width:100%;height:100%;object-fit:contain;display:block;">
+                    <div style="width:48px; height:48px; border-radius:14px; background:var(--md-surface-container-high); border:1px solid var(--md-outline-variant); display:flex; align-items:center; justify-content:center; box-shadow: 0 4px 16px rgba(0,0,0,0.15); flex-shrink:0;">
+                      <span class="material-icons-round" style="font-size:26px; color:var(--md-primary);">hardware</span>
                     </div>
                     <div>
                       <div style="font-family:'Outfit',sans-serif; font-weight:800; font-size:1.1rem; color:var(--md-primary); letter-spacing:-0.02em;">PayTrack</div>
@@ -421,58 +421,57 @@
 
             <!-- Play Store Guide Card -->
             <article class="tilt-card blog-card" style="overflow:hidden; position:relative; min-height:340px; padding:0; border:none; background:transparent;">
-              <div style="position:absolute;inset:0;z-index:0;background:linear-gradient(135deg,#0d1f2d 0%,#0a2a1a 50%,#0d1f2d 100%);overflow:hidden;border-radius:28px;">
-                <div style="position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,var(--md-primary) 0%,transparent 70%);opacity:0.12;top:-60px;right:-40px;animation:orbFloat 8s ease-in-out infinite;"></div>
-                <div style="position:absolute;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,#1a7a4a 0%,transparent 70%);opacity:0.15;bottom:-20px;left:20px;animation:orbFloat 11s ease-in-out infinite reverse;"></div>
-                <!-- Play Store icon grid pattern -->
-                <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.05" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="psgrid" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="var(--md-primary)"/></pattern></defs><rect width="100%" height="100%" fill="url(#psgrid)"/></svg>
+              <div style="position:absolute;inset:0;z-index:0;background:linear-gradient(135deg, var(--md-primary-container) 0%, var(--md-surface-container) 50%, var(--md-primary-container) 100%);overflow:hidden;border-radius:28px;">
+                <div style="position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,var(--md-primary) 0%,transparent 70%);opacity:0.18;top:-60px;right:-40px;animation:orbFloat 8s ease-in-out infinite;"></div>
+                <div style="position:absolute;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,var(--md-primary) 0%,transparent 70%);opacity:0.12;bottom:-20px;left:20px;animation:orbFloat 11s ease-in-out infinite reverse;"></div>
+                <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.07" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="psgrid" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="var(--md-primary)"/></pattern></defs><rect width="100%" height="100%" fill="url(#psgrid)"/></svg>
               </div>
 
               <div style="position:relative;z-index:1;padding:28px 28px 0 28px;">
                 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
                   <div style="display:flex;align-items:center;gap:12px;">
-                    <div style="width:48px;height:48px;border-radius:14px;background:rgba(137,217,152,0.15);border:1px solid rgba(137,217,152,0.25);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.2);flex-shrink:0;">
-                      <span class="material-icons-round" style="font-size:26px;color:#89D998;">shop</span>
+                    <div style="width:48px;height:48px;border-radius:14px;background:var(--md-surface-container-high);border:1px solid var(--md-outline-variant);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.15);flex-shrink:0;">
+                      <span class="material-icons-round" style="font-size:26px;color:var(--md-primary);">shop</span>
                     </div>
                     <div>
-                      <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:1.1rem;color:#89D998;letter-spacing:-0.02em;">Play Store</div>
-                      <div style="font-size:0.72rem;color:rgba(255,255,255,0.45);font-family:'Roboto',sans-serif;">Publishing Guide</div>
+                      <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:1.1rem;color:var(--md-primary);letter-spacing:-0.02em;">Play Store</div>
+                      <div style="font-size:0.72rem;color:var(--md-text-variant);font-family:'Roboto',sans-serif;">Publishing Guide</div>
                     </div>
                   </div>
-                  <div style="background:rgba(137,217,152,0.15);border:1px solid rgba(137,217,152,0.3);color:#89D998;font-size:0.7rem;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:0.06em;font-family:'Outfit',sans-serif;">GUIDE</div>
+                  <div style="background:var(--md-surface-container-high);border:1px solid var(--md-outline-variant);color:var(--md-primary);font-size:0.7rem;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:0.06em;font-family:'Outfit',sans-serif;">GUIDE</div>
                 </div>
-                <h3 style="font-family:'Outfit',sans-serif;font-weight:900;font-size:1.35rem;color:#e0f0e8;line-height:1.2;margin-bottom:10px;letter-spacing:-0.02em;">Publish Your First App<br><span style="color:#89D998;">Step-by-Step, 2026</span></h3>
-                <p style="font-size:0.85rem;color:rgba(255,255,255,0.5);margin-bottom:20px;font-family:'Roboto',sans-serif;line-height:1.5;">Signing, store listing, policy review, and going live — everything the docs skip.</p>
+                <h3 style="font-family:'Outfit',sans-serif;font-weight:900;font-size:1.35rem;color:var(--md-on-primary-container);line-height:1.2;margin-bottom:10px;letter-spacing:-0.02em;">Publish Your First App<br><span style="color:var(--md-primary);">Step-by-Step, 2026</span></h3>
+                <p style="font-size:0.85rem;color:var(--md-text-variant);margin-bottom:20px;font-family:'Roboto',sans-serif;line-height:1.5;">Signing, store listing, policy review, and going live — everything the docs skip.</p>
               </div>
 
               <!-- Step progress strip -->
               <div style="position:relative;z-index:1;padding:0 28px 22px 28px;">
                 <div style="display:flex;align-items:center;gap:0;position:relative;">
-                  <div class="ps-step" style="animation-delay:0s"><div class="ps-dot"><span class="material-icons-round" style="font-size:12px;color:#0d1f2d;">key</span></div><div class="ps-label">Sign</div></div>
+                  <div class="ps-step" style="animation-delay:0s"><div class="ps-dot"><span class="material-icons-round" style="font-size:12px;color:var(--md-on-primary);">key</span></div><div class="ps-label">Sign</div></div>
                   <div class="ps-line"></div>
-                  <div class="ps-step" style="animation-delay:0.5s"><div class="ps-dot"><span class="material-icons-round" style="font-size:12px;color:#0d1f2d;">image</span></div><div class="ps-label">List</div></div>
+                  <div class="ps-step" style="animation-delay:0.5s"><div class="ps-dot"><span class="material-icons-round" style="font-size:12px;color:var(--md-on-primary);">image</span></div><div class="ps-label">List</div></div>
                   <div class="ps-line"></div>
-                  <div class="ps-step" style="animation-delay:1s"><div class="ps-dot"><span class="material-icons-round" style="font-size:12px;color:#0d1f2d;">upload</span></div><div class="ps-label">Upload</div></div>
+                  <div class="ps-step" style="animation-delay:1s"><div class="ps-dot"><span class="material-icons-round" style="font-size:12px;color:var(--md-on-primary);">upload</span></div><div class="ps-label">Upload</div></div>
                   <div class="ps-line"></div>
-                  <div class="ps-step" style="animation-delay:1.5s"><div class="ps-dot"><span class="material-icons-round" style="font-size:12px;color:#0d1f2d;">policy</span></div><div class="ps-label">Policy</div></div>
+                  <div class="ps-step" style="animation-delay:1.5s"><div class="ps-dot"><span class="material-icons-round" style="font-size:12px;color:var(--md-on-primary);">policy</span></div><div class="ps-label">Policy</div></div>
                   <div class="ps-line"></div>
-                  <div class="ps-step" style="animation-delay:2s"><div class="ps-dot ps-dot-live"><span class="material-icons-round" style="font-size:12px;color:#0d1f2d;">rocket_launch</span></div><div class="ps-label ps-label-live">Live!</div></div>
+                  <div class="ps-step" style="animation-delay:2s"><div class="ps-dot ps-dot-live"><span class="material-icons-round" style="font-size:12px;color:var(--md-on-primary);">rocket_launch</span></div><div class="ps-label ps-label-live">Live!</div></div>
                 </div>
               </div>
 
               <div style="position:relative;z-index:1;padding:0 28px 24px 28px;">
-                <a href="/playstore" style="display:inline-flex;align-items:center;gap:6px;color:#89D998;text-decoration:none;font-weight:700;font-size:0.9rem;font-family:'Outfit',sans-serif;transition:gap 0.2s;" onmouseover="this.style.gap='10px'" onmouseout="this.style.gap='6px'">
+                <a href="/playstore" style="display:inline-flex;align-items:center;gap:6px;color:var(--md-primary);text-decoration:none;font-weight:700;font-size:0.9rem;font-family:'Outfit',sans-serif;transition:gap 0.2s;" onmouseover="this.style.gap='10px'" onmouseout="this.style.gap='6px'">
                   Read the Full Guide <span class="material-icons-round" style="font-size:18px;">arrow_forward</span>
                 </a>
               </div>
 
               <style>
                 .ps-step { display:flex;flex-direction:column;align-items:center;gap:5px;flex-shrink:0;opacity:0;animation:stepPop 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards; }
-                .ps-dot { width:30px;height:30px;border-radius:50%;background:#89D998;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
-                .ps-dot-live { background:#89D998;box-shadow:0 0 12px rgba(137,217,152,0.6); }
-                .ps-label { font-size:0.62rem;color:rgba(255,255,255,0.45);font-family:'Roboto',sans-serif;white-space:nowrap; }
-                .ps-label-live { color:#89D998;font-weight:700; }
-                .ps-line { flex:1;height:2px;background:rgba(137,217,152,0.2);margin-bottom:20px; }
+                .ps-dot { width:30px;height:30px;border-radius:50%;background:var(--md-primary);display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+                .ps-dot-live { background:var(--md-primary);box-shadow:0 0 12px color-mix(in srgb,var(--md-primary) 60%,transparent); }
+                .ps-label { font-size:0.62rem;color:var(--md-text-variant);font-family:'Roboto',sans-serif;white-space:nowrap; }
+                .ps-label-live { color:var(--md-primary);font-weight:700; }
+                .ps-line { flex:1;height:2px;background:var(--md-outline-variant);margin-bottom:20px; }
               </style>
             </article>
 
