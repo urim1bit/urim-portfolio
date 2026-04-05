@@ -97,6 +97,10 @@ app.get('/account-deletion', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'account-deletion.html'));
 });
 
+app.get('/playstore', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'playstore.html'));
+});
+
 app.get('/materialyou', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'materialyou.html'));
 });

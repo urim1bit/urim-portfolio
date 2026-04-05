@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>How to Publish Your First Android App on the Play Store in 2026 - Urim Mustafa</title>
+
+  <meta name="description" content="A complete step-by-step guide to publishing your first Android app on the Google Play Store in 2026. Covers signing, store listing, policy review, and going live.">
+  <meta name="author" content="Urim Mustafa">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://mustafaurim.dev/playstore">
+  <meta property="og:title" content="How to Publish Your First Android App on the Play Store in 2026">
+  <meta property="og:description" content="A complete step-by-step guide from first commit to live listing. Everything the official docs skip.">
+  <meta property="og:image" content="https://mustafaurim.dev/image_1.webp">
+  <meta property="article:published_time" content="2026-04-05">
+  <meta property="article:author" content="Urim Mustafa">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Publish Your First Android App on the Play Store in 2026">
+  <meta name="twitter:description" content="Step-by-step guide from signing to going live. Written by someone who did it.">
+  <meta name="twitter:image" content="https://mustafaurim.dev/image_1.webp">
+
+  <link rel="canonical" href="https://mustafaurim.dev/playstore">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+
+  <script>
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  </script>
+
+  <style>
+    /* ─── GREEN MATERIAL YOU COLOR SYSTEM ─── */
+    :root {
+      --md-bg: #F7FBF4;
+      --md-surface: #FFFFFF;
+      --md-surface-container: #EEF5EA;
+      --md-surface-container-high: #E6EDE2;
+      --md-primary: #196D33;
+      --md-on-primary: #FFFFFF;
+      --md-primary-container: #A4F6B2;
+      --md-on-primary-container: #002108;
+      --md-secondary-container: #D1E8D2;
+      --md-on-secondary-container: #0D1F11;
+      --md-outline: #727970;
+      --md-outline-variant: #C1C9BE;
+      --md-text: #191C19;
+      --md-text-variant: #414941;
+      --md-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      --transition: 0.4s cubic-bezier(0.2,0,0,1);
+      --mesh-1: rgba(25,109,51,0.05);
+      --mesh-2: rgba(164,246,178,0.1);
+      --mesh-3: rgba(209,232,210,0.15);
+    }
+    [data-theme="dark"] {
+      --md-bg: #101410;
+      --md-surface: #191D19;
+      --md-surface-container: #262B25;
+      --md-surface-container-high: #2E332D;
+      --md-primary: #89D998;
+      --md-on-primary: #003913;
+      --md-primary-container: #005320;
+      --md-on-primary-container: #A4F6B2;
+      --md-secondary-container: #394B3A;
+      --md-on-secondary-container: #D1E8D2;
+      --md-outline: #8B9389;
+      --md-outline-variant: #414941;
+      --md-text: #E0E4DE;
+      --md-text-variant: #C1C9BE;
+      --md-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      --mesh-1: rgba(137,217,152,0.03);
+      --mesh-2: rgba(0,83,32,0.08);
+      --mesh-3: rgba(57,75,58,0.05);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--md-bg);
+      color: var(--md-text);
+      transition: background-color var(--transition), color var(--transition);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+    h1,h2,h3,h4 { font-family: 'Outfit', sans-serif; color: var(--md-text); transition: color var(--transition); }
+
+    .mesh-bg {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
+      background:
+        radial-gradient(circle at 15% 50%, var(--mesh-1), transparent 50%),
+        radial-gradient(circle at 85% 30%, var(--mesh-2), transparent 50%),
+        radial-gradient(circle at 50% 80%, var(--mesh-3), transparent 50%);
+      filter: blur(60px);
+      transition: background var(--transition);
+    }
+
+    /* ─── NAV ─── */
+    .nav-wrapper {
+      position: fixed; top: 24px; left: 0; right: 0;
+      display: flex; justify-content: center; z-index: 1000; padding: 0 24px;
+    }
+    nav {
+      background: var(--md-surface-container); backdrop-filter: blur(12px);
+      border: 1px solid var(--md-outline-variant);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 24px; border-radius: 100px; width: 100%; max-width: 800px;
+      box-shadow: var(--md-shadow); transition: background-color var(--transition), border-color var(--transition);
+    }
+    .back-btn {
+      display: flex; align-items: center; gap: 8px; color: var(--md-text-variant);
+      text-decoration: none; font-weight: 500; font-size: 15px; transition: color var(--transition);
+    }
+    .back-btn:hover { color: var(--md-primary); }
+    .icon-btn {
+      background: none; border: none; color: var(--md-text-variant); cursor: pointer;
+      padding: 8px; border-radius: 50%; display: flex; align-items: center;
+      transition: var(--transition);
+    }
+    .icon-btn:hover { background: var(--md-surface-container-high); color: var(--md-text); }
+
+    /* ─── LAYOUT ─── */
+    .container { max-width: 800px; margin: 0 auto; padding: 140px 24px 80px; }
+
+    /* ─── ARTICLE HEADER ─── */
+    .article-header { margin-bottom: 56px; }
+    .tag {
+      display: inline-block; padding: 6px 16px; border-radius: 100px;
+      font-size: 14px; font-weight: 600; margin-bottom: 24px;
+      background: var(--md-primary-container); color: var(--md-on-primary-container);
+      transition: background-color var(--transition), color var(--transition);
+    }
+    .article-title {
+      font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 800;
+      line-height: 1.1; letter-spacing: -1px; margin-bottom: 20px;
+    }
+    .article-meta {
+      color: var(--md-text-variant); font-size: 1rem;
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      transition: color var(--transition);
+    }
+    .read-time {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--md-surface-container);
+      padding: 4px 12px; border-radius: 100px; font-size: 13px;
+      border: 1px solid var(--md-outline-variant);
+    }
+
+    /* ─── PROGRESS BAR ─── */
+    .progress-bar {
+      position: fixed; top: 0; left: 0; height: 3px;
+      background: var(--md-primary); z-index: 9999;
+      width: 0%; transition: width 0.1s linear;
+    }
+
+    /* ─── TABLE OF CONTENTS ─── */
+    .toc {
+      background: var(--md-surface-container);
+      border: 1px solid var(--md-outline-variant);
+      border-radius: 20px; padding: 24px 28px; margin-bottom: 48px;
+      transition: background var(--transition);
+    }
+    .toc-title {
+      font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.9rem;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--md-text-variant); margin-bottom: 16px;
+    }
+    .toc ol { padding-left: 20px; }
+    .toc li { margin-bottom: 8px; }
+    .toc a {
+      color: var(--md-primary); text-decoration: none; font-size: 0.95rem;
+      font-weight: 500; transition: opacity 0.2s;
+    }
+    .toc a:hover { opacity: 0.7; }
+
+    /* ─── ARTICLE CONTENT ─── */
+    .article-content { font-size: 1.1rem; color: var(--md-text-variant); }
+    .article-content p { margin-bottom: 24px; }
+    .article-content h2 {
+      font-size: 1.9rem; margin: 56px 0 20px; color: var(--md-text);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .article-content h2 .step-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--md-primary); color: var(--md-on-primary);
+      font-size: 16px; font-weight: 800; flex-shrink: 0;
+    }
+    .article-content h3 { font-size: 1.3rem; margin: 32px 0 12px; color: var(--md-text); }
+
+    /* Code blocks */
+    .article-content pre {
+      background: #0d1117; color: #e6edf3; padding: 24px;
+      border-radius: 16px; overflow-x: auto; margin: 28px 0;
+      font-size: 0.92rem; line-height: 1.6;
+      border: 1px solid rgba(137,217,152,0.15);
+    }
+    .article-content code { font-family: 'Cascadia Code', 'Fira Code', monospace; }
+    .article-content p code {
+      background: var(--md-surface-container-high); color: var(--md-primary);
+      padding: 3px 8px; border-radius: 6px; font-size: 0.88em;
+    }
+
+    /* Callout boxes */
+    .callout {
+      padding: 20px 24px; border-radius: 16px; margin: 28px 0;
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .callout-tip { background: color-mix(in srgb, var(--md-primary) 10%, transparent); border: 1px solid color-mix(in srgb, var(--md-primary) 25%, transparent); }
+    .callout-warn { background: rgba(255,179,71,0.12); border: 1px solid rgba(255,179,71,0.3); }
+    .callout-danger { background: rgba(255,95,87,0.1); border: 1px solid rgba(255,95,87,0.25); }
+    .callout-icon { font-family: 'Material Icons Round'; font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+    .callout-tip .callout-icon { color: var(--md-primary); }
+    .callout-warn .callout-icon { color: #FFB347; }
+    .callout-danger .callout-icon { color: #FF5F57; }
+    .callout p { margin-bottom: 0; font-size: 0.97rem; }
+
+    /* Checklist */
+    .checklist { list-style: none; padding: 0; margin: 20px 0 28px; }
+    .checklist li {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 10px 0; border-bottom: 1px solid var(--md-outline-variant);
+      font-size: 0.97rem;
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist .check-icon { color: var(--md-primary); font-family: 'Material Icons Round'; font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+
+    /* Step card */
+    .step-card {
+      background: var(--md-surface); border: 1px solid var(--md-outline-variant);
+      border-radius: 20px; padding: 28px; margin: 20px 0;
+      transition: background var(--transition);
+    }
+
+    /* Blockquote */
+    .article-content blockquote {
+      border-left: 4px solid var(--md-primary); padding: 4px 0 4px 24px;
+      margin: 32px 0; font-style: italic; font-size: 1.2rem; color: var(--md-text);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center; padding: 48px; color: var(--md-text-variant);
+      font-size: 14px; border-top: 1px solid var(--md-outline-variant);
+      margin-top: 80px;
+    }
+
+    /* CTA */
+    .article-cta {
+      background: var(--md-primary-container); border-radius: 24px;
+      padding: 40px; text-align: center; margin-top: 64px;
+    }
+    .article-cta h3 { color: var(--md-on-primary-container); font-size: 1.5rem; margin-bottom: 12px; }
+    .article-cta p { color: var(--md-on-primary-container); opacity: 0.8; margin-bottom: 24px; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 100px;
+      background: var(--md-primary); color: var(--md-on-primary);
+      text-decoration: none; font-family: 'Outfit', sans-serif;
+      font-weight: 700; font-size: 0.95rem; transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+
+    @media (max-width: 768px) {
+      .nav-wrapper { padding: 0 16px; top: 16px; }
+      .container { padding: 110px 20px 40px; }
+      .article-content h2 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progress-bar"></div>
+  <div class="mesh-bg"></div>
+
+  <div class="nav-wrapper">
+    <nav>
+      <a href="/" class="back-btn">
+        <span class="material-icons-round">arrow_back</span> Back to Portfolio
+      </a>
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle Theme">
+        <span class="material-icons-round" id="themeIcon">dark_mode</span>
+      </button>
+    </nav>
+  </div>
+
+  <main class="container">
+    <article>
+
+      <header class="article-header">
+        <span class="tag">Guide</span>
+        <h1 class="article-title">How to Publish Your First Android App on the Play Store in 2026</h1>
+        <div class="article-meta">
+          <span>April 05, 2026</span>
+          <span>·</span>
+          <span class="read-time"><span class="material-icons-round" style="font-size:15px;">schedule</span> 12 min read</span>
+          <span>·</span>
+          <span>By Urim Mustafa</span>
+        </div>
+      </header>
+
+      <!-- Table of Contents -->
+      <nav class="toc" aria-label="Table of contents">
+        <div class="toc-title">In this guide</div>
+        <ol>
+          <li><a href="#step-1">Set up your Google Play Developer account</a></li>
+          <li><a href="#step-2">Prepare your app for release</a></li>
+          <li><a href="#step-3">Generate a signed release build</a></li>
+          <li><a href="#step-4">Create your Play Store listing</a></li>
+          <li><a href="#step-5">Upload your AAB and set up a release</a></li>
+          <li><a href="#step-6">Complete the policy declarations</a></li>
+          <li><a href="#step-7">Submit for review and go live</a></li>
+          <li><a href="#after">What happens after you publish</a></li>
+        </ol>
+      </nav>
+
+      <div class="article-content">
+
+        <p>Publishing your first Android app is one of those things that feels harder than it should be. The official documentation skips the parts that actually trip people up, and there are just enough moving pieces to make first-timers stall for days. I went through this entire process with PayTrack, and this guide covers everything I wish I'd known — from the $25 registration fee to the moment your app goes live.</p>
+
+        <blockquote>"The hard part isn't building the app. It's getting it past Google's policy review without triggering a rejection you don't understand."</blockquote>
+
+        <!-- STEP 1 -->
+        <h2 id="step-1"><span class="step-num">1</span> Set up your Google Play Developer account</h2>
+
+        <p>Before you can publish anything, you need a Google Play Developer account. This is a one-time setup tied to your Google account and costs a one-time fee of <strong>$25 USD</strong>. There's no annual renewal — you pay once and you're in for life.</p>
+
+        <h3>How to register</h3>
+        <p>Go to <code>play.google.com/console</code> and sign in with your Google account. You'll be asked to accept the Developer Distribution Agreement, fill in your developer name (this is what users will see on the Play Store under your app), and pay the $25 fee via Google Pay or card.</p>
+
+        <div class="callout callout-tip">
+          <span class="callout-icon">lightbulb</span>
+          <p>Choose your developer name carefully — it appears on every app you publish. Use your real name or a consistent brand name. You can change it later but it requires re-verification.</p>
+        </div>
+
+        <p>Account approval is usually instant, but Google sometimes takes up to 48 hours to verify new accounts. Once approved you'll have access to the Play Console dashboard.</p>
+
+        <!-- STEP 2 -->
+        <h2 id="step-2"><span class="step-num">2</span> Prepare your app for release</h2>
+
+        <p>Before generating a build, make sure your app is actually ready for production. This sounds obvious but there are a few specific things Google checks that developers often miss.</p>
+
+        <h3>Checklist before building</h3>
+        <ul class="checklist">
+          <li><span class="check-icon">check_circle</span> Set your <code>versionCode</code> and <code>versionName</code> in your <code>build.gradle</code>. The <code>versionCode</code> must be an integer that increases with every upload — start at 1.</li>
+          <li><span class="check-icon">check_circle</span> Set your application ID (<code>applicationId</code>) — this is permanent. Once published, you can never change it. Use reverse domain notation: <code>com.yourname.appname</code>.</li>
+          <li><span class="check-icon">check_circle</span> Remove all debug logs, hardcoded test API keys, and <code>debuggable true</code> flags from your release build config.</li>
+          <li><span class="check-icon">check_circle</span> Make sure your app has a proper app icon at all required densities (Android Studio's Image Asset Studio generates these automatically).</li>
+          <li><span class="check-icon">check_circle</span> Verify your <code>minSdk</code> and <code>targetSdk</code>. In 2026, Google requires <code>targetSdk</code> to be at least API level 35 for new apps.</li>
+          <li><span class="check-icon">check_circle</span> Declare only the permissions your app actually needs. Unnecessary permissions are a common rejection reason.</li>
+          <li><span class="check-icon">check_circle</span> If your app targets children or collects any user data, you'll need a privacy policy URL. Create one before submitting.</li>
+        </ul>
+
+        <div class="callout callout-warn">
+          <span class="callout-icon">warning</span>
+          <p>Your <code>applicationId</code> is permanent. If you publish <code>com.urim.myapp</code> and later want to rename it to <code>com.urim.betterapp</code>, you'll need to publish it as an entirely new app and lose all your existing users and reviews.</p>
+        </div>
+
+        <!-- STEP 3 -->
+        <h2 id="step-3"><span class="step-num">3</span> Generate a signed release build</h2>
+
+        <p>Google requires all apps to be signed with a private key before they can be published. This signing process proves the app came from you. You'll generate a keystore file — guard this with your life, because losing it means you can never update your app.</p>
+
+        <h3>Generate your keystore in Android Studio</h3>
+        <p>Go to <strong>Build → Generate Signed Bundle / APK</strong>. Select <strong>Android App Bundle (AAB)</strong> — Google now requires AAB format for new apps, not APK. Click <strong>Create new keystore</strong> and fill in the details:</p>
+
+        <div class="step-card">
+          <pre><code>Key store path: /your/path/my-release-key.jks
+Password:       (choose a strong password)
+Key alias:      my-key-alias
+Key password:   (can be same as store password)
+Validity:       25 years
+First and last name: Urim Mustafa
+Organization:   (optional)
+Country code:   MT</code></pre>
+        </div>
+
+        <div class="callout callout-danger">
+          <span class="callout-icon">error</span>
+          <p>Back up your <code>.jks</code> keystore file and its passwords in at least two separate locations — cloud storage, a password manager, an external drive. If you lose this file, you cannot push updates to your existing app. Ever. Google cannot help you recover it.</p>
+        </div>
+
+        <h3>Automate signing with gradle (recommended)</h3>
+        <p>Rather than entering your keystore details manually every time, add a signing config to your <code>build.gradle</code> so release builds are signed automatically:</p>
+
+        <pre><code>android {
+    signingConfigs {
+        release {
+            storeFile file("../my-release-key.jks")
+            storePassword System.getenv("KEYSTORE_PASSWORD")
+            keyAlias "my-key-alias"
+            keyPassword System.getenv("KEY_PASSWORD")
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}</code></pre>
+
+        <p>Using environment variables for passwords keeps them out of your source code. Run the build with <code>./gradlew bundleRelease</code> and your signed AAB will be in <code>app/build/outputs/bundle/release/</code>.</p>
+
+        <!-- STEP 4 -->
+        <h2 id="step-4"><span class="step-num">4</span> Create your Play Store listing</h2>
+
+        <p>In Play Console, click <strong>Create app</strong>. You'll set your app name, default language, and whether it's an app or game. Once created, head to <strong>Store presence → Main store listing</strong>. This is what users see on the Play Store, so take it seriously.</p>
+
+        <h3>What you need to prepare</h3>
+        <ul class="checklist">
+          <li><span class="check-icon">check_circle</span><strong>Short description</strong> — up to 80 characters. This shows up in search results. Pack in your main value proposition.</li>
+          <li><span class="check-icon">check_circle</span><strong>Full description</strong> — up to 4,000 characters. Use natural language, include keywords people would search for, and break it up with line breaks. Don't keyword-stuff.</li>
+          <li><span class="check-icon">check_circle</span><strong>App icon</strong> — 512×512px PNG, no alpha/transparency allowed.</li>
+          <li><span class="check-icon">check_circle</span><strong>Feature graphic</strong> — 1024×500px. This appears at the top of your listing. Make it clean and legible at small sizes.</li>
+          <li><span class="check-icon">check_circle</span><strong>Screenshots</strong> — minimum 2, maximum 8 per device type. Phone screenshots must be at least 320px on the short side. Show the actual app, not just marketing graphics.</li>
+        </ul>
+
+        <div class="callout callout-tip">
+          <span class="callout-icon">lightbulb</span>
+          <p>Screenshots are the single most important conversion factor on your store listing. Users decide in 3 seconds whether to install. Use real in-app screenshots with short captions that explain the feature, not vague marketing phrases.</p>
+        </div>
+
+        <!-- STEP 5 -->
+        <h2 id="step-5"><span class="step-num">5</span> Upload your AAB and set up a release</h2>
+
+        <p>Go to <strong>Testing → Internal testing</strong> first. Even if you plan to go straight to production, starting with internal testing lets you verify the build uploads correctly and passes Google's automated checks before you commit to a full review cycle.</p>
+
+        <h3>Upload your AAB</h3>
+        <p>Click <strong>Create new release</strong>, then drag your <code>.aab</code> file into the upload box. Google will process it — this takes a minute or two. Once processed, you'll see your version code, version name, and a list of supported devices. Check this number: if it's below a few hundred million devices, something in your manifest is likely too restrictive.</p>
+
+        <h3>Release notes</h3>
+        <p>Write release notes even for your first version. Users see these when they're deciding whether to update. For a first release, something like "Initial release of PayTrack — track your shifts and take-home pay." is perfectly fine.</p>
+
+        <div class="callout callout-warn">
+          <span class="callout-icon">warning</span>
+          <p>If Google flags your build with a warning about a target SDK that's too low, you cannot publish to production until you fix it. In 2026, <code>targetSdk 35</code> is the minimum for new app submissions.</p>
+        </div>
+
+        <!-- STEP 6 -->
+        <h2 id="step-6"><span class="step-num">6</span> Complete the policy declarations</h2>
+
+        <p>This is the step that surprises most first-time publishers. Before Google will review your app, you must complete a series of policy declarations in the <strong>Policy</strong> section of Play Console. Skipping any of them blocks your submission.</p>
+
+        <h3>Data safety form</h3>
+        <p>This is the most important one. You must declare exactly what data your app collects, how it's used, whether it's shared with third parties, and whether users can request deletion. Be thorough and accurate — Google cross-checks this against your actual app behavior, and discrepancies are a common rejection reason.</p>
+
+        <div class="step-card">
+          <p style="margin:0;font-weight:600;margin-bottom:12px;">Common data types to declare:</p>
+          <ul style="padding-left:20px;line-height:2;">
+            <li>Personal info (name, email) — if you use Firebase Auth</li>
+            <li>Files and docs — if your app reads/writes storage</li>
+            <li>App activity — crash logs, usage statistics</li>
+            <li>Device identifiers — if you use advertising IDs</li>
+          </ul>
+        </div>
+
+        <h3>App content declarations</h3>
+        <p>You'll also need to complete:</p>
+        <ul class="checklist">
+          <li><span class="check-icon">check_circle</span><strong>Target audience</strong> — if your app could be used by anyone under 13, you're subject to additional COPPA requirements.</li>
+          <li><span class="check-icon">check_circle</span><strong>News app declaration</strong> — only relevant if you aggregate news content.</li>
+          <li><span class="check-icon">check_circle</span><strong>COVID-19 contact tracing</strong> — declare if your app is not related to this (most apps aren't).</li>
+          <li><span class="check-icon">check_circle</span><strong>Financial features</strong> — declare if your app handles real money transactions or investments. Note: a salary tracker like PayTrack does not handle real transactions, so this doesn't apply.</li>
+        </ul>
+
+        <!-- STEP 7 -->
+        <h2 id="step-7"><span class="step-num">7</span> Submit for review and go live</h2>
+
+        <p>Once all policy sections show a green tick, go to <strong>Production</strong>, create a new release, upload your AAB (or promote from internal testing), and click <strong>Review release</strong>. If everything is in order, you'll see a <strong>Start rollout to production</strong> button.</p>
+
+        <h3>Review timeline</h3>
+        <p>Google's review process for new apps typically takes <strong>3 to 7 days</strong> in 2026. It used to be faster, but increased policy enforcement has extended review times. Don't panic if it sits at "In review" for several days — this is normal.</p>
+
+        <div class="callout callout-tip">
+          <span class="callout-icon">lightbulb</span>
+          <p>You can choose a staged rollout — publish to 10% of users first, monitor crash rates and reviews, then expand to 100%. For a first app this is optional, but it's a good habit to build.</p>
+        </div>
+
+        <h3>Common rejection reasons</h3>
+        <ul class="checklist">
+          <li><span class="check-icon">cancel</span style="color:#FF5F57"><strong>Misleading metadata</strong> — your description promises features the app doesn't have, or your screenshots don't match the actual app.</li>
+          <li><span class="check-icon">cancel</span><strong>Privacy policy missing or incomplete</strong> — required if you collect any personal data or use certain permissions like camera, microphone, or location.</li>
+          <li><span class="check-icon">cancel</span><strong>Data safety mismatch</strong> — your declaration says you don't collect data, but your app clearly does (e.g. Firebase Analytics).</li>
+          <li><span class="check-icon">cancel</span><strong>Permissions not justified</strong> — requesting permissions (especially sensitive ones) without a clear in-app purpose.</li>
+          <li><span class="check-icon">cancel</span><strong>Target SDK too low</strong> — must be API 35+ for new submissions in 2026.</li>
+        </ul>
+
+        <!-- AFTER -->
+        <h2 id="after"><span class="step-num">✓</span> What happens after you publish</h2>
+
+        <p>Once your app is live, it typically appears in search results within a few hours, though full indexing can take up to 24 hours. Your app page will be sparse at first — no ratings, no reviews, minimal download count. This is completely normal and won't last long if your app solves a real problem.</p>
+
+        <h3>Things to do immediately after going live</h3>
+        <ul class="checklist">
+          <li><span class="check-icon">check_circle</span>Share the Play Store link everywhere — your portfolio, LinkedIn, WhatsApp, social media. Early organic installs help with Play Store ranking signals.</li>
+          <li><span class="check-icon">check_circle</span>Set up <strong>Android Vitals</strong> in Play Console — this shows crash rates, ANR rates, and battery usage. Fix any regressions fast.</li>
+          <li><span class="check-icon">check_circle</span>Reply to your first reviews, even if they're just "Great app!" — engagement signals matter for the algorithm.</li>
+          <li><span class="check-icon">check_circle</span>Start planning your first update. Apps that receive regular updates rank better and retain users more effectively than apps that go dark after launch.</li>
+        </ul>
+
+        <blockquote>"Shipping is a skill. The first time takes weeks. By the third or fourth app, you'll do it in an afternoon."</blockquote>
+
+        <p>The process is genuinely not as complicated as it looks from the outside — it's just unfamiliar. Once you've done it once with PayTrack or any other app, the second time takes a fraction of the effort. The key is not to let the policy declarations and signing setup intimidate you into never pressing submit.</p>
+
+      </div>
+
+      <!-- CTA -->
+      <div class="article-cta">
+        <h3>See a published app in action</h3>
+        <p>PayTrack went through this exact process — from first commit to live listing in under four weeks, built around a full-time job.</p>
+        <a href="/paytrack" class="btn-primary">
+          <span class="material-icons-round">smartphone</span> View PayTrack
+        </a>
+      </div>
+
+    </article>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 mustafaurim.dev. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+    if (html.getAttribute('data-theme') === 'dark') themeIcon.textContent = 'light_mode';
+    themeToggle.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      themeIcon.textContent = isDark ? 'dark_mode' : 'light_mode';
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    });
+
+    // Reading progress bar
+    window.addEventListener('scroll', () => {
+      const doc = document.documentElement;
+      const scrolled = doc.scrollTop;
+      const total = doc.scrollHeight - doc.clientHeight;
+      document.getElementById('progress-bar').style.width = (scrolled / total * 100) + '%';
+    });
+  </script>
+
+</body>
+</html>
