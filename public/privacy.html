@@ -5,19 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privacy Policy | PayTrack</title>
 
-  <meta name="description" content="PayTrack's privacy policy. Learn how we handle your data with a local-first approach — your financial records stay on your device and your Google Drive, never our servers.">
+  <meta name="description" content="PayTrack's privacy policy. Learn how we handle your data — optional Google Sign-In, work logs synced via Firebase Firestore, and note photos kept in your own Google Drive.">
   <meta name="author" content="Urim Mustafa">
   <meta name="robots" content="index, follow">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://mustafaurim.dev/privacy">
   <meta property="og:title" content="Privacy Policy | PayTrack">
-  <meta property="og:description" content="PayTrack operates on a local-first philosophy. Your financial data stays on your device and Google Drive — never on our servers.">
+  <meta property="og:description" content="PayTrack works fully offline, or optionally syncs via Firebase Firestore with Google Sign-In. Note photos always stay in your own Google Drive.">
   <meta property="og:image" content="https://mustafaurim.dev/image_1.webp">
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Privacy Policy | PayTrack">
-  <meta name="twitter:description" content="PayTrack's privacy policy — local-first, no server-side data storage.">
+  <meta name="twitter:description" content="PayTrack's privacy policy — optional sign-in, Firestore sync, your data always under your control.">
 
   <link rel="canonical" href="https://mustafaurim.dev/privacy">
   
@@ -81,6 +81,19 @@
 
     .contact-box { background: var(--md-primary-container); padding: 32px; border-radius: 24px; color: var(--md-primary); margin-top: 48px; }
 
+    h3.sub-heading { font-family: 'Outfit'; font-size: 1.1rem; color: var(--md-primary); margin-top: 24px; margin-bottom: 12px; font-weight: 700; }
+    .card h3.sub-heading:first-child { margin-top: 0; }
+
+    .table-wrap { overflow-x: auto; margin: 24px 0; border-radius: 24px; border: 1px solid var(--md-outline); }
+    table { width: 100%; border-collapse: collapse; background: var(--md-surface); font-size: 0.95rem; }
+    th, td { text-align: left; padding: 16px 20px; border-bottom: 1px solid var(--md-outline); color: var(--md-text-variant); }
+    th { font-family: 'Outfit'; color: var(--md-primary); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.05em; }
+    tr:last-child td { border-bottom: none; }
+    td strong { color: var(--md-text); }
+
+    .note-box { background: rgba(62, 45, 0, 0.06); border-left: 4px solid var(--md-primary); padding: 20px 24px; border-radius: 16px; margin: 24px 0; }
+    .note-box p { margin-bottom: 0; }
+
     footer { text-align: center; margin-top: 100px; padding: 40px; border-top: 1px solid var(--md-outline); font-size: 0.9rem; font-family: 'Outfit'; color: var(--md-primary); opacity: 0.7; }
 
     @media (max-width: 600px) {
@@ -99,40 +112,160 @@
     
     <header>
       <h1>Privacy Policy</h1>
-      <p class="last-updated">Last Updated: 23-02-2026</p>
+      <p class="last-updated">Last Updated: July 12, 2026</p>
     </header>
 
-    <p>Thank you for using PayTrack. Your privacy is important to us. We operate on a <strong>local-first</strong> philosophy to ensure your financial data remains under your exclusive control.</p>
+    <p>Thank you for using PayTrack. Your privacy is important to us. This policy explains clearly and honestly what data we collect, where it is stored, and how it is used.</p>
+
+    <h2><span class="header-icon">visibility</span>Overview</h2>
+    <div class="card">
+      <p style="margin-bottom: 0;">PayTrack is a personal work-log and salary tracking application. You can use the app fully without signing in — all your data stays on your device in that case. If you choose to sign in with Google, your data is securely backed up and synced across your devices using Google's cloud services.</p>
+    </div>
 
     <h2><span class="header-icon">fingerprint</span>Information We Collect</h2>
     <div class="card">
-      <p><strong>Account Information:</strong> If you utilize Google Sign-In, we access your email and a unique User ID via Firebase Authentication for secure synchronization. Login is optional.</p>
-      <p><strong>User Content:</strong> Photos and work logs are stored in a <strong>secure, hidden AppData folder</strong> on your Google Drive. We do not store this data on our own servers.</p>
-      <p><strong>Notifications:</strong> The app may send reminders to help you log your working hours, used solely for app functionality.</p>
+      <h3 class="sub-heading">2.1 Account Information (Optional — only if you sign in)</h3>
+      <p>If you choose to use Google Sign-In, we collect:</p>
+      <ul>
+        <li>Your <strong>Google email address</strong> (used as your unique identifier)</li>
+        <li>Your <strong>Google User ID</strong> (via Firebase Authentication)</li>
+        <li>Your <strong>display name and profile picture</strong> (provided by Google, used for display purposes only)</li>
+      </ul>
+      <p style="margin-bottom: 0;">Sign-in is entirely optional. The app is fully functional without an account.</p>
     </div>
 
-    <h2><span class="header-icon">settings</span>How We Use Information</h2>
+    <div class="card">
+      <h3 class="sub-heading">2.2 Work & Financial Data (Only if signed in and sync is enabled)</h3>
+      <p>To provide real-time sync across your devices, the following data is stored in <strong>Firebase Firestore</strong> — a cloud database managed under our Firebase project:</p>
+
+      <p><strong>Work Days</strong> (<code>workDays</code> collection):</p>
+      <ul>
+        <li>Date, start time, end time, break duration</li>
+        <li>Calculated hours, gross pay, net pay, deductions</li>
+        <li>Tax, Social Security (SSC/NI) calculations</li>
+        <li>Bonus/tip amounts, one-time deductions, rate overrides</li>
+        <li>Personal notes and note image references</li>
+        <li>Leave time segments (partial leave type and duration)</li>
+        <li>Associated job profile ID</li>
+      </ul>
+
+      <p><strong>Leave Entries</strong> (<code>leaveEntries</code> collection):</p>
+      <ul>
+        <li>Date and leave type (paid, unpaid, sick)</li>
+        <li>Notes and pay override amount</li>
+      </ul>
+
+      <p><strong>Salary Settings</strong> (<code>settings</code> collection):</p>
+      <ul>
+        <li>Hourly rate, payment type (hourly / daily / per job)</li>
+        <li>Tax configuration (period, filing status, rates)</li>
+        <li>Deduction rules and pay period settings</li>
+        <li>Company name(s) and associated configurations</li>
+      </ul>
+
+      <p><strong>Job Profiles</strong> (<code>jobs</code> collection):</p>
+      <ul>
+        <li>Job profile name and associated salary settings</li>
+        <li>Archive status</li>
+      </ul>
+
+      <p style="margin-bottom: 0;"><strong>Financial Goals</strong> (<code>goals</code> collection):</p>
+      <ul style="margin-bottom: 0;">
+        <li>Goal title, target amount, current saved amount</li>
+        <li style="margin-bottom: 0;">Completion status and creation date</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3 class="sub-heading">2.3 Photos & Media</h3>
+      <p style="margin-bottom: 0;">Note images attached to work logs are stored in a <strong>hidden AppData folder within your personal Google Drive</strong> — not in our Firestore database. These files are only accessible to you and are never read by our servers.</p>
+    </div>
+
+    <div class="card">
+      <h3 class="sub-heading">2.4 Notifications</h3>
+      <p style="margin-bottom: 0;">The app may send local notifications to remind you to log working hours. These notifications are processed entirely on-device and no notification data is transmitted externally.</p>
+    </div>
+
+    <h2><span class="header-icon">settings</span>How We Use Your Information</h2>
+    <p>We use the data described above solely to:</p>
     <ul>
-      <li>Authenticate your account and verify user identity</li>
-      <li>Synchronize work logs and photos to your Google Drive</li>
-      <li>Provide core functionality and reminders</li>
-      <li>Maintain and improve app performance</li>
+      <li>Authenticate your identity securely via Firebase Authentication</li>
+      <li>Sync your work logs, settings, goals, and job profiles across your devices in real time</li>
+      <li>Display your earnings, deductions, and summaries within the app</li>
+      <li>Send on-device reminders to support your logging habits</li>
+      <li>Maintain and improve app performance and reliability</li>
     </ul>
+    <p><strong>We do not use your data for advertising, profiling, or any purpose other than delivering the app's core functionality.</strong></p>
+
+    <h2><span class="header-icon">storage</span>Where Your Data Is Stored</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Data Type</th>
+            <th>Storage Location</th>
+            <th>Who Controls It</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Work logs, settings, goals, jobs</td>
+            <td>Firebase Firestore (Google Cloud)</td>
+            <td><strong>PayTrack (us)</strong></td>
+          </tr>
+          <tr>
+            <td>Note photos</td>
+            <td>Your personal Google Drive (AppData)</td>
+            <td><strong>You</strong></td>
+          </tr>
+          <tr>
+            <td>App preferences</td>
+            <td>Local device storage (Hive)</td>
+            <td><strong>You</strong></td>
+          </tr>
+          <tr>
+            <td>Authentication tokens</td>
+            <td>Firebase Authentication</td>
+            <td><strong>Google / PayTrack</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note-box">
+      <p><strong>Important:</strong> Firebase Firestore data is stored in our Firebase project, hosted on Google's infrastructure. While Google provides and secures the underlying servers, we (PayTrack) are the data controller for all Firestore data. Data stored in your Google Drive AppData folder is controlled exclusively by you.</p>
+    </div>
 
     <h2><span class="header-icon">lock_person</span>Data Sharing & Security</h2>
-    <p>We do not sell or share your personal data with third parties. All data transmissions are encrypted using standard protocols provided by Google (Firebase and Drive API).</p>
+    <div class="card">
+      <ul style="margin-top: 0;">
+        <li><strong>We do not sell, rent, or share your personal data with any third parties.</strong></li>
+        <li>All data transmissions are encrypted in transit using TLS/HTTPS protocols, as provided by Firebase and the Google Drive API.</li>
+        <li>Firestore data is secured by Firebase Security Rules, which restrict access strictly to the authenticated user.</li>
+        <li style="margin-bottom: 0;">We do not have employees or third parties who access your individual financial data.</li>
+      </ul>
+    </div>
 
-    <h2><span class="header-icon">delete_sweep</span>Your Choice & Deletion</h2>
-    <p>You maintain full authority over your data. You can:</p>
+    <h2><span class="header-icon">delete_sweep</span>Your Rights & Data Deletion</h2>
+    <p>You have full control over your data:</p>
     <ul>
-      <li>Use the app without signing in</li>
-      <li>Delete photos and logs from your Drive at any time</li>
-      <li>Use the in-app <strong>"Proceed To Wipe Data"</strong> tool to clear local and cloud records</li>
+      <li><strong>Use without an account:</strong> You can use PayTrack without signing in at any time.</li>
+      <li><strong>Sign out:</strong> Signing out immediately stops all sync activity.</li>
+      <li><strong>Delete note photos:</strong> You can remove images directly from your Google Drive at any time.</li>
+      <li><strong>Wipe all data:</strong> The in-app <strong>"Proceed To Wipe Data"</strong> tool permanently deletes all your records from both Firestore and local device storage.</li>
+      <li><strong>Manual Firestore deletion:</strong> All Firestore data is stored under <code>users/{your_email}/</code>. You may also contact us and we will delete your data within 30 days.</li>
     </ul>
+
+    <h2><span class="header-icon">child_care</span>Children's Privacy</h2>
+    <div class="card">
+      <p style="margin-bottom: 0;">PayTrack is not intended for use by children under 13. We do not knowingly collect personal information from children. If you believe a child has provided us with personal information, please contact us and we will delete it promptly.</p>
+    </div>
+
+    <h2><span class="header-icon">update</span>Changes to This Policy</h2>
+    <p>We may update this privacy policy from time to time. When we do, we will update the "Last Updated" date at the top of this page. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
 
     <div class="contact-box">
       <h3 style="font-family: 'Outfit'; font-weight: 800; margin-bottom: 12px;">Contact Us</h3>
-      <p style="margin-bottom: 0;">For inquiries regarding this policy, please contact:<br>
+      <p style="margin-bottom: 0;">For any questions, concerns, or data deletion requests regarding this policy, please contact:<br>
       <strong id="contact-email-privacy"></strong>
       <script>
         document.getElementById('contact-email-privacy').textContent = ['dev.paytrack', 'gmail.com'].join('@');
