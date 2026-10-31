@@ -627,6 +627,8 @@
       font-size: 0.78rem;
       font-weight: 700;
       color: #FFFFFF;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .virtual-card-bottom {
@@ -660,6 +662,7 @@
       font-weight: 700;
       padding: 5px 12px;
       border-radius: var(--radius-pill);
+      white-space: nowrap;
     }
 
     /* ─── STATS BENTO ROW ─── */
@@ -865,6 +868,8 @@
       font-weight: 800;
       background: var(--accent-amber-bg);
       color: #92400E;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .mult-badge.purple {
@@ -1009,6 +1014,8 @@
       border-radius: var(--radius-pill);
       font-size: 0.8rem;
       font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     /* Pay Period Analytics & Goal Rings */
@@ -1339,22 +1346,95 @@
     }
 
     @media (max-width: 600px) {
-      .hero {
-        padding: 120px 0 48px;
+      .nav-wrapper {
+        padding: 0 12px;
+        top: 12px;
       }
-      .stats-row,
+      nav.floating-nav {
+        padding: 6px 8px 6px 12px;
+        gap: 8px;
+      }
+      .nav-cta {
+        padding: 8px 14px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+      }
+      .hero {
+        padding: 108px 0 40px;
+      }
+      .hero h1 {
+        font-size: clamp(2.15rem, 8.5vw, 2.75rem);
+      }
+      .virtual-card-top,
+      .virtual-card-bottom {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .stat-card {
+        padding: 20px 18px;
+      }
+      .stat-value {
+        font-size: 1.65rem;
+      }
       .privacy-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .privacy-card {
+        padding: 20px 18px;
       }
       .bento-card,
       .calculator-card {
-        padding: 24px;
+        padding: 22px 20px;
+      }
+      .multiplier-row {
+        padding: 12px 14px;
+        gap: 8px;
+      }
+      .multiplier-title {
+        font-size: 0.82rem;
+      }
+      .mini-calendar {
+        padding: 12px;
+      }
+      .cal-grid {
+        gap: 4px;
+      }
+      .cal-cell {
+        padding: 6px 2px;
+        border-radius: 10px;
+      }
+      .cal-pill {
+        font-size: 0.58rem;
+        padding: 2px 4px;
+        white-space: nowrap;
+      }
+      .goal-ring-widget {
+        padding: 16px;
+        gap: 14px;
+      }
+      .goal-stats .goal-amount {
+        font-size: 1.25rem;
       }
       .calc-controls {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .input-group {
+        padding: 14px;
+      }
+      .input-group input {
+        font-size: 1.15rem;
+      }
+      .calc-output-card {
+        padding: 24px 20px;
       }
       .footer-cta-card {
-        padding: 44px 24px;
+        padding: 40px 20px;
       }
     }
   </style>
