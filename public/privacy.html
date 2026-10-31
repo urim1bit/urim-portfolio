@@ -1,139 +1,311 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Privacy Policy - PayTrack: Salary & Net Tracker</title>
+  <title>Privacy Policy - PayTrack: Shift, Overtime &amp; Earnings Tracker</title>
 
-  <meta name="description" content="PayTrack's privacy policy. Learn how we handle your data — on-device geofencing, optional Google Sign-In, work logs synced via Firebase Firestore, and note photos kept in your own Google Drive.">
-  <meta name="author" content="Urim Mustafa">
-  <meta name="robots" content="index, follow">
+  <meta name="description" content="PayTrack's privacy policy. Learn how we handle your data — on-device geofencing, optional Google Sign-In, work logs synced via Firebase Firestore, and note photos kept in your own Google Drive." />
+  <meta name="author" content="Urim Mustafa" />
+  <meta name="robots" content="index, follow" />
 
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://mustafaurim.dev/privacy">
-  <meta property="og:title" content="Privacy Policy - PayTrack: Salary & Net Tracker">
-  <meta property="og:description" content="PayTrack works fully offline, or optionally syncs via Firebase Firestore with Google Sign-In. Geofencing is computed 100% locally on-device. Note photos stay in your Google Drive.">
-  <meta property="og:image" content="https://mustafaurim.dev/image_1.webp">
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mustafaurim.dev/privacy" />
+  <meta property="og:title" content="Privacy Policy - PayTrack: Shift, Overtime & Earnings Tracker" />
+  <meta property="og:description" content="PayTrack works fully offline, or optionally syncs via Firebase Firestore with Google Sign-In. Geofencing is computed 100% locally on-device. Note photos stay in your Google Drive." />
+  <meta property="og:image" content="https://mustafaurim.dev/image_1.webp" />
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Privacy Policy - PayTrack: Salary & Net Tracker">
-  <meta name="twitter:description" content="PayTrack's privacy policy — on-device location beacon, optional cloud sync, your data always under your control.">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Privacy Policy - PayTrack: Shift, Overtime & Earnings Tracker" />
+  <meta name="twitter:description" content="PayTrack's privacy policy — on-device location beacon, optional cloud sync, your data always under your control." />
 
-  <link rel="canonical" href="https://mustafaurim.dev/privacy">
-  
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link rel="canonical" href="https://mustafaurim.dev/privacy" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+
+  <script>
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  </script>
 
   <style>
+    /* ─── NEO-FINTECH LUXURY MINIMALIST BENTO SYSTEM (ZERO GREEN) ─── */
     :root {
-      /* Matching your portfolio's Lite Lime & Brown Palette */
-      --md-bg: #F0F5E1; 
-      --md-surface: #FCFDF6; 
-      --md-primary: #3E2D00; /* Deep Earth Brown */
-      --md-primary-container: #FFDEA4; /* Warm Sand accent */
-      --md-text: #1D1B16;
-      --md-text-variant: #4D4639;
-      --md-outline: #D5C4A1;
+      --md-bg: #F4F4F6;
+      --md-surface: #FFFFFF;
+      --md-surface-muted: #F4F4F5;
+      --md-primary: #18181B;
+      --md-primary-container: #F7E8D3;
+      --md-lavender: #EBE4F6;
+      --md-text: #18181B;
+      --md-text-variant: #71717A;
+      --md-outline: rgba(0, 0, 0, 0.06);
+      --md-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.05);
+      --nav-bg: rgba(255, 255, 255, 0.88);
+      --accent-cherry: #D2042D;
+      --accent-cherry-bg: #FEE2E2;
+      --accent-amber-bg: #FEF3C7;
+      --accent-purple: #7C3AED;
+    }
+
+    [data-theme="dark"] {
+      --md-bg: #121214;
+      --md-surface: #18181B;
+      --md-surface-muted: #27272A;
+      --md-primary: #FFFFFF;
+      --md-primary-container: #27272A;
+      --md-lavender: #27272A;
+      --md-text: #FFFFFF;
+      --md-text-variant: #A1A1AA;
+      --md-outline: rgba(255, 255, 255, 0.08);
+      --md-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.45);
+      --nav-bg: rgba(24, 24, 27, 0.88);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { 
-      font-family: 'Roboto', sans-serif; 
-      background: var(--md-bg); 
-      color: var(--md-text); 
-      line-height: 1.6; 
-      padding: 60px 24px; 
-      min-height: 100vh; 
+    body {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 500;
+      background: var(--md-bg);
+      color: var(--md-text);
+      line-height: 1.65;
+      padding: 120px 24px 60px;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.3s, color 0.3s;
     }
-    
-    .container { max-width: 820px; margin: 0 auto; }
-    
-    .back-btn { 
-      display: inline-flex; 
-      align-items: center; 
-      text-decoration: none; 
-      color: var(--md-primary); 
-      font-weight: 700; 
-      font-size: 0.9rem; 
-      margin-bottom: 32px; 
-      font-family: 'Outfit'; 
-      gap: 8px; 
-      transition: opacity 0.2s; 
+
+    .nav-wrapper {
+      position: fixed; top: 20px; left: 0; right: 0;
+      display: flex; justify-content: center; z-index: 1000; padding: 0 24px;
+    }
+    nav {
+      background: var(--nav-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--md-outline);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 16px 10px 20px; border-radius: 9999px; width: 100%; max-width: 860px;
+      box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.08);
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--md-text);
+      font-weight: 700;
+      font-size: 0.9rem;
+      gap: 8px;
+      transition: opacity 0.2s;
     }
     .back-btn:hover { opacity: 0.7; }
-
-    header { border-bottom: 2px solid var(--md-outline); padding-bottom: 32px; margin-bottom: 48px; }
-    h1 { font-family: 'Outfit'; font-size: 2.8rem; color: var(--md-primary); margin-bottom: 8px; font-weight: 800; letter-spacing: -0.04em; }
-    .badge {
-      display: inline-block;
-      background: var(--md-primary-container);
-      color: var(--md-primary);
-      padding: 4px 12px;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-      font-family: 'Outfit';
+    .icon-btn {
+      background: var(--md-surface-muted); border: 1px solid var(--md-outline);
+      color: var(--md-text); cursor: pointer; width: 38px; height: 38px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
     }
-    .meta-details { font-size: 0.9rem; color: var(--md-text-variant); font-weight: 500; font-family: 'Outfit'; display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 8px; }
 
-    h2 { font-family: 'Outfit'; font-size: 1.5rem; margin-top: 56px; margin-bottom: 20px; color: var(--md-primary); display: flex; align-items: center; gap: 16px; font-weight: 700; }
-    .header-icon { font-family: 'Material Icons Round'; color: var(--md-primary); opacity: 0.8; font-size: 1.8rem; }
+    .container { max-width: 860px; margin: 0 auto; }
 
-    /* Elevated Card Design */
-    .card { background: var(--md-surface); padding: 32px; border-radius: 32px; margin: 24px 0; border: 1px solid var(--md-outline); box-shadow: 0 10px 30px rgba(62, 45, 0, 0.05); }
-    
-    p { margin-bottom: 16px; color: var(--md-text-variant); font-size: 1.05rem; }
+    header {
+      background: var(--md-surface);
+      border: 1px solid var(--md-outline);
+      box-shadow: var(--md-shadow);
+      border-radius: 32px;
+      padding: 40px;
+      margin-bottom: 40px;
+    }
+    h1 {
+      font-size: clamp(2.2rem, 4.5vw, 3rem);
+      color: var(--md-text);
+      margin-bottom: 12px;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.08;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #F7E8D3;
+      color: #18181B;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .meta-details {
+      font-size: 0.9rem;
+      color: var(--md-text-variant);
+      font-weight: 600;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      margin-top: 8px;
+    }
+
+    h2 {
+      font-size: 1.45rem;
+      margin-top: 48px;
+      margin-bottom: 18px;
+      color: var(--md-text);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .header-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--md-surface);
+      border: 1px solid var(--md-outline);
+      box-shadow: var(--md-shadow);
+      font-family: 'Material Icons Round';
+      color: var(--md-text);
+      font-size: 1.35rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Bento Card Design */
+    .card {
+      background: var(--md-surface);
+      padding: 32px;
+      border-radius: 28px;
+      margin: 20px 0;
+      border: 1px solid var(--md-outline);
+      box-shadow: var(--md-shadow);
+    }
+
+    p { margin-bottom: 16px; color: var(--md-text-variant); font-size: 1.02rem; }
     strong { color: var(--md-text); font-weight: 700; }
+    code {
+      background: var(--md-surface-muted);
+      color: var(--md-text);
+      padding: 2px 8px;
+      border-radius: 8px;
+      font-size: 0.88em;
+      font-weight: 600;
+    }
 
-    ul { margin: 24px 0 24px 24px; color: var(--md-text-variant); list-style-type: none; }
-    li { margin-bottom: 16px; position: relative; padding-left: 32px; font-size: 1.05rem; }
-    li::before { content: 'check_circle'; font-family: 'Material Icons Round'; position: absolute; left: 0; color: var(--md-primary); font-size: 1.2rem; }
+    ul { margin: 20px 0 20px 8px; color: var(--md-text-variant); list-style-type: none; }
+    li { margin-bottom: 14px; position: relative; padding-left: 32px; font-size: 1.02rem; }
+    li::before {
+      content: 'check_circle';
+      font-family: 'Material Icons Round';
+      position: absolute;
+      left: 0;
+      color: var(--accent-purple);
+      font-size: 1.2rem;
+    }
 
     .nested-list { margin: 12px 0 12px 12px; }
-    .nested-list li { margin-bottom: 8px; font-size: 1rem; }
-    .nested-list li::before { content: 'arrow_right'; }
+    .nested-list li { margin-bottom: 8px; font-size: 0.96rem; }
+    .nested-list li::before { content: 'arrow_right'; color: var(--md-text); }
 
-    .contact-box { background: var(--md-primary-container); padding: 32px; border-radius: 24px; color: var(--md-primary); margin-top: 48px; }
+    .contact-box {
+      background: #18181B;
+      padding: 36px;
+      border-radius: 28px;
+      color: #FFFFFF;
+      margin-top: 48px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .contact-box p, .contact-box strong, .contact-box a {
+      color: #FFFFFF;
+    }
 
-    h3.sub-heading { font-family: 'Outfit'; font-size: 1.15rem; color: var(--md-primary); margin-top: 24px; margin-bottom: 12px; font-weight: 700; }
+    h3.sub-heading {
+      font-size: 1.15rem;
+      color: var(--md-text);
+      margin-top: 24px;
+      margin-bottom: 12px;
+      font-weight: 800;
+    }
     .card h3.sub-heading:first-child { margin-top: 0; }
 
-    .table-wrap { overflow-x: auto; margin: 24px 0; border-radius: 24px; border: 1px solid var(--md-outline); }
+    .table-wrap {
+      overflow-x: auto;
+      margin: 24px 0;
+      border-radius: 28px;
+      border: 1px solid var(--md-outline);
+      box-shadow: var(--md-shadow);
+    }
     table { width: 100%; border-collapse: collapse; background: var(--md-surface); font-size: 0.95rem; }
     th, td { text-align: left; padding: 16px 20px; border-bottom: 1px solid var(--md-outline); color: var(--md-text-variant); }
-    th { font-family: 'Outfit'; color: var(--md-primary); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.05em; }
+    th { color: var(--md-text); font-weight: 800; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.06em; background: var(--md-surface-muted); }
     tr:last-child td { border-bottom: none; }
     td strong { color: var(--md-text); }
 
-    .note-box { background: rgba(62, 45, 0, 0.06); border-left: 4px solid var(--md-primary); padding: 20px 24px; border-radius: 16px; margin: 24px 0; }
-    .note-box p { margin-bottom: 0; }
+    .note-box {
+      background: #EBE4F6;
+      color: #18181B;
+      padding: 22px 26px;
+      border-radius: 22px;
+      margin: 24px 0;
+    }
+    .note-box p, .note-box strong { margin-bottom: 0; color: #18181B; }
 
-    .disclosure-box { background: #fff8e1; border: 1.5px solid #ffe082; padding: 20px 24px; border-radius: 20px; margin: 20px 0; color: #5d4037; }
-    .disclosure-box p { margin-bottom: 0; font-size: 1rem; }
-    .disclosure-box strong { color: #3e2723; }
+    .disclosure-box {
+      background: #F7E8D3;
+      border: 1px solid rgba(24, 24, 27, 0.08);
+      padding: 22px 26px;
+      border-radius: 22px;
+      margin: 0 0 22px;
+      color: #18181B;
+    }
+    .disclosure-box p { margin-bottom: 0; font-size: 0.98rem; color: #18181B; }
+    .disclosure-box strong { color: #18181B; }
 
-    footer { text-align: center; margin-top: 100px; padding: 40px; border-top: 1px solid var(--md-outline); font-size: 0.9rem; font-family: 'Outfit'; color: var(--md-primary); opacity: 0.7; }
-    a { color: var(--md-primary); }
+    footer {
+      text-align: center;
+      margin-top: 80px;
+      padding: 40px;
+      border-top: 1px solid var(--md-outline);
+      font-size: 0.9rem;
+      color: var(--md-text-variant);
+    }
 
     @media (max-width: 600px) {
-      h1 { font-size: 2.2rem; }
-      body { padding: 40px 16px; }
-      .card { padding: 24px; }
+      h1 { font-size: 2.1rem; }
+      body { padding: 104px 16px 40px; }
+      header, .card { padding: 24px; border-radius: 24px; }
     }
   </style>
 </head>
 <body>
 
+  <div class="nav-wrapper">
+    <nav>
+      <a href="/" class="back-btn">
+        <span class="material-icons-round" style="font-size: 1.2rem;">arrow_back</span> Back to Portfolio
+      </a>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <a href="paytrack.html" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--md-text); font-weight: 800; font-size: 0.9rem; padding: 6px 14px; border-radius: 9999px; background: var(--md-surface-muted);">
+          <img src="edit_note.svg" alt="PayTrack" style="width: 20px; height: 20px; border-radius: 5px;" />
+          PayTrack
+        </a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle Theme">
+          <span class="material-icons-round" id="themeIcon" style="font-size: 19px;">dark_mode</span>
+        </button>
+      </div>
+    </nav>
+  </div>
+
   <div class="container">
-    <a href="/" class="back-btn">
-        <span class="material-icons-round" style="font-size: 1.2rem;">arrow_back</span>BACK TO PORTFOLIO
-    </a>
-    
     <header>
-      <div class="badge">Official Policy Declaration</div>
+      <div class="badge">
+        <span style="width:7px;height:7px;border-radius:50%;background:#D2042D;"></span>
+        Official Policy Declaration
+      </div>
       <h1>Privacy Policy</h1>
       <div class="meta-details">
         <span><strong>Package ID:</strong> com.urim.paytrack</span>
@@ -144,17 +316,17 @@
       </div>
     </header>
 
-    <p>PayTrack ("we", "our", or "the app") provides precision work shift tracking, overtime auditing, salary computation, and financial records for hourly and salaried workers. Your financial timeline and records are treated with the highest standard of data privacy.</p>
+    <p>PayTrack ("we", "our", or "the app") provides precision work shift tracking, overtime multiplier calculation, shift allowance logging, and gross earnings records for hourly and shift workers. Your work timeline and records are treated with the highest standard of data privacy.</p>
 
     <h2><span class="header-icon">visibility</span>Overview</h2>
     <div class="card">
-      <p style="margin-bottom: 0;">PayTrack is a personal work-log and salary tracking application. You can use the app fully without signing in — all your data stays on your device in that case. If you choose to sign in with Google, your data is securely backed up and synced across your devices using Google's cloud services.</p>
+      <p style="margin-bottom: 0;">PayTrack is a personal work-log and shift earnings tracking application. You can use the app fully without signing in — all your data stays on your device in that case. If you choose to sign in with Google, your data is securely backed up and synced across your devices using Google's cloud services.</p>
     </div>
 
-    <h2><span class="header-icon">location_on</span>Location Data & Geofencing Policy</h2>
+    <h2><span class="header-icon">location_on</span>Location Data &amp; Geofencing Policy</h2>
     <div class="card">
       <div class="disclosure-box">
-        <p>📍 <strong>Mandatory Google Play Disclosure:</strong><br>
+        <p>📍 <strong>Mandatory Google Play Disclosure:</strong><br />
         PayTrack collects location data to enable automatic work shift detection and arrival/departure reminders even when the app is closed or not in use.</p>
       </div>
 
@@ -163,13 +335,13 @@
       <ul>
         <li><strong>Specific Permissions Accessed:</strong>
           <ul class="nested-list">
-            <li><code>ACCESS_FINE_LOCATION</code> & <code>ACCESS_COARSE_LOCATION</code>: Used to determine your physical device coordinates relative to your employer's site radius.</li>
+            <li><code>ACCESS_FINE_LOCATION</code> &amp; <code>ACCESS_COARSE_LOCATION</code>: Used to determine your physical device coordinates relative to your employer's site radius.</li>
             <li><code>ACCESS_BACKGROUND_LOCATION</code>: Used to monitor geofence entry and exit events while the app is running in the background or closed.</li>
           </ul>
         </li>
-        <li><strong>Usage & Purpose:</strong> Location data is used strictly to trigger timely clock-in and clock-out alerts upon arrival or departure, record precise on-site work durations, and prevent unlogged shift earnings.</li>
+        <li><strong>Usage &amp; Purpose:</strong> Location data is used strictly to trigger timely clock-in and clock-out alerts upon arrival or departure, record precise on-site work durations, and prevent unlogged shift earnings.</li>
         <li><strong>100% On-Device Local Processing:</strong> All geofence boundary calculations are executed solely on your physical device. PayTrack <strong>never</strong> transmits, uploads, tracks, rents, or sells your real-time GPS coordinates or location history to our servers, advertising networks, or third-party brokers.</li>
-        <li><strong>User Opt-Out & Control:</strong> Geofencing is completely optional. You may enable or disable Geofence Beacon anytime in <em>Settings &gt; Geofence Beacon</em>, or revoke location permissions via your operating system settings (<em>Android Settings &gt; Apps &gt; PayTrack &gt; Permissions</em>). PayTrack remains fully usable with manual shift logging.</li>
+        <li><strong>User Opt-Out &amp; Control:</strong> Geofencing is completely optional. You may enable or disable Geofence Beacon anytime in <em>Settings &gt; Geofence Beacon</em>, or revoke location permissions via your operating system settings (<em>Android Settings &gt; Apps &gt; PayTrack &gt; Permissions</em>). PayTrack remains fully usable with manual shift logging.</li>
       </ul>
     </div>
 
@@ -186,15 +358,15 @@
     </div>
 
     <div class="card">
-      <h3 class="sub-heading">2.2 Work & Financial Data (Only if signed in and sync is enabled)</h3>
-      <p>To provide real-time sync across your devices, data is stored in <strong>Firebase Firestore</strong> — a cloud database managed under our Firebase project (or kept strictly in local Hive storage if offline):</p>
+      <h3 class="sub-heading">2.2 Work &amp; Shift Earnings Data (Only if signed in and sync is enabled)</h3>
+      <p>To provide real-time sync across your devices, data is stored in <strong>Firebase Firestore</strong> — a cloud database managed under our Firebase project (or kept strictly in local storage if offline):</p>
 
       <p><strong>Work Days</strong> (<code>workDays</code> collection):</p>
       <ul>
         <li>Date, start time, end time, break duration</li>
-        <li>Calculated hours, gross pay, net pay, deductions</li>
-        <li>Tax, Social Security (SSC/NI) calculations</li>
-        <li>Bonus/tip amounts, one-time deductions, rate overrides</li>
+        <li>Calculated hours, regular shift pay, overtime pay, and gross shift earnings</li>
+        <li>Overtime multipliers (1.5x, 2.0x) and shift allowance calculations</li>
+        <li>Bonus/tip amounts, shift allowances, and rate overrides</li>
         <li>Personal notes and note image references</li>
         <li>Leave time segments (partial leave type and duration)</li>
         <li>Associated job profile ID</li>
@@ -203,33 +375,33 @@
       <p><strong>Leave Entries</strong> (<code>leaveEntries</code> collection):</p>
       <ul>
         <li>Date and leave type (paid, unpaid, sick)</li>
-        <li>Notes and pay override amount</li>
+        <li>Notes and shift rate override amount</li>
       </ul>
 
-      <p><strong>Salary Settings</strong> (<code>settings</code> collection):</p>
+      <p><strong>Shift &amp; Rate Settings</strong> (<code>settings</code> collection):</p>
       <ul>
-        <li>Hourly rate, payment type (hourly / daily / per job)</li>
-        <li>Tax configuration (period, filing status, rates)</li>
-        <li>Deduction rules and pay period settings</li>
-        <li>Company name(s) and associated configurations</li>
+        <li>Hourly rate, payment type (hourly / daily / per shift)</li>
+        <li>Overtime multiplier rules (1.5x, 2.0x) and shift allowance presets</li>
+        <li>Break rules and pay period cycle settings</li>
+        <li>Company name(s) and associated work profile configurations</li>
       </ul>
 
       <p><strong>Job Profiles</strong> (<code>jobs</code> collection):</p>
       <ul>
-        <li>Job profile name and associated salary settings</li>
+        <li>Job profile name and associated hourly rate settings</li>
         <li>Archive status</li>
       </ul>
 
-      <p style="margin-bottom: 0;"><strong>Financial Goals</strong> (<code>goals</code> collection):</p>
+      <p style="margin-bottom: 0;"><strong>Earnings Goals</strong> (<code>goals</code> collection):</p>
       <ul style="margin-bottom: 0;">
-        <li>Goal title, target amount, current saved amount</li>
+        <li>Goal title, target amount, current logged amount</li>
         <li style="margin-bottom: 0;">Completion status and creation date</li>
       </ul>
     </div>
 
     <div class="card">
-      <h3 class="sub-heading">2.3 Photos & Receipts</h3>
-      <p style="margin-bottom: 0;">Note images and receipts attached to work logs are stored in a <strong>hidden AppData folder within your personal Google Drive</strong> — not in our Firestore database. These files are accessible only to you and are never read by our servers.</p>
+      <h3 class="sub-heading">2.3 Photos &amp; Receipts</h3>
+      <p style="margin-bottom: 0;">Note images and shift attachments added to work logs are stored in a <strong>hidden AppData folder within your personal Google Drive</strong> — not in our Firestore database. These files are accessible only to you and are never read by our servers.</p>
     </div>
 
     <div class="card">
@@ -243,16 +415,18 @@
     </div>
 
     <h2><span class="header-icon">settings</span>How We Use Your Information</h2>
-    <p>We use the data described above solely to:</p>
-    <ul>
-      <li>Authenticate your identity securely via Firebase Authentication</li>
-      <li>Sync your work logs, settings, goals, and job profiles across your devices in real time</li>
-      <li>Display your earnings, deductions, and summaries within the app</li>
-      <li>Send on-device reminders and geofence alerts to support your logging habits</li>
-      <li>Validate in-app subscriptions and pro features</li>
-      <li>Maintain and improve app performance and reliability</li>
-    </ul>
-    <p><strong>We do not sell, rent, or share your data for advertising, profiling, or data brokerage.</strong></p>
+    <div class="card">
+      <p>We use the data described above solely to:</p>
+      <ul>
+        <li>Authenticate your identity securely via Firebase Authentication</li>
+        <li>Sync your work logs, settings, goals, and job profiles across your devices in real time</li>
+        <li>Display your tracked hours, overtime multipliers, allowances, and summaries within the app</li>
+        <li>Send on-device reminders and geofence alerts to support your logging habits</li>
+        <li>Validate in-app subscriptions and pro features</li>
+        <li>Maintain and improve app performance and reliability</li>
+      </ul>
+      <p style="margin-bottom: 0;"><strong>We do not sell, rent, or share your data for advertising, profiling, or data brokerage.</strong></p>
+    </div>
 
     <h2><span class="header-icon">storage</span>Where Your Data Is Stored</h2>
     <div class="table-wrap">
@@ -261,18 +435,18 @@
           <tr>
             <th>Data Type</th>
             <th>Storage Location</th>
-            <th>Privacy & Control</th>
+            <th>Privacy &amp; Control</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>Location & Geofences</strong></td>
+            <td><strong>Location &amp; Geofences</strong></td>
             <td>On-Device Local Storage Only</td>
             <td>Processed in real-time on device. Never uploaded remotely.</td>
           </tr>
           <tr>
             <td><strong>Work logs, settings, goals, jobs</strong></td>
-            <td>Local Device (Hive) + Firebase Firestore</td>
+            <td>Local Device + Firebase Firestore</td>
             <td>Encrypted in transit (TLS) and at rest. Accessible only by you.</td>
           </tr>
           <tr>
@@ -282,11 +456,11 @@
           </tr>
           <tr>
             <td><strong>App preferences</strong></td>
-            <td>Local device storage (Hive)</td>
+            <td>Local device storage</td>
             <td>Controlled exclusively by You.</td>
           </tr>
           <tr>
-            <td><strong>Authentication & Subscription</strong></td>
+            <td><strong>Authentication &amp; Subscription</strong></td>
             <td>Firebase Auth / RevenueCat / Google Play</td>
             <td>OAuth 2.0 security tokens and Play Billing tokens.</td>
           </tr>
@@ -297,26 +471,28 @@
       <p><strong>Important:</strong> Firebase Firestore data is stored under our Firebase project, hosted on Google's infrastructure. While Google provides and secures the underlying cloud servers, we (PayTrack) are the data controller for synchronized Firestore data. Data stored in your Google Drive AppData folder is controlled exclusively by you.</p>
     </div>
 
-    <h2><span class="header-icon">lock_person</span>Data Sharing & Security</h2>
+    <h2><span class="header-icon">lock_person</span>Data Sharing &amp; Security</h2>
     <div class="card">
       <ul style="margin-top: 0;">
         <li><strong>We do not sell, rent, or share your personal data with any third parties.</strong></li>
         <li>All data transmissions are encrypted in transit using TLS/HTTPS protocols, as provided by Firebase and the Google Drive API.</li>
         <li>Firestore data is secured by Firebase Security Rules, restricting access strictly to the authenticated user.</li>
-        <li style="margin-bottom: 0;">We do not have employees or third parties who access your individual work hours or financial data.</li>
+        <li style="margin-bottom: 0;">We do not have employees or third parties who access your individual work hours or shift earnings data.</li>
       </ul>
     </div>
 
-    <h2><span class="header-icon">delete_sweep</span>Your Rights & Data Deletion</h2>
-    <p>You have full sovereignty over your data:</p>
-    <ul>
-      <li><strong>Account-Free Usage:</strong> You can use PayTrack completely offline without creating an account.</li>
-      <li><strong>Permission Revocation:</strong> Revoke Location, Camera, or Storage permissions at any time via Android Settings.</li>
-      <li><strong>Sign out:</strong> Signing out immediately stops all sync activity.</li>
-      <li><strong>Delete note photos:</strong> You can remove images directly from your Google Drive at any time.</li>
-      <li><strong>Instant Data Deletion:</strong> The in-app <strong>"Proceed To Wipe Data"</strong> / <strong>"Wipe All Data"</strong> tool permanently deletes all your records from both Firestore and local device storage.</li>
-      <li><strong>Manual Firestore deletion:</strong> All Firestore data is keyed under <code>users/{your_email}/</code>. You may also contact us and we will delete your data within 30 days.</li>
-    </ul>
+    <h2><span class="header-icon">delete_sweep</span>Your Rights &amp; Data Deletion</h2>
+    <div class="card">
+      <p>You have full sovereignty over your data:</p>
+      <ul style="margin-bottom: 0;">
+        <li><strong>Account-Free Usage:</strong> You can use PayTrack completely offline without creating an account.</li>
+        <li><strong>Permission Revocation:</strong> Revoke Location, Camera, or Storage permissions at any time via Android Settings.</li>
+        <li><strong>Sign out:</strong> Signing out immediately stops all sync activity.</li>
+        <li><strong>Delete note photos:</strong> You can remove images directly from your Google Drive at any time.</li>
+        <li><strong>Instant Data Deletion:</strong> The in-app <strong>"Proceed To Wipe Data"</strong> / <strong>"Wipe All Data"</strong> tool permanently deletes all your records from both Firestore and local device storage.</li>
+        <li style="margin-bottom: 0;"><strong>Manual Firestore deletion:</strong> All Firestore data is keyed under <code>users/{your_email}/</code>. You may also contact us and we will delete your data within 30 days.</li>
+      </ul>
+    </div>
 
     <h2><span class="header-icon">child_care</span>Children's Privacy</h2>
     <div class="card">
@@ -327,11 +503,11 @@
     <p>We may update this privacy policy from time to time. When we do, we will update the "Effective Date" at the top of this page. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
 
     <div class="contact-box">
-      <h3 style="font-family: 'Outfit'; font-weight: 800; margin-bottom: 12px;">Contact Us</h3>
-      <p>If you have any questions, concerns, or data deletion requests regarding this policy, please contact:<br>
-      <strong>Developer:</strong> Mustafa Urim (dev.urim)<br>
-      <strong>Website:</strong> <a href="https://mustafaurim.dev" target="_blank" style="text-decoration: underline;">https://mustafaurim.dev</a><br>
-      <strong>Email:</strong> <strong id="contact-email-privacy"></strong></p>
+      <h3 style="font-weight: 800; font-size: 1.3rem; margin-bottom: 12px; color: #F7E8D3;">Contact Us</h3>
+      <p style="margin-bottom: 0; color: #A1A1AA;">If you have any questions, concerns, or data deletion requests regarding this policy, please contact:<br />
+      <strong>Developer:</strong> Mustafa Urim (dev.urim)<br />
+      <strong>Website:</strong> <a href="https://mustafaurim.dev" target="_blank" style="text-decoration: underline; color: #F7E8D3;">https://mustafaurim.dev</a><br />
+      <strong>Email:</strong> <strong id="contact-email-privacy" style="color: #F7E8D3;"></strong></p>
       <script>
         document.getElementById('contact-email-privacy').textContent = ['dev.paytrack', 'gmail.com'].join('@');
       </script>
@@ -340,5 +516,17 @@
     <footer>&copy; 2026 mustafaurim.dev. All rights reserved.</footer>
   </div>
 
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+    if (html.getAttribute('data-theme') === 'dark') themeIcon.textContent = 'light_mode';
+    themeToggle.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      themeIcon.textContent = isDark ? 'dark_mode' : 'light_mode';
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    });
+  </script>
 </body>
 </html>

@@ -2,30 +2,33 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Implementing Material You in Android 16 - Urim Mustafa</title>
 
-  <meta name="description" content="A practical guide to implementing Material You dynamic colors and theming in Android 16 with Jetpack Compose. Covers dynamic color schemes, surface containers, and predictive back gestures.">
-  <meta name="author" content="Urim Mustafa">
-  <meta name="robots" content="index, follow">
+  <meta name="description" content="A practical guide to implementing Material You dynamic colors and theming in Android 16 with Jetpack Compose. Covers dynamic color schemes, surface containers, and predictive back gestures." />
+  <meta name="author" content="Urim Mustafa" />
+  <meta name="robots" content="index, follow" />
 
-  <meta property="og:type" content="article">
-  <meta property="og:url" content="https://mustafaurim.dev/materialyou">
-  <meta property="og:title" content="Implementing Material You in Android 16 - Urim Mustafa">
-  <meta property="og:description" content="A practical guide to Material You dynamic colors and Jetpack Compose theming in Android 16. Surface containers, accessibility, and predictive back.">
-  <meta property="og:image" content="https://mustafaurim.dev/image_1.webp">
-  <meta property="article:published_time" content="2026-01-12">
-  <meta property="article:author" content="Urim Mustafa">
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://mustafaurim.dev/materialyou" />
+  <meta property="og:title" content="Implementing Material You in Android 16 - Urim Mustafa" />
+  <meta property="og:description" content="A practical guide to Material You dynamic colors and Jetpack Compose theming in Android 16. Surface containers, accessibility, and predictive back." />
+  <meta property="og:image" content="https://mustafaurim.dev/image_1.webp" />
+  <meta property="article:published_time" content="2026-01-12" />
+  <meta property="article:author" content="Urim Mustafa" />
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Implementing Material You in Android 16 - Urim Mustafa">
-  <meta name="twitter:description" content="How to implement Material You dynamic colors in Android 16 with Jetpack Compose. A practical engineering guide.">
-  <meta name="twitter:image" content="https://mustafaurim.dev/image_1.webp">
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Implementing Material You in Android 16 - Urim Mustafa" />
+  <meta name="twitter:description" content="How to implement Material You dynamic colors in Android 16 with Jetpack Compose. A practical engineering guide." />
+  <meta name="twitter:image" content="https://mustafaurim.dev/image_1.webp" />
 
-  <link rel="canonical" href="https://mustafaurim.dev/materialyou">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
-  
+  <link rel="canonical" href="https://mustafaurim.dev/materialyou" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+
   <script>
     const savedTheme = localStorage.getItem('theme');
     const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -37,146 +40,191 @@
   </script>
 
   <style>
-    /* ─── GREEN MATERIAL YOU COLOR SYSTEM ─── */
+    /* ─── NEO-FINTECH LUXURY MINIMALIST BENTO SYSTEM (ZERO GREEN) ─── */
     :root {
-      --md-bg: #F7FBF4;
+      --md-bg: #F4F4F6;
       --md-surface: #FFFFFF;
-      --md-surface-container: #EEF5EA;
-      --md-surface-container-high: #E6EDE2;
-      --md-primary: #196D33;
+      --md-surface-container: #FFFFFF;
+      --md-surface-container-high: #F4F4F5;
+      --md-primary: #18181B;
       --md-on-primary: #FFFFFF;
-      --md-primary-container: #A4F6B2;
-      --md-on-primary-container: #002108;
-      --md-secondary-container: #D1E8D2;
-      --md-on-secondary-container: #0D1F11;
-      --md-outline: #727970;
-      --md-outline-variant: #C1C9BE;
-      --md-text: #191C19;
-      --md-text-variant: #414941;
-      --md-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      --transition: 0.4s cubic-bezier(0.2, 0, 0, 1);
-      
-      --mesh-1: rgba(25, 109, 51, 0.05);
-      --mesh-2: rgba(164, 246, 178, 0.1);
-      --mesh-3: rgba(209, 232, 210, 0.15);
+      --md-primary-container: #EBE4F6;
+      --md-on-primary-container: #5B21B6;
+      --md-outline: #71717A;
+      --md-outline-variant: rgba(0, 0, 0, 0.06);
+      --md-text: #18181B;
+      --md-text-variant: #71717A;
+      --md-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.05);
+      --nav-bg: rgba(255, 255, 255, 0.88);
+      --accent-cherry: #D2042D;
+      --accent-cherry-bg: #FEE2E2;
+      --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      --mesh-1: rgba(235, 228, 246, 0.4);
+      --mesh-2: rgba(247, 232, 211, 0.35);
     }
 
     [data-theme="dark"] {
-      --md-bg: #101410;
-      --md-surface: #191D19;
-      --md-surface-container: #262B25;
-      --md-surface-container-high: #2E332D;
-      --md-primary: #89D998;
-      --md-on-primary: #003913;
-      --md-primary-container: #005320;
-      --md-on-primary-container: #A4F6B2;
-      --md-secondary-container: #394B3A;
-      --md-on-secondary-container: #D1E8D2;
-      --md-outline: #8B9389;
-      --md-outline-variant: #414941;
-      --md-text: #E0E4DE;
-      --md-text-variant: #C1C9BE;
-      --md-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-
-      --mesh-1: rgba(137, 217, 152, 0.03);
-      --mesh-2: rgba(0, 83, 32, 0.08);
-      --mesh-3: rgba(57, 75, 58, 0.05);
+      --md-bg: #121214;
+      --md-surface: #18181B;
+      --md-surface-container: #18181B;
+      --md-surface-container-high: #27272A;
+      --md-primary: #EBE4F6;
+      --md-on-primary: #18181B;
+      --md-primary-container: #27272A;
+      --md-on-primary-container: #EBE4F6;
+      --md-outline: #A1A1AA;
+      --md-outline-variant: rgba(255, 255, 255, 0.08);
+      --md-text: #FFFFFF;
+      --md-text-variant: #A1A1AA;
+      --md-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.45);
+      --nav-bg: rgba(24, 24, 27, 0.88);
+      --mesh-1: rgba(124, 58, 237, 0.06);
+      --mesh-2: rgba(247, 232, 211, 0.04);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 500;
       background-color: var(--md-bg);
       color: var(--md-text);
       transition: background-color var(--transition), color var(--transition);
-      line-height: 1.8;
+      line-height: 1.75;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    h1, h2, h3, h4, .brand { font-family: 'Outfit', sans-serif; color: var(--md-text); transition: color var(--transition); }
+    h1, h2, h3, h4, .brand {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--md-text);
+      letter-spacing: -0.025em;
+      transition: color var(--transition);
+    }
 
-    /* ─── AMBIENT MESH BACKGROUND ─── */
     .mesh-bg {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
-      background: 
+      background:
         radial-gradient(circle at 15% 50%, var(--mesh-1), transparent 50%),
-        radial-gradient(circle at 85% 30%, var(--mesh-2), transparent 50%),
-        radial-gradient(circle at 50% 80%, var(--mesh-3), transparent 50%);
-      filter: blur(60px);
-      transition: background var(--transition);
+        radial-gradient(circle at 85% 30%, var(--mesh-2), transparent 50%);
+      pointer-events: none;
     }
 
     /* ─── FLOATING NAVIGATION ─── */
     .nav-wrapper {
-      position: fixed; top: 24px; left: 0; right: 0;
+      position: fixed; top: 20px; left: 0; right: 0;
       display: flex; justify-content: center; z-index: 1000; padding: 0 24px;
     }
     nav {
-      background: var(--md-surface-container); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      background: var(--nav-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--md-outline-variant);
       display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 24px; border-radius: 100px; width: 100%; max-width: 800px;
-      box-shadow: var(--md-shadow); transition: background-color var(--transition), border-color var(--transition);
+      padding: 10px 16px 10px 20px; border-radius: 9999px; width: 100%; max-width: 840px;
+      box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.08);
+      transition: background-color var(--transition), border-color var(--transition);
     }
     .back-btn {
-      display: flex; align-items: center; gap: 8px; color: var(--md-text-variant);
-      text-decoration: none; font-weight: 500; font-size: 15px;
-      transition: color var(--transition);
+      display: flex; align-items: center; gap: 10px; color: var(--md-text);
+      text-decoration: none; font-weight: 700; font-size: 14px;
+      transition: opacity var(--transition);
     }
-    .back-btn:hover { color: var(--md-primary); }
+    .back-btn:hover { opacity: 0.75; }
     .icon-btn {
-      background: none; border: none; color: var(--md-text-variant); cursor: pointer; padding: 8px; border-radius: 50%;
+      background: var(--md-surface-container-high); border: 1px solid var(--md-outline-variant);
+      color: var(--md-text); cursor: pointer; width: 38px; height: 38px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center; transition: var(--transition);
     }
-    .icon-btn:hover { background: var(--md-surface-container-high); color: var(--md-text); }
+    .icon-btn:hover { transform: translateY(-1px); }
 
     /* ─── ARTICLE LAYOUT ─── */
-    .container { max-width: 800px; margin: 0 auto; padding: 140px 24px 80px; }
-    
-    .article-header { margin-bottom: 48px; text-align: center; }
-    .tag { 
-      display: inline-block; padding: 6px 16px; border-radius: 100px; font-size: 14px; font-weight: 600; 
-      background: var(--md-primary-container); color: var(--md-on-primary-container); margin-bottom: 24px; 
-      transition: background-color var(--transition), color var(--transition);
+    .container { max-width: 840px; margin: 0 auto; padding: 136px 24px 80px; }
+
+    .article-header { margin-bottom: 40px; text-align: center; }
+    .tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 7px 16px; border-radius: 9999px; font-size: 12px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      background: var(--md-primary-container); color: var(--md-on-primary-container);
+      margin-bottom: 22px;
     }
-    .article-title { font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -1px; margin-bottom: 24px; }
-    .article-meta { color: var(--md-text-variant); font-size: 1.05rem; display: flex; align-items: center; justify-content: center; gap: 12px; transition: color var(--transition); }
-    
-    .article-hero-img {
-      width: 100%; height: 400px; object-fit: cover; border-radius: 32px;
-      margin-bottom: 48px; box-shadow: var(--md-shadow);
-      background: var(--md-surface-container);
+    .article-title {
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 800;
+      line-height: 1.06;
+      letter-spacing: -0.035em;
+      margin-bottom: 18px;
+    }
+    .article-meta {
+      color: var(--md-text-variant);
+      font-size: 0.95rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
     }
 
-    .article-content { font-size: 1.15rem; color: var(--md-text-variant); transition: color var(--transition); }
-    .article-content p { margin-bottom: 24px; }
-    .article-content h2 { font-size: 2rem; margin: 48px 0 24px; color: var(--md-text); }
-    .article-content h3 { font-size: 1.5rem; margin: 32px 0 16px; color: var(--md-text); }
-    
+    .bento-article-card {
+      background: var(--md-surface);
+      border: 1px solid var(--md-outline-variant);
+      border-radius: 32px;
+      padding: 48px;
+      box-shadow: var(--md-shadow);
+    }
+
+    .article-content { font-size: 1.08rem; color: var(--md-text-variant); }
+    .article-content p { margin-bottom: 22px; }
+    .article-content h2 { font-size: 1.75rem; font-weight: 800; margin: 40px 0 16px; color: var(--md-text); }
+    .article-content h3 { font-size: 1.35rem; font-weight: 700; margin: 28px 0 12px; color: var(--md-text); }
+
     /* Code Blocks */
     .article-content pre {
-      background: #1E1E1E; color: #D4D4D4; padding: 24px; border-radius: 16px;
-      overflow-x: auto; margin: 32px 0; font-size: 1rem; line-height: 1.5;
+      background: #18181B;
+      color: #F4F4F5;
+      padding: 26px;
+      border-radius: 22px;
+      overflow-x: auto;
+      margin: 28px 0;
+      font-size: 0.94rem;
+      line-height: 1.6;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .article-content code { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
+    .article-content p code {
+      background: var(--md-surface-container-high);
+      color: var(--md-text);
+      padding: 3px 9px;
+      border-radius: 8px;
+      font-size: 0.9em;
+      font-weight: 600;
       border: 1px solid var(--md-outline-variant);
     }
-    .article-content code { font-family: monospace; }
-    .article-content p code { background: var(--md-surface-container-high); color: var(--md-text); padding: 4px 8px; border-radius: 6px; font-size: 0.95em; transition: background-color var(--transition), color var(--transition); }
 
     /* Blockquotes */
     .article-content blockquote {
-      border-left: 4px solid var(--md-primary); padding-left: 24px; margin: 32px 0;
-      font-style: italic; font-size: 1.25rem; color: var(--md-text);
-      transition: border-color var(--transition), color var(--transition);
+      background: #EBE4F6;
+      color: #18181B;
+      border-radius: 22px;
+      padding: 24px 28px;
+      margin: 32px 0;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
     }
 
-    footer { text-align: center; padding: 48px; color: var(--md-text-variant); font-size: 14px; border-top: 1px solid var(--md-outline-variant); margin-top: 80px; transition: color var(--transition), border-color var(--transition); }
+    footer {
+      text-align: center;
+      padding: 48px;
+      color: var(--md-text-variant);
+      font-size: 14px;
+      margin-top: 40px;
+    }
 
     @media (max-width: 768px) {
       .nav-wrapper { padding: 0 16px; top: 16px; }
-      .article-hero-img { height: 250px; border-radius: 24px; }
-      .container { padding: 120px 20px 40px; }
+      .container { padding: 112px 18px 40px; }
+      .bento-article-card { padding: 28px 22px; border-radius: 24px; }
     }
   </style>
 </head>
@@ -187,10 +235,11 @@
   <div class="nav-wrapper">
     <nav>
       <a href="/" class="back-btn">
-        <span class="material-icons-round">arrow_back</span> Back to Portfolio
+        <span class="material-icons-round" style="font-size: 19px;">arrow_back</span>
+        Back to Portfolio
       </a>
       <button class="icon-btn" id="themeToggle" aria-label="Toggle Theme">
-        <span class="material-icons-round" id="themeIcon">dark_mode</span>
+        <span class="material-icons-round" id="themeIcon" style="font-size: 19px;">dark_mode</span>
       </button>
     </nav>
   </div>
@@ -198,26 +247,26 @@
   <main class="container">
     <article>
       <header class="article-header">
-        <span class="tag">Engineering</span>
+        <span class="tag">Engineering &amp; UI/UX</span>
         <h1 class="article-title">Implementing Material You in Android 16</h1>
         <div class="article-meta">
-          <span>Jan 12, 2026</span> &bull; <span>5 min read</span>
+          <span>Jan 12, 2026</span> &bull; <span>5 min read</span> &bull; <span>By Urim Mustafa</span>
         </div>
+      </header>
 
-
-       <div class="article-content">
+      <div class="bento-article-card article-content">
         <p>If you've been working with Android over the last few years, you already know the massive shift that happened when Google introduced Material You. Suddenly, the operating system wasn't just a static canvas; it adapted to the user. It felt personal.</p>
 
-<p>Now, with <strong>Android 16</strong>, Material Design 3 has evolved from being just a "neat color trick" into a deeply expressive, highly accessible design system. I recently spent some time upgrading the UI architecture of my own projects to fully leverage the latest Android 16 APIs, and honestly? It’s never been easier, especially if you are using Jetpack Compose.</p>
+        <p>Now, with <strong>Android 16</strong>, Material Design 3 has evolved from being just a "neat color trick" into a deeply expressive, highly accessible design system. I recently spent some time upgrading the UI architecture of my own projects to fully leverage the latest Android 16 APIs, and honestly? It’s never been easier, especially if you are using Jetpack Compose.</p>
 
-<p>Let’s talk about how to implement it, and more importantly, why you should care.</p>
+        <p>Let’s talk about how to implement it, and more importantly, why you should care.</p>
 
-<h2>The Magic of Dynamic Colors</h2>
-<p>The cornerstone of Material You is the dynamic color scheme. The system extracts a primary color from the user's wallpaper and generates a beautiful, accessible tonal palette (spanning primary, secondary, tertiary, error, and surface colors). </p>
+        <h2>The Magic of Dynamic Colors</h2>
+        <p>The cornerstone of Material You is the dynamic color scheme. The system extracts a primary color from the user's wallpaper and generates a balanced, accessible tonal palette (spanning primary, secondary, tertiary, error, and surface colors).</p>
 
-<p>Back in the XML days, implementing custom themes felt like wrestling with massive <code>colors.xml</code> files. In Jetpack Compose, it’s almost shockingly simple. Here is the standard way to hook into the system's dynamic colors:</p>
+        <p>Back in the XML days, implementing custom themes felt like wrestling with massive <code>colors.xml</code> files. In Jetpack Compose, it’s almost shockingly simple. Here is the standard way to hook into the system's dynamic colors:</p>
 
-<pre><code>@Composable
+        <pre><code>@Composable
 fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+ 
@@ -241,22 +290,22 @@ fun AppTheme(
     )
 }</code></pre>
 
-<blockquote>"Material You isn't about giving up control of your app's branding. It's about respecting the user's device-wide choices so your app feels like a native extension of their phone."</blockquote>
+        <blockquote>"Material You isn't about giving up control of your app's branding. It's about respecting the user's device-wide choices so your app feels like a native extension of their phone."</blockquote>
 
-<h2>Going Beyond Colors: Contrast and Accessibility</h2>
-<p>One of the biggest pushes in Android 16 is advanced accessibility, specifically regarding spatial contrast. The new Material You guidelines heavily emphasize <strong>Surface Containers</strong>. </p>
+        <h2>Going Beyond Colors: Contrast and Accessibility</h2>
+        <p>One of the biggest pushes in Android 16 is advanced accessibility, specifically regarding spatial contrast. The new Material You guidelines heavily emphasize <strong>Surface Containers</strong>.</p>
 
-<p>Instead of relying on heavy drop shadows to show elevation (like we did in Material Design 2), Android 16 relies on subtle shifts in background tones. For example, your main screen background might use <code>colorScheme.surface</code>, while a floating card uses <code>colorScheme.surfaceContainerHigh</code>. This creates visual depth that looks incredibly premium and is much easier on the eyes in dark mode.</p>
+        <p>Instead of relying on heavy drop shadows to show elevation (like we did in Material Design 2), Android 16 relies on subtle shifts in background tones. For example, your main screen background might use <code>colorScheme.surface</code>, while a floating Bento card uses <code>colorScheme.surfaceContainerHigh</code>. This creates visual depth that looks incredibly premium and is much easier on the eyes in dark mode.</p>
 
-<h2>Predictive Back and Motion</h2>
-<p>Material You is also about how things <em>feel</em>. Android 16 makes the predictive back gesture a mandatory first-class citizen. If you are building with Compose Navigation, you get a lot of this for free, but you should always test how your surfaces animate when a user swipes back.</p>
+        <h2>Predictive Back and Motion</h2>
+        <p>Material You is also about how things <em>feel</em>. Android 16 makes the predictive back gesture a mandatory first-class citizen. If you are building with Compose Navigation, you get a lot of this for free, but you should always test how your surfaces animate when a user swipes back.</p>
 
-<p>Using Compose's <code>AnimatedContent</code> or <code>SharedTransitionLayout</code> combined with dynamic colors makes your app feel like it’s breathing.</p>
+        <p>Using Compose's <code>AnimatedContent</code> or <code>SharedTransitionLayout</code> combined with dynamic colors makes your app feel like it’s breathing.</p>
 
-<h2>Final Thoughts</h2>
-<p>If you are still hardcoding hex values for your primary buttons, I highly encourage you to take the leap into dynamic theming. It takes very little time to set up in Compose, but the payoff is massive. When a user opens your app and sees that it perfectly matches their carefully chosen wallpaper aesthetic, it instantly builds trust and makes your software feel top-tier.</p>
+        <h2>Final Thoughts</h2>
+        <p>If you are still hardcoding hex values for your primary buttons, I highly encourage you to take the leap into dynamic theming. It takes very little time to set up in Compose, but the payoff is massive. When a user opens your app and sees that it matches their device aesthetic, it instantly builds trust and makes your software feel top-tier.</p>
 
-<p>Dive into the code, experiment with surface tones, and let the system do the heavy lifting for you!</p>e has drastically reduced my boilerplate code and made UI development actually fun again. If you haven't started learning it yet, now is the time.</p>
+        <p>Dive into the code, experiment with surface tones, and let the system do the heavy lifting for you! Jetpack Compose has drastically reduced boilerplate code and made UI development genuinely fun again. If you haven't started leveraging it yet, now is the time.</p>
       </div>
     </article>
   </main>
@@ -278,7 +327,6 @@ fun AppTheme(
 
     themeToggle.addEventListener('click', () => {
       const isCurrentlyDark = html.getAttribute('data-theme') === 'dark';
-      
       if (isCurrentlyDark) {
         html.setAttribute('data-theme', 'light');
         themeIcon.textContent = 'dark_mode';

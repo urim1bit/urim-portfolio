@@ -1,160 +1,353 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Account Deletion | PayTrack</title>
 
-  <meta name="description" content="Learn how to permanently delete your PayTrack account and all associated data. Step-by-step instructions for in-app deletion and manual data removal requests.">
-  <meta name="author" content="Urim Mustafa">
-  <meta name="robots" content="noindex, follow">
+  <meta name="description"
+    content="Learn how to permanently delete your PayTrack account and all associated data. Step-by-step instructions for in-app deletion and manual data removal requests." />
+  <meta name="author" content="Urim Mustafa" />
+  <meta name="robots" content="noindex, follow" />
 
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://mustafaurim.dev/account-deletion">
-  <meta property="og:title" content="Account Deletion | PayTrack">
-  <meta property="og:description" content="Learn how to permanently delete your PayTrack account and all associated data from your device and Google Drive.">
-  <meta property="og:image" content="https://mustafaurim.dev/image_1.webp">
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mustafaurim.dev/account-deletion" />
+  <meta property="og:title" content="Account Deletion | PayTrack" />
+  <meta property="og:description"
+    content="Learn how to permanently delete your PayTrack account and all associated data from your device and Google Drive." />
+  <meta property="og:image" content="https://mustafaurim.dev/image_1.webp" />
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Account Deletion | PayTrack">
-  <meta name="twitter:description" content="Step-by-step instructions to delete your PayTrack data and account.">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Account Deletion | PayTrack" />
+  <meta name="twitter:description" content="Step-by-step instructions to delete your PayTrack data and account." />
 
-  <link rel="canonical" href="https://mustafaurim.dev/account-deletion">
-  
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link rel="canonical" href="https://mustafaurim.dev/account-deletion" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+
+  <script>
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  </script>
 
   <style>
+    /* ─── NEO-FINTECH LUXURY MINIMALIST BENTO SYSTEM (ZERO GREEN) ─── */
     :root {
-      /* Precise Match: Lite Lime & Brown Palette */
-      --md-bg: #F0F5E1; 
-      --md-surface: #FCFDF6; 
-      --md-primary: #3E2D00; 
-      --md-primary-container: #FFDEA4; 
-      --md-text: #1D1B16;
-      --md-text-variant: #4D4639;
-      --md-outline: #D5C4A1;
-      --md-error: #B3261E;
+      --md-bg: #F4F4F6;
+      --md-surface: #FFFFFF;
+      --md-surface-muted: #F4F4F5;
+      --md-primary: #18181B;
+      --md-primary-container: #F7E8D3;
+      --md-text: #18181B;
+      --md-text-variant: #71717A;
+      --md-outline: rgba(0, 0, 0, 0.06);
+      --md-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.05);
+      --nav-bg: rgba(255, 255, 255, 0.88);
+      --md-error: #D2042D;
+      --md-error-bg: #FEE2E2;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { 
-      font-family: 'Roboto', sans-serif; 
-      background: var(--md-bg); 
-      color: var(--md-text); 
-      line-height: 1.6; 
-      padding: 60px 24px; 
-      min-height: 100vh; 
-    }
-    
-    .container { max-width: 820px; margin: 0 auto; }
-    
-    .back-btn { 
-      display: inline-flex; 
-      align-items: center; 
-      text-decoration: none; 
-      color: var(--md-primary); 
-      font-weight: 700; 
-      font-size: 0.9rem; 
-      margin-bottom: 32px; 
-      font-family: 'Outfit'; 
-      gap: 8px; 
-      transition: opacity 0.2s; 
-    }
-    .back-btn:hover { opacity: 0.7; }
-
-    header { border-bottom: 2px solid var(--md-outline); padding-bottom: 32px; margin-bottom: 48px; }
-    h1 { font-family: 'Outfit'; font-size: 3rem; color: var(--md-primary); margin-bottom: 8px; font-weight: 800; letter-spacing: -0.04em; }
-    .status-subtitle { font-size: 0.9rem; color: var(--md-text-variant); font-weight: 500; display: flex; align-items: center; gap: 8px; font-family: 'Outfit'; text-transform: uppercase; letter-spacing: 0.05em; }
-
-    h2 { font-family: 'Outfit'; font-size: 1.5rem; margin-top: 56px; margin-bottom: 20px; color: var(--md-primary); display: flex; align-items: center; gap: 16px; font-weight: 700; }
-    .header-icon { font-family: 'Material Icons Round'; color: var(--md-primary); opacity: 0.8; font-size: 1.8rem; }
-
-    /* Elevated Card Design */
-    .card { background: var(--md-surface); padding: 32px; border-radius: 32px; margin: 24px 0; border: 1px solid var(--md-outline); box-shadow: 0 10px 30px rgba(62, 45, 0, 0.05); }
-    
-    p { margin-bottom: 16px; color: var(--md-text-variant); font-size: 1.05rem; }
-    strong { color: var(--md-text); font-weight: 700; }
-
-    .warning-box { 
-      background: #FFF0F0; 
-      padding: 32px; 
-      border-radius: 24px; 
-      color: var(--md-error); 
-      border: 1px solid #F9DEDC;
-      margin-top: 48px; 
+    [data-theme="dark"] {
+      --md-bg: #121214;
+      --md-surface: #18181B;
+      --md-surface-muted: #27272A;
+      --md-primary: #FFFFFF;
+      --md-primary-container: #27272A;
+      --md-text: #FFFFFF;
+      --md-text-variant: #A1A1AA;
+      --md-outline: rgba(255, 255, 255, 0.08);
+      --md-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.45);
+      --nav-bg: rgba(24, 24, 27, 0.88);
     }
 
-    .cta-button {
-      display: inline-block;
-      margin-top: 24px;
-      padding: 16px 32px;
-      background: var(--md-error);
-      color: #FFFFFF;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 500;
+      background: var(--md-bg);
+      color: var(--md-text);
+      line-height: 1.65;
+      padding: 120px 24px 60px;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .nav-wrapper {
+      position: fixed;
+      top: 20px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      z-index: 1000;
+      padding: 0 24px;
+    }
+
+    nav {
+      background: var(--nav-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--md-outline);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px 10px 20px;
+      border-radius: 9999px;
+      width: 100%;
+      max-width: 840px;
+      box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.08);
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
       text-decoration: none;
-      border-radius: 12px;
-      font-family: 'Outfit';
+      color: var(--md-text);
       font-weight: 700;
-      transition: transform 0.2s, opacity 0.2s;
+      font-size: 0.9rem;
+      gap: 8px;
+      transition: opacity 0.2s;
     }
-    .cta-button:hover { transform: scale(1.02); opacity: 0.9; }
 
-    footer { text-align: center; margin-top: 100px; padding: 40px; border-top: 1px solid var(--md-outline); font-size: 0.9rem; font-family: 'Outfit'; color: var(--md-primary); opacity: 0.7; }
+    .back-btn:hover {
+      opacity: 0.7;
+    }
+
+    .icon-btn {
+      background: var(--md-surface-muted);
+      border: 1px solid var(--md-outline);
+      color: var(--md-text);
+      cursor: pointer;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 840px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: var(--md-surface);
+      border: 1px solid var(--md-outline);
+      box-shadow: var(--md-shadow);
+      border-radius: 32px;
+      padding: 40px;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 4.5vw, 3rem);
+      color: var(--md-text);
+      margin-bottom: 10px;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.08;
+    }
+
+    .status-subtitle {
+      font-size: 0.78rem;
+      color: var(--md-text-variant);
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: var(--md-surface-muted);
+      padding: 6px 14px;
+      border-radius: 9999px;
+    }
+
+    h2 {
+      font-size: 1.45rem;
+      margin-top: 48px;
+      margin-bottom: 18px;
+      color: var(--md-text);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .header-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--md-surface);
+      border: 1px solid var(--md-outline);
+      box-shadow: var(--md-shadow);
+      font-family: 'Material Icons Round';
+      color: var(--md-text);
+      font-size: 1.35rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Bento Card Design */
+    .card {
+      background: var(--md-surface);
+      padding: 32px;
+      border-radius: 28px;
+      margin: 20px 0;
+      border: 1px solid var(--md-outline);
+      box-shadow: var(--md-shadow);
+    }
+
+    p {
+      margin-bottom: 14px;
+      color: var(--md-text-variant);
+      font-size: 1.04rem;
+    }
+
+    strong {
+      color: var(--md-text);
+      font-weight: 700;
+    }
+
+    .warning-box {
+      background: var(--md-error-bg);
+      padding: 32px;
+      border-radius: 28px;
+      color: #18181B;
+      border: 1px solid rgba(210, 4, 45, 0.2);
+      margin-top: 40px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 80px;
+      padding: 40px;
+      border-top: 1px solid var(--md-outline);
+      font-size: 0.9rem;
+      color: var(--md-text-variant);
+    }
 
     @media (max-width: 600px) {
-      h1 { font-size: 2.4rem; }
-      body { padding: 40px 16px; }
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      body {
+        padding: 104px 16px 40px;
+      }
+
+      header,
+      .card,
+      .warning-box {
+        padding: 24px;
+        border-radius: 24px;
+      }
     }
   </style>
 </head>
+
 <body>
 
+  <div class="nav-wrapper">
+    <nav>
+      <a href="/" class="back-btn">
+        <span class="material-icons-round" style="font-size: 1.2rem;">arrow_back</span> Back to Portfolio
+      </a>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <a href="paytrack.html"
+          style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--md-text); font-weight: 800; font-size: 0.9rem; padding: 6px 14px; border-radius: 9999px; background: var(--md-surface-muted);">
+          <img src="edit_note.svg" alt="PayTrack" style="width: 20px; height: 20px; border-radius: 5px;" />
+          PayTrack
+        </a>
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle Theme">
+          <span class="material-icons-round" id="themeIcon" style="font-size: 19px;">dark_mode</span>
+        </button>
+      </div>
+    </nav>
+  </div>
+
   <div class="container">
-    <a href="/" class="back-btn">
-        <span class="material-icons-round" style="font-size: 1.2rem;">arrow_back</span>BACK TO PORTFOLIO
-    </a>
-    
     <header>
       <h1>Data Deletion</h1>
-      <p class="status-subtitle">User Rights • Managed Control • Data Sovereignty</p>
+      <p class="status-subtitle">
+        <span style="width:7px;height:7px;border-radius:50%;background:#D2042D;"></span>
+        User Rights • Managed Control • Data Sovereignty
+      </p>
     </header>
 
-    <p>At PayTrack, we believe you should have absolute authority over your information. This page provides clear instructions on how to exercise your right to be forgotten.</p>
+    <p>At PayTrack, we believe you should have absolute authority over your information. This page provides clear
+      instructions on how to exercise your right to delete your work logs and account data.</p>
 
     <h2><span class="header-icon">delete_forever</span>Self-Service Deletion</h2>
     <div class="card">
-      <p><strong>In-App Deletion:</strong> The most efficient way to remove your data is via the app settings. Navigate to <strong>Settings > Data Management</strong> and select <strong>"Proceed To Wipe Data"</strong>.</p>
-      <p><strong>Cloud Removal:</strong> Using the in-app tool will automatically clear all work logs and photos from the <strong>hidden AppData folder</strong> on your Google Drive.</p>
+      <p><strong>In-App Deletion:</strong> The most efficient way to remove your data is via the app settings. Navigate
+        to <strong>Settings &gt; Data Management</strong> and select <strong>"Proceed To Wipe Data"</strong>.</p>
+      <p style="margin-bottom: 0;"><strong>Cloud Removal:</strong> Using the in-app tool will automatically clear all
+        work logs and photos from the <strong>hidden AppData folder</strong> on your Google Drive and synchronized cloud
+        records.</p>
     </div>
 
     <h2><span class="header-icon">info</span>What is Deleted?</h2>
     <p>When you trigger a data wipe, the following information is permanently removed:</p>
     <div class="card" style="margin-top: 0;">
-      <p>• All Net/Gross earning records and work logs.</p>
-      <p>• All attached receipt photos and project screenshots.</p>
-      <p>• All custom tax percentages and project billing rates.</p>
-      <p>• All localized session data and foreground service logs.</p>
+      <p>• All gross shift earning records, overtime calculations, and work logs.</p>
+      <p>• All attached receipt photos and shift note images.</p>
+      <p>• All custom overtime multipliers, shift allowances, and work profile hourly rates.</p>
+      <p style="margin-bottom: 0;">• All localized session data and foreground service logs.</p>
     </div>
 
     <div class="warning-box">
-      <h3 style="font-family: 'Outfit'; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+      <h3
+        style="font-weight: 800; font-size: 1.2rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; color: var(--md-error);">
         <span class="material-icons-round">warning</span> Irreversible Action
       </h3>
-      <p style="color: var(--md-error); margin-bottom: 0;">
-        Deletion is permanent. Once your data is wiped from your local device and Google Drive AppData folder, it <strong>cannot be recovered</strong> by PayTrack, as we do not maintain server-side backups of your content.
+      <p style="color: #18181B; margin-bottom: 0;">
+        Deletion is permanent. Once your data is wiped from your local device and Google Drive AppData folder, it
+        <strong style="color: #18181B;">cannot be recovered</strong> by PayTrack, as we do not maintain secondary
+        server-side backups of your content.
       </p>
     </div>
 
     <h2><span class="header-icon">help_outline</span>Manual Request</h2>
-    <p>If you have already uninstalled the app and wish to ensure all cloud-linked IDs are cleared from our authentication records, please contact us at:<br>
-    <strong id="contact-email-deletion"></strong>
-    <script>
-      document.getElementById('contact-email-deletion').textContent = ['dev.paytrack', 'gmail.com'].join('@');
-    </script>
-    </p>
+    <div class="card">
+      <p style="margin-bottom: 0;">If you have already uninstalled the app and wish to ensure all cloud-linked IDs are
+        cleared from our authentication records, please contact us at:<br />
+        <strong id="contact-email-deletion"></strong>
+        <script>
+          document.getElementById('contact-email-deletion').textContent = ['dev.paytrack', 'gmail.com'].join('@');
+        </script>
+      </p>
+    </div>
 
     <footer>&copy; 2026 mustafaurim.dev. All rights reserved.</footer>
   </div>
 
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+    if (html.getAttribute('data-theme') === 'dark') themeIcon.textContent = 'light_mode';
+    themeToggle.addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      themeIcon.textContent = isDark ? 'dark_mode' : 'light_mode';
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    });
+  </script>
 </body>
+
 </html>

@@ -2,30 +2,32 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>How to Publish Your First Android App on the Play Store in 2026 - Urim Mustafa</title>
 
-  <meta name="description" content="A complete step-by-step guide to publishing your first Android app on the Google Play Store in 2026. Covers signing, store listing, policy review, and going live.">
-  <meta name="author" content="Urim Mustafa">
-  <meta name="robots" content="index, follow">
+  <meta name="description" content="A complete step-by-step guide to publishing your first Android app on the Google Play Store in 2026. Covers signing, store listing, policy review, and going live." />
+  <meta name="author" content="Urim Mustafa" />
+  <meta name="robots" content="index, follow" />
 
-  <meta property="og:type" content="article">
-  <meta property="og:url" content="https://mustafaurim.dev/playstore">
-  <meta property="og:title" content="How to Publish Your First Android App on the Play Store in 2026">
-  <meta property="og:description" content="A complete step-by-step guide from first commit to live listing. Everything the official docs skip.">
-  <meta property="og:image" content="https://mustafaurim.dev/image_1.webp">
-  <meta property="article:published_time" content="2026-04-05">
-  <meta property="article:author" content="Urim Mustafa">
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://mustafaurim.dev/playstore" />
+  <meta property="og:title" content="How to Publish Your First Android App on the Play Store in 2026" />
+  <meta property="og:description" content="A complete step-by-step guide from first commit to live listing. Everything the official docs skip." />
+  <meta property="og:image" content="https://mustafaurim.dev/image_1.webp" />
+  <meta property="article:published_time" content="2026-04-05" />
+  <meta property="article:author" content="Urim Mustafa" />
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="How to Publish Your First Android App on the Play Store in 2026">
-  <meta name="twitter:description" content="Step-by-step guide from signing to going live. Written by someone who did it.">
-  <meta name="twitter:image" content="https://mustafaurim.dev/image_1.webp">
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How to Publish Your First Android App on the Play Store in 2026" />
+  <meta name="twitter:description" content="Step-by-step guide from signing to going live. Written by someone who did it." />
+  <meta name="twitter:image" content="https://mustafaurim.dev/image_1.webp" />
 
-  <link rel="canonical" href="https://mustafaurim.dev/playstore">
+  <link rel="canonical" href="https://mustafaurim.dev/playstore" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
 
   <script>
     const savedTheme = localStorage.getItem('theme');
@@ -38,212 +40,236 @@
   </script>
 
   <style>
-    /* ─── GREEN MATERIAL YOU COLOR SYSTEM ─── */
+    /* ─── NEO-FINTECH LUXURY MINIMALIST BENTO SYSTEM (ZERO GREEN) ─── */
     :root {
-      --md-bg: #F7FBF4;
+      --md-bg: #F4F4F6;
       --md-surface: #FFFFFF;
-      --md-surface-container: #EEF5EA;
-      --md-surface-container-high: #E6EDE2;
-      --md-primary: #196D33;
+      --md-surface-container: #FFFFFF;
+      --md-surface-container-high: #F4F4F5;
+      --md-primary: #18181B;
       --md-on-primary: #FFFFFF;
-      --md-primary-container: #A4F6B2;
-      --md-on-primary-container: #002108;
-      --md-secondary-container: #D1E8D2;
-      --md-on-secondary-container: #0D1F11;
-      --md-outline: #727970;
-      --md-outline-variant: #C1C9BE;
-      --md-text: #191C19;
-      --md-text-variant: #414941;
-      --md-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      --transition: 0.4s cubic-bezier(0.2,0,0,1);
-      --mesh-1: rgba(25,109,51,0.05);
-      --mesh-2: rgba(164,246,178,0.1);
-      --mesh-3: rgba(209,232,210,0.15);
+      --md-primary-container: #F7E8D3;
+      --md-on-primary-container: #18181B;
+      --md-secondary-container: #EBE4F6;
+      --md-on-secondary-container: #5B21B6;
+      --md-outline: #71717A;
+      --md-outline-variant: rgba(0, 0, 0, 0.06);
+      --md-text: #18181B;
+      --md-text-variant: #71717A;
+      --md-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.05);
+      --nav-bg: rgba(255, 255, 255, 0.88);
+      --accent-cherry: #D2042D;
+      --accent-cherry-bg: #FEE2E2;
+      --accent-amber: #F59E0B;
+      --accent-amber-bg: #FEF3C7;
+      --accent-purple: #7C3AED;
+      --accent-purple-bg: #EBE4F6;
+      --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      --mesh-1: rgba(247, 232, 211, 0.35);
+      --mesh-2: rgba(235, 228, 246, 0.35);
     }
+
     [data-theme="dark"] {
-      --md-bg: #101410;
-      --md-surface: #191D19;
-      --md-surface-container: #262B25;
-      --md-surface-container-high: #2E332D;
-      --md-primary: #89D998;
-      --md-on-primary: #003913;
-      --md-primary-container: #005320;
-      --md-on-primary-container: #A4F6B2;
-      --md-secondary-container: #394B3A;
-      --md-on-secondary-container: #D1E8D2;
-      --md-outline: #8B9389;
-      --md-outline-variant: #414941;
-      --md-text: #E0E4DE;
-      --md-text-variant: #C1C9BE;
-      --md-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      --mesh-1: rgba(137,217,152,0.03);
-      --mesh-2: rgba(0,83,32,0.08);
-      --mesh-3: rgba(57,75,58,0.05);
+      --md-bg: #121214;
+      --md-surface: #18181B;
+      --md-surface-container: #18181B;
+      --md-surface-container-high: #27272A;
+      --md-primary: #F7E8D3;
+      --md-on-primary: #18181B;
+      --md-primary-container: #27272A;
+      --md-on-primary-container: #F7E8D3;
+      --md-secondary-container: #27272A;
+      --md-on-secondary-container: #EBE4F6;
+      --md-outline: #A1A1AA;
+      --md-outline-variant: rgba(255, 255, 255, 0.08);
+      --md-text: #FFFFFF;
+      --md-text-variant: #A1A1AA;
+      --md-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.45);
+      --nav-bg: rgba(24, 24, 27, 0.88);
+      --mesh-1: rgba(247, 232, 211, 0.04);
+      --mesh-2: rgba(124, 58, 237, 0.06);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 500;
       background-color: var(--md-bg);
       color: var(--md-text);
       transition: background-color var(--transition), color var(--transition);
-      line-height: 1.8;
+      line-height: 1.75;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
-    h1,h2,h3,h4 { font-family: 'Outfit', sans-serif; color: var(--md-text); transition: color var(--transition); }
+    h1, h2, h3, h4 {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--md-text);
+      letter-spacing: -0.025em;
+      transition: color var(--transition);
+    }
 
     .mesh-bg {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
       background:
         radial-gradient(circle at 15% 50%, var(--mesh-1), transparent 50%),
-        radial-gradient(circle at 85% 30%, var(--mesh-2), transparent 50%),
-        radial-gradient(circle at 50% 80%, var(--mesh-3), transparent 50%);
-      filter: blur(60px);
-      transition: background var(--transition);
+        radial-gradient(circle at 85% 30%, var(--mesh-2), transparent 50%);
+      pointer-events: none;
     }
 
     /* ─── NAV ─── */
     .nav-wrapper {
-      position: fixed; top: 24px; left: 0; right: 0;
+      position: fixed; top: 20px; left: 0; right: 0;
       display: flex; justify-content: center; z-index: 1000; padding: 0 24px;
     }
     nav {
-      background: var(--md-surface-container); backdrop-filter: blur(12px);
+      background: var(--nav-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--md-outline-variant);
       display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 24px; border-radius: 100px; width: 100%; max-width: 800px;
-      box-shadow: var(--md-shadow); transition: background-color var(--transition), border-color var(--transition);
+      padding: 10px 16px 10px 20px; border-radius: 9999px; width: 100%; max-width: 840px;
+      box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.08);
+      transition: background-color var(--transition), border-color var(--transition);
     }
     .back-btn {
-      display: flex; align-items: center; gap: 8px; color: var(--md-text-variant);
-      text-decoration: none; font-weight: 500; font-size: 15px; transition: color var(--transition);
+      display: flex; align-items: center; gap: 10px; color: var(--md-text);
+      text-decoration: none; font-weight: 700; font-size: 14px; transition: opacity var(--transition);
     }
-    .back-btn:hover { color: var(--md-primary); }
+    .back-btn:hover { opacity: 0.75; }
     .icon-btn {
-      background: none; border: none; color: var(--md-text-variant); cursor: pointer;
-      padding: 8px; border-radius: 50%; display: flex; align-items: center;
+      background: var(--md-surface-container-high); border: 1px solid var(--md-outline-variant);
+      color: var(--md-text); cursor: pointer;
+      width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
       transition: var(--transition);
     }
-    .icon-btn:hover { background: var(--md-surface-container-high); color: var(--md-text); }
+    .icon-btn:hover { transform: translateY(-1px); }
 
     /* ─── LAYOUT ─── */
-    .container { max-width: 800px; margin: 0 auto; padding: 140px 24px 80px; }
+    .container { max-width: 840px; margin: 0 auto; padding: 136px 24px 80px; }
 
     /* ─── ARTICLE HEADER ─── */
-    .article-header { margin-bottom: 56px; }
+    .article-header { margin-bottom: 48px; }
     .tag {
-      display: inline-block; padding: 6px 16px; border-radius: 100px;
-      font-size: 14px; font-weight: 600; margin-bottom: 24px;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 7px 16px; border-radius: 9999px;
+      font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em;
+      margin-bottom: 22px;
       background: var(--md-primary-container); color: var(--md-on-primary-container);
-      transition: background-color var(--transition), color var(--transition);
     }
     .article-title {
-      font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 800;
-      line-height: 1.1; letter-spacing: -1px; margin-bottom: 20px;
+      font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800;
+      line-height: 1.08; letter-spacing: -0.035em; margin-bottom: 20px;
     }
     .article-meta {
-      color: var(--md-text-variant); font-size: 1rem;
+      color: var(--md-text-variant); font-size: 0.95rem; font-weight: 600;
       display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-      transition: color var(--transition);
     }
     .read-time {
       display: inline-flex; align-items: center; gap: 6px;
-      background: var(--md-surface-container);
-      padding: 4px 12px; border-radius: 100px; font-size: 13px;
+      background: var(--md-surface);
+      padding: 5px 14px; border-radius: 9999px; font-size: 13px; font-weight: 700;
       border: 1px solid var(--md-outline-variant);
+      box-shadow: var(--md-shadow);
     }
 
     /* ─── PROGRESS BAR ─── */
     .progress-bar {
-      position: fixed; top: 0; left: 0; height: 3px;
-      background: var(--md-primary); z-index: 9999;
+      position: fixed; top: 0; left: 0; height: 4px;
+      background: var(--accent-cherry); z-index: 9999;
       width: 0%; transition: width 0.1s linear;
     }
 
     /* ─── TABLE OF CONTENTS ─── */
     .toc {
-      background: var(--md-surface-container);
+      background: var(--md-surface);
       border: 1px solid var(--md-outline-variant);
-      border-radius: 20px; padding: 24px 28px; margin-bottom: 48px;
-      transition: background var(--transition);
+      box-shadow: var(--md-shadow);
+      border-radius: 28px; padding: 28px 32px; margin-bottom: 48px;
     }
     .toc-title {
-      font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.9rem;
-      text-transform: uppercase; letter-spacing: 0.08em;
+      font-weight: 800; font-size: 0.78rem;
+      text-transform: uppercase; letter-spacing: 0.06em;
       color: var(--md-text-variant); margin-bottom: 16px;
     }
     .toc ol { padding-left: 20px; }
     .toc li { margin-bottom: 8px; }
     .toc a {
-      color: var(--md-primary); text-decoration: none; font-size: 0.95rem;
-      font-weight: 500; transition: opacity 0.2s;
+      color: var(--md-text); text-decoration: none; font-size: 0.96rem;
+      font-weight: 700; transition: opacity 0.2s;
     }
     .toc a:hover { opacity: 0.7; }
 
     /* ─── ARTICLE CONTENT ─── */
-    .article-content { font-size: 1.1rem; color: var(--md-text-variant); }
-    .article-content p { margin-bottom: 24px; }
+    .article-content { font-size: 1.08rem; color: var(--md-text-variant); }
+    .article-content p { margin-bottom: 22px; }
     .article-content h2 {
-      font-size: 1.9rem; margin: 56px 0 20px; color: var(--md-text);
-      display: flex; align-items: center; gap: 12px;
+      font-size: 1.8rem; font-weight: 800; margin: 52px 0 18px; color: var(--md-text);
+      display: flex; align-items: center; gap: 14px;
     }
     .article-content h2 .step-num {
       display: inline-flex; align-items: center; justify-content: center;
-      width: 36px; height: 36px; border-radius: 10px;
-      background: var(--md-primary); color: var(--md-on-primary);
+      width: 40px; height: 40px; border-radius: 50%;
+      background: #18181B; color: #FFFFFF;
       font-size: 16px; font-weight: 800; flex-shrink: 0;
     }
-    .article-content h3 { font-size: 1.3rem; margin: 32px 0 12px; color: var(--md-text); }
+    [data-theme="dark"] .article-content h2 .step-num {
+      background: #F7E8D3; color: #18181B;
+    }
+    .article-content h3 { font-size: 1.28rem; font-weight: 700; margin: 30px 0 12px; color: var(--md-text); }
 
     /* Code blocks */
     .article-content pre {
-      background: #0d1117; color: #e6edf3; padding: 24px;
-      border-radius: 16px; overflow-x: auto; margin: 28px 0;
+      background: #18181B; color: #F4F4F5; padding: 24px;
+      border-radius: 22px; overflow-x: auto; margin: 28px 0;
       font-size: 0.92rem; line-height: 1.6;
-      border: 1px solid rgba(137,217,152,0.15);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
     .article-content code { font-family: 'Cascadia Code', 'Fira Code', monospace; }
-    .article-content p code {
-      background: var(--md-surface-container-high); color: var(--md-primary);
-      padding: 3px 8px; border-radius: 6px; font-size: 0.88em;
+    .article-content p code, .checklist code {
+      background: var(--md-surface-container-high); color: var(--md-text);
+      padding: 3px 8px; border-radius: 8px; font-size: 0.88em; font-weight: 600;
+      border: 1px solid var(--md-outline-variant);
     }
 
-    /* Callout boxes */
+    /* Callout boxes (Strictly Non-Green) */
     .callout {
-      padding: 20px 24px; border-radius: 16px; margin: 28px 0;
+      padding: 22px 26px; border-radius: 22px; margin: 28px 0;
       display: flex; gap: 16px; align-items: flex-start;
     }
-    .callout-tip { background: color-mix(in srgb, var(--md-primary) 10%, transparent); border: 1px solid color-mix(in srgb, var(--md-primary) 25%, transparent); }
-    .callout-warn { background: rgba(255,179,71,0.12); border: 1px solid rgba(255,179,71,0.3); }
-    .callout-danger { background: rgba(255,95,87,0.1); border: 1px solid rgba(255,95,87,0.25); }
+    .callout-tip { background: var(--accent-purple-bg); color: #18181B; border: 1px solid rgba(124, 58, 237, 0.2); }
+    .callout-warn { background: var(--accent-amber-bg); color: #18181B; border: 1px solid rgba(245, 158, 11, 0.25); }
+    .callout-danger { background: var(--accent-cherry-bg); color: #18181B; border: 1px solid rgba(210, 4, 45, 0.2); }
     .callout-icon { font-family: 'Material Icons Round'; font-size: 22px; flex-shrink: 0; margin-top: 2px; }
-    .callout-tip .callout-icon { color: var(--md-primary); }
-    .callout-warn .callout-icon { color: #FFB347; }
-    .callout-danger .callout-icon { color: #FF5F57; }
-    .callout p { margin-bottom: 0; font-size: 0.97rem; }
+    .callout-tip .callout-icon { color: var(--accent-purple); }
+    .callout-warn .callout-icon { color: #B45309; }
+    .callout-danger .callout-icon { color: var(--accent-cherry); }
+    .callout p { margin-bottom: 0; font-size: 0.97rem; color: #18181B; }
 
     /* Checklist */
-    .checklist { list-style: none; padding: 0; margin: 20px 0 28px; }
+    .checklist {
+      list-style: none; padding: 24px 28px; margin: 20px 0 28px;
+      background: var(--md-surface); border: 1px solid var(--md-outline-variant);
+      border-radius: 24px; box-shadow: var(--md-shadow);
+    }
     .checklist li {
       display: flex; align-items: flex-start; gap: 12px;
-      padding: 10px 0; border-bottom: 1px solid var(--md-outline-variant);
+      padding: 12px 0; border-bottom: 1px solid var(--md-outline-variant);
       font-size: 0.97rem;
     }
     .checklist li:last-child { border-bottom: none; }
-    .checklist .check-icon { color: var(--md-primary); font-family: 'Material Icons Round'; font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+    .checklist .check-icon { color: var(--accent-purple); font-family: 'Material Icons Round'; font-size: 20px; flex-shrink: 0; margin-top: 2px; }
 
     /* Step card */
     .step-card {
       background: var(--md-surface); border: 1px solid var(--md-outline-variant);
-      border-radius: 20px; padding: 28px; margin: 20px 0;
-      transition: background var(--transition);
+      box-shadow: var(--md-shadow);
+      border-radius: 24px; padding: 28px; margin: 20px 0;
     }
 
     /* Blockquote */
     .article-content blockquote {
-      border-left: 4px solid var(--md-primary); padding: 4px 0 4px 24px;
-      margin: 32px 0; font-style: italic; font-size: 1.2rem; color: var(--md-text);
+      background: #F7E8D3; color: #18181B;
+      border-radius: 22px; padding: 24px 28px;
+      margin: 32px 0; font-weight: 700; font-size: 1.15rem;
     }
 
     /* Footer */
@@ -255,19 +281,21 @@
 
     /* CTA */
     .article-cta {
-      background: var(--md-primary-container); border-radius: 24px;
-      padding: 40px; text-align: center; margin-top: 64px;
+      background: #18181B; color: #FFFFFF; border-radius: 32px;
+      padding: 48px 36px; text-align: center; margin-top: 64px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 44px -10px rgba(24, 24, 27, 0.3);
     }
-    .article-cta h3 { color: var(--md-on-primary-container); font-size: 1.5rem; margin-bottom: 12px; }
-    .article-cta p { color: var(--md-on-primary-container); opacity: 0.8; margin-bottom: 24px; }
+    .article-cta h3 { color: #FFFFFF; font-size: 1.65rem; font-weight: 800; margin-bottom: 12px; }
+    .article-cta p { color: #A1A1AA; margin-bottom: 26px; }
     .btn-primary {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 14px 28px; border-radius: 100px;
-      background: var(--md-primary); color: var(--md-on-primary);
-      text-decoration: none; font-family: 'Outfit', sans-serif;
-      font-weight: 700; font-size: 0.95rem; transition: opacity 0.2s;
+      display: inline-flex; align-items: center; gap: 10px;
+      height: 52px; padding: 0 28px; border-radius: 9999px;
+      background: #FFFFFF; color: #18181B;
+      text-decoration: none;
+      font-weight: 800; font-size: 0.95rem; transition: transform 0.2s;
     }
-    .btn-primary:hover { opacity: 0.85; }
+    .btn-primary:hover { transform: translateY(-2px); background: #F7E8D3; }
 
     @media (max-width: 768px) {
       .nav-wrapper { padding: 0 16px; top: 16px; }
@@ -284,10 +312,10 @@
   <div class="nav-wrapper">
     <nav>
       <a href="/" class="back-btn">
-        <span class="material-icons-round">arrow_back</span> Back to Portfolio
+        <span class="material-icons-round" style="font-size: 19px;">arrow_back</span> Back to Portfolio
       </a>
       <button class="icon-btn" id="themeToggle" aria-label="Toggle Theme">
-        <span class="material-icons-round" id="themeIcon">dark_mode</span>
+        <span class="material-icons-round" id="themeIcon" style="font-size: 19px;">dark_mode</span>
       </button>
     </nav>
   </div>
@@ -296,7 +324,7 @@
     <article>
 
       <header class="article-header">
-        <span class="tag">Guide</span>
+        <span class="tag">Play Store Guide</span>
         <h1 class="article-title">How to Publish Your First Android App on the Play Store in 2026</h1>
         <div class="article-meta">
           <span>April 05, 2026</span>
@@ -350,13 +378,13 @@
 
         <h3>Checklist before building</h3>
         <ul class="checklist">
-          <li><span class="check-icon">check_circle</span> Set your <code>versionCode</code> and <code>versionName</code> in your <code>build.gradle</code>. The <code>versionCode</code> must be an integer that increases with every upload — start at 1.</li>
-          <li><span class="check-icon">check_circle</span> Set your application ID (<code>applicationId</code>) — this is permanent. Once published, you can never change it. Use reverse domain notation: <code>com.yourname.appname</code>.</li>
-          <li><span class="check-icon">check_circle</span> Remove all debug logs, hardcoded test API keys, and <code>debuggable true</code> flags from your release build config.</li>
-          <li><span class="check-icon">check_circle</span> Make sure your app has a proper app icon at all required densities (Android Studio's Image Asset Studio generates these automatically).</li>
-          <li><span class="check-icon">check_circle</span> Verify your <code>minSdk</code> and <code>targetSdk</code>. In 2026, Google requires <code>targetSdk</code> to be at least API level 35 for new apps.</li>
-          <li><span class="check-icon">check_circle</span> Declare only the permissions your app actually needs. Unnecessary permissions are a common rejection reason.</li>
-          <li><span class="check-icon">check_circle</span> If your app targets children or collects any user data, you'll need a privacy policy URL. Create one before submitting.</li>
+          <li><span class="check-icon">check_circle</span> <div>Set your <code>versionCode</code> and <code>versionName</code> in your <code>build.gradle</code>. The <code>versionCode</code> must be an integer that increases with every upload — start at 1.</div></li>
+          <li><span class="check-icon">check_circle</span> <div>Set your application ID (<code>applicationId</code>) — this is permanent. Once published, you can never change it. Use reverse domain notation: <code>com.yourname.appname</code>.</div></li>
+          <li><span class="check-icon">check_circle</span> <div>Remove all debug logs, hardcoded test API keys, and <code>debuggable true</code> flags from your release build config.</div></li>
+          <li><span class="check-icon">check_circle</span> <div>Make sure your app has a proper app icon at all required densities (Android Studio's Image Asset Studio generates these automatically).</div></li>
+          <li><span class="check-icon">check_circle</span> <div>Verify your <code>minSdk</code> and <code>targetSdk</code>. In 2026, Google requires <code>targetSdk</code> to be at least API level 35 for new apps.</div></li>
+          <li><span class="check-icon">check_circle</span> <div>Declare only the permissions your app actually needs. Unnecessary permissions are a common rejection reason.</div></li>
+          <li><span class="check-icon">check_circle</span> <div>If your app targets children or collects any user data, you'll need a privacy policy URL. Create one before submitting.</div></li>
         </ul>
 
         <div class="callout callout-warn">
@@ -373,7 +401,7 @@
         <p>Go to <strong>Build → Generate Signed Bundle / APK</strong>. Select <strong>Android App Bundle (AAB)</strong> — Google now requires AAB format for new apps, not APK. Click <strong>Create new keystore</strong> and fill in the details:</p>
 
         <div class="step-card">
-          <pre><code>Key store path: /your/path/my-release-key.jks
+          <pre style="margin: 0;"><code>Key store path: /your/path/my-release-key.jks
 Password:       (choose a strong password)
 Key alias:      my-key-alias
 Key password:   (can be same as store password)
@@ -418,11 +446,11 @@ Country code:   MT</code></pre>
 
         <h3>What you need to prepare</h3>
         <ul class="checklist">
-          <li><span class="check-icon">check_circle</span><strong>Short description</strong> — up to 80 characters. This shows up in search results. Pack in your main value proposition.</li>
-          <li><span class="check-icon">check_circle</span><strong>Full description</strong> — up to 4,000 characters. Use natural language, include keywords people would search for, and break it up with line breaks. Don't keyword-stuff.</li>
-          <li><span class="check-icon">check_circle</span><strong>App icon</strong> — 512×512px PNG, no alpha/transparency allowed.</li>
-          <li><span class="check-icon">check_circle</span><strong>Feature graphic</strong> — 1024×500px. This appears at the top of your listing. Make it clean and legible at small sizes.</li>
-          <li><span class="check-icon">check_circle</span><strong>Screenshots</strong> — minimum 2, maximum 8 per device type. Phone screenshots must be at least 320px on the short side. Show the actual app, not just marketing graphics.</li>
+          <li><span class="check-icon">check_circle</span><div><strong>Short description</strong> — up to 80 characters. This shows up in search results. Pack in your main value proposition.</div></li>
+          <li><span class="check-icon">check_circle</span><div><strong>Full description</strong> — up to 4,000 characters. Use natural language, include keywords people would search for, and break it up with line breaks. Don't keyword-stuff.</div></li>
+          <li><span class="check-icon">check_circle</span><div><strong>App icon</strong> — 512×512px PNG, no alpha/transparency allowed.</div></li>
+          <li><span class="check-icon">check_circle</span><div><strong>Feature graphic</strong> — 1024×500px. This appears at the top of your listing. Make it clean and legible at small sizes.</div></li>
+          <li><span class="check-icon">check_circle</span><div><strong>Screenshots</strong> — minimum 2, maximum 8 per device type. Phone screenshots must be at least 320px on the short side. Show the actual app, not just marketing graphics.</div></li>
         </ul>
 
         <div class="callout callout-tip">
@@ -439,7 +467,7 @@ Country code:   MT</code></pre>
         <p>Click <strong>Create new release</strong>, then drag your <code>.aab</code> file into the upload box. Google will process it — this takes a minute or two. Once processed, you'll see your version code, version name, and a list of supported devices. Check this number: if it's below a few hundred million devices, something in your manifest is likely too restrictive.</p>
 
         <h3>Release notes</h3>
-        <p>Write release notes even for your first version. Users see these when they're deciding whether to update. For a first release, something like "Initial release of PayTrack — track your shifts and take-home pay." is perfectly fine.</p>
+        <p>Write release notes even for your first version. Users see these when they're deciding whether to update. For a first release, something like "Initial release of PayTrack — track your shifts, overtime, and gross shift earnings." is perfectly fine.</p>
 
         <div class="callout callout-warn">
           <span class="callout-icon">warning</span>
@@ -455,7 +483,7 @@ Country code:   MT</code></pre>
         <p>This is the most important one. You must declare exactly what data your app collects, how it's used, whether it's shared with third parties, and whether users can request deletion. Be thorough and accurate — Google cross-checks this against your actual app behavior, and discrepancies are a common rejection reason.</p>
 
         <div class="step-card">
-          <p style="margin:0;font-weight:600;margin-bottom:12px;">Common data types to declare:</p>
+          <p style="margin:0;font-weight:700;margin-bottom:12px;color:var(--md-text);">Common data types to declare:</p>
           <ul style="padding-left:20px;line-height:2;">
             <li>Personal info (name, email) — if you use Firebase Auth</li>
             <li>Files and docs — if your app reads/writes storage</li>
@@ -467,16 +495,16 @@ Country code:   MT</code></pre>
         <h3>App content declarations</h3>
         <p>You'll also need to complete:</p>
         <ul class="checklist">
-          <li><span class="check-icon">check_circle</span><strong>Target audience</strong> — if your app could be used by anyone under 13, you're subject to additional COPPA requirements.</li>
-          <li><span class="check-icon">check_circle</span><strong>News app declaration</strong> — only relevant if you aggregate news content.</li>
-          <li><span class="check-icon">check_circle</span><strong>COVID-19 contact tracing</strong> — declare if your app is not related to this (most apps aren't).</li>
-          <li><span class="check-icon">check_circle</span><strong>Financial features</strong> — declare if your app handles real money transactions or investments. Note: a salary tracker like PayTrack does not handle real transactions, so this doesn't apply.</li>
+          <li><span class="check-icon">check_circle</span><div><strong>Target audience</strong> — if your app could be used by anyone under 13, you're subject to additional COPPA requirements.</div></li>
+          <li><span class="check-icon">check_circle</span><div><strong>News app declaration</strong> — only relevant if you aggregate news content.</div></li>
+          <li><span class="check-icon">check_circle</span><div><strong>Health &amp; safety declarations</strong> — declare if your app is not related to regulated health tracking.</div></li>
+          <li><span class="check-icon">check_circle</span><div><strong>Financial features</strong> — declare if your app handles real money transactions or investments. Note: a shift &amp; hourly earnings tracker like PayTrack does not handle real money transfers, so banking requirements don't apply.</div></li>
         </ul>
 
         <!-- STEP 7 -->
         <h2 id="step-7"><span class="step-num">7</span> Submit for review and go live</h2>
 
-        <p>Once all policy sections show a green tick, go to <strong>Production</strong>, create a new release, upload your AAB (or promote from internal testing), and click <strong>Review release</strong>. If everything is in order, you'll see a <strong>Start rollout to production</strong> button.</p>
+        <p>Once all policy sections show a completed status, go to <strong>Production</strong>, create a new release, upload your AAB (or promote from internal testing), and click <strong>Review release</strong>. If everything is in order, you'll see a <strong>Start rollout to production</strong> button.</p>
 
         <h3>Review timeline</h3>
         <p>Google's review process for new apps typically takes <strong>3 to 7 days</strong> in 2026. It used to be faster, but increased policy enforcement has extended review times. Don't panic if it sits at "In review" for several days — this is normal.</p>
@@ -488,11 +516,11 @@ Country code:   MT</code></pre>
 
         <h3>Common rejection reasons</h3>
         <ul class="checklist">
-          <li><span class="check-icon">cancel</span style="color:#FF5F57"><strong>Misleading metadata</strong> — your description promises features the app doesn't have, or your screenshots don't match the actual app.</li>
-          <li><span class="check-icon">cancel</span><strong>Privacy policy missing or incomplete</strong> — required if you collect any personal data or use certain permissions like camera, microphone, or location.</li>
-          <li><span class="check-icon">cancel</span><strong>Data safety mismatch</strong> — your declaration says you don't collect data, but your app clearly does (e.g. Firebase Analytics).</li>
-          <li><span class="check-icon">cancel</span><strong>Permissions not justified</strong> — requesting permissions (especially sensitive ones) without a clear in-app purpose.</li>
-          <li><span class="check-icon">cancel</span><strong>Target SDK too low</strong> — must be API 35+ for new submissions in 2026.</li>
+          <li><span class="check-icon" style="color:var(--accent-cherry);">cancel</span><div><strong>Misleading metadata</strong> — your description promises features the app doesn't have, or your screenshots don't match the actual app.</div></li>
+          <li><span class="check-icon" style="color:var(--accent-cherry);">cancel</span><div><strong>Privacy policy missing or incomplete</strong> — required if you collect any personal data or use certain permissions like camera, microphone, or location.</div></li>
+          <li><span class="check-icon" style="color:var(--accent-cherry);">cancel</span><div><strong>Data safety mismatch</strong> — your declaration says you don't collect data, but your app clearly does (e.g. Firebase Analytics).</div></li>
+          <li><span class="check-icon" style="color:var(--accent-cherry);">cancel</span><div><strong>Permissions not justified</strong> — requesting permissions (especially sensitive ones) without a clear in-app purpose.</div></li>
+          <li><span class="check-icon" style="color:var(--accent-cherry);">cancel</span><div><strong>Target SDK too low</strong> — must be API 35+ for new submissions in 2026.</div></li>
         </ul>
 
         <!-- AFTER -->
@@ -502,10 +530,10 @@ Country code:   MT</code></pre>
 
         <h3>Things to do immediately after going live</h3>
         <ul class="checklist">
-          <li><span class="check-icon">check_circle</span>Share the Play Store link everywhere — your portfolio, LinkedIn, WhatsApp, social media. Early organic installs help with Play Store ranking signals.</li>
-          <li><span class="check-icon">check_circle</span>Set up <strong>Android Vitals</strong> in Play Console — this shows crash rates, ANR rates, and battery usage. Fix any regressions fast.</li>
-          <li><span class="check-icon">check_circle</span>Reply to your first reviews, even if they're just "Great app!" — engagement signals matter for the algorithm.</li>
-          <li><span class="check-icon">check_circle</span>Start planning your first update. Apps that receive regular updates rank better and retain users more effectively than apps that go dark after launch.</li>
+          <li><span class="check-icon">check_circle</span><div>Share the Play Store link everywhere — your portfolio, LinkedIn, WhatsApp, social media. Early organic installs help with Play Store ranking signals.</div></li>
+          <li><span class="check-icon">check_circle</span><div>Set up <strong>Android Vitals</strong> in Play Console — this shows crash rates, ANR rates, and battery usage. Fix any regressions fast.</div></li>
+          <li><span class="check-icon">check_circle</span><div>Reply to your first reviews, even if they're just "Great app!" — engagement signals matter for the algorithm.</div></li>
+          <li><span class="check-icon">check_circle</span><div>Start planning your first update. Apps that receive regular updates rank better and retain users more effectively than apps that go dark after launch.</div></li>
         </ul>
 
         <blockquote>"Shipping is a skill. The first time takes weeks. By the third or fourth app, you'll do it in an afternoon."</blockquote>
@@ -518,7 +546,7 @@ Country code:   MT</code></pre>
       <div class="article-cta">
         <h3>See a published app in action</h3>
         <p>PayTrack went through this exact process — from first commit to live listing in under four weeks, built around a full-time job.</p>
-        <a href="/paytrack" class="btn-primary">
+        <a href="paytrack.html" class="btn-primary">
           <span class="material-icons-round">smartphone</span> View PayTrack
         </a>
       </div>
